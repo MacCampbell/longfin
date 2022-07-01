@@ -11,6 +11,8 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 
 ```{r}
 library(tidyverse)
+library(ggpubr)
+library(ggrepel)
 ```
 
 ## Using genomic reference?
@@ -73,31 +75,51 @@ nrow(sub)
 ```
 
 ```{r}
-write_tsv(select(sub, Path), "bamlists/sub140.bamlist")
+write_tsv(select(sub, Path), col_names = FALSE, "bamlists/sub140.bamlist")
 ```
+
 Generating beagle file
 
 ```{sh, eval=FALSE}
-srun -p high -t 48:00:00 --mem=32G --nodes=2 $HOME/angsd/angsd -P 24 \
+srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 8 \
+  -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
   -bam $HOME/longfin/bamlists/sub140.bamlist -GL 1 \
-  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e6 -minMapQ 10 -minQ 20 \
-  -rf $HOME/delta-smelt/metadata/large-contigs.txt \
-  -out $HOME/longfin/outputs/101/sub140 > outputs/101/beagle.out 2> outputs/101/beagle.err &
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -minMaf 0.05 \
+  -rf $HOME/delta-smelt/metadata/large-contigs.txt  -minInd 112 \
+  -out $HOME/longfin/outputs/101/sub140-contigs > outputs/101/beagle-contigs.out 2> outputs/101/beagle-contigs.err &
 ```
 
 
 
-#### PCA
-```{sh, eval=FALSE}
+-r lg01 produced 2028 snps
+-rf HOME/delta-smelt/metadata/large-contigs.txt produced 66187 SNPs
 
-python $HOME/pcangsd/pcangsd.py -beagle $HOME/longfin/101/sub140.beagle.gz \
+Saglam et al found "13,402 high probability (P < 10−12) SNPs with a minor allele frequency over 0.05."
+
+Getting a bit more info together
+
+```{r}
+meta<-sub %>% separate(Sample, into=c("Loc","Number"), sep="_", remove=FALSE)
+
+#Factor N->S
+meta$Location<-factor(meta$Loc, levels=c("YBAK","SKNA","PTLC","HRLC","FRAS","LWSH","COLR",
+                                              "HUMB","SFBY","PETA","ALVS","SUIB","CHPI"))
+```
+
+
+#### PCA
+
+```{sh, eval=FALSE}
+python $HOME/pcangsd/pcangsd.py -beagle outputs/101/sub140.beagle.gz \
    -admix -o outputs/101/sub140-pca -threads 10
 
+python $HOME/pcangsd/pcangsd.py -beagle outputs/101/sub140-contigs.beagle.gz \
+   -admix -o outputs/101/sub140-contigs-pca -threads 10
 ```
 
 
 ```{r}
-cov<-read_delim("outputs/101/sub140-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+cov<-read_delim("outputs/101/sub140-contigs-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
 ```
 
 ```{r}
@@ -122,7 +144,7 @@ covar2pcs <- function(samples, cov) {
 ```
 
 ```{r}
-pca <- covar2pcs(top2013$`Sequence File Name`, cov)
+pca <- covar2pcs(meta$Sample, cov)
 
 pca_long <- pca$PCs %>%
   tidyr::gather(., key = "PC", "val", -sample)
@@ -141,14 +163,14 @@ pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>
   dplyr::rename(val_y = val)
 
 pp_meta <- pca_pairs %>%   # just keep the first 6 PCs around
-  left_join(., top2013, by = c("sample" = "Sequence File Name")) %>%
-  mutate(group = aggregated_new_classes) 
+  left_join(., meta, by = c("sample" = "Sample")) %>%
+  mutate(group = Location) 
 ```
 
 Plot    
 
 ```{r}
-npc <- 6
+npc <- 3
 pp_meta2 <- pp_meta %>%
   filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
             (PCy %in% sprintf("PC-%02d", 1:npc)) )
@@ -162,15 +184,33 @@ head(cumvar)
 ```
 
 ```{r}
-ggplot(pp_meta2, aes(x = val_x, y = val_y, color=aggregated_new_classes)) +
+ggplot(pp_meta2, aes(x = val_x, y = val_y, color=Location)) +
   geom_point() +
   facet_grid(PCx ~ PCy)
 ```
 
 ```{r}
 sub12<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
+text<- sub12 %>% select(sample,Location,val_x,val_y) %>% group_by(Location) %>%
+  mutate(meanX=mean(val_x), meanY=mean(val_y)) %>% select(Location, meanX, meanY) %>%
+  unique()   
 
-pc12<-ggplot(sub12, aes(x = val_x, y = val_y, color=aggregated_new_classes))+
+ggplot(sub12, aes(x = val_x, y = val_y, color=Location))+
+  geom_point(size = 2, alpha=0.5) +
+  geom_text_repel(data=text, aes(x=meanX, y=meanY, label=Location), max.overlaps = Inf) +
+  scale_fill_discrete(na.value = "white") + 
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = ""))+
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_viridis_d(option="C")
+
+ggsave("outputs/101/lfs-dsm-reference-pc12.jpeg")
+```
+
+```{r}
+pc12<-ggplot(sub12, aes(x = val_x, y = val_y, color=Location))+
   geom_point(size = 2, alpha=0.75) +
   scale_fill_discrete(na.value = "white") + 
   theme_bw()+
@@ -178,12 +218,11 @@ pc12<-ggplot(sub12, aes(x = val_x, y = val_y, color=aggregated_new_classes))+
   xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
   ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = ""))+
   theme(legend.position = "")+
-  theme(plot.title = element_text(hjust = 0.5)) +
-  scale_color_manual(values = c("red","blue")) 
+  theme(plot.title = element_text(hjust = 0.5)) 
 
 sub13<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
 
-pc13<-ggplot(sub13, aes(x = val_x, y = val_y, color = aggregated_new_classes)) +
+pc13<-ggplot(sub13, aes(x = val_x, y = val_y, color = Location)) +
   geom_point(size = 2, alpha=0.75) +
   scale_fill_discrete(na.value = "white") + 
   theme_bw()+
@@ -191,10 +230,95 @@ pc13<-ggplot(sub13, aes(x = val_x, y = val_y, color = aggregated_new_classes)) +
   xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
   ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = ""))+
   theme(legend.position = "")+
-  theme(plot.title = element_text(hjust = 0.5)) +
-  scale_color_manual(values = c("red","blue")) 
+  theme(plot.title = element_text(hjust = 0.5)) 
 
 pcs<-ggarrange(pc12, pc13, ncol = 2)
 pcs
 ```
 
+```{sh, eval=FALSE}
+$HOME/angsd/misc/NGSadmix  -likes outputs/101/sub140-contigs.beagle.gz -K 2 -o outputs/101/sub140-k2 -P 3
+$HOME/angsd/misc/NGSadmix  -likes outputs/101/sub140-contigs.beagle.gz -K 3 -o outputs/101/sub140-k3 -P 3
+
+```
+
+```{r}
+q2<-read_delim("outputs/101/sub140-k2.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2) %>%
+  rename(Q1=X1, Q2=X2)
+
+df2<-bind_cols(q2, meta)            
+
+q2s<-df2 %>% select(Location, Sample, Q1, Q2) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:4) %>% mutate(K=2)
+
+pops2<-q2s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p2 <- ggplot(q2s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 2") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p2
+
+ggsave("outputs/101/lfs-dsm-reference-k2.jpg")
+```
+
+
+```{r}
+q3<-read_delim("outputs/101/sub140-k3.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3)
+
+df3<-bind_cols(q3, meta)            
+
+q3s<-df3 %>% select(Location, Sample, Q1, Q2, Q3) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:5) %>% mutate(K=3)
+
+pops3<-q3s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p3 <- ggplot(q3s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 3") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p3
+
+ggsave("outputs/101/lfs-dsm-reference-k3.jpg")
+```
