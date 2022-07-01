@@ -1,0 +1,200 @@
+---
+title: "101-align-to-DSM"
+author: "Mac Campbell"
+date: "7/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Using genomic reference?
+
+```{r}
+old<-read_tsv("outputs/longfin/old-counts-files.txt", col_names=c("File"))
+old$Sample<-gsub("_sorted_flt.bam","",old$File)
+oldreads<-read_tsv("outputs/longfin/old-counts.txt", col_names=c("Out"))
+oldreads$Reads<-gsub(" + 0 mapped (100.00% : N/A)", "",oldreads$Out, fixed = TRUE)
+
+oldtot<-bind_cols(old,oldreads) %>% select(-Out) %>% select(Sample, File, Reads) %>% mutate(Alignment="Original")
+nrow(oldtot)
+```
+
+```{r}
+new<-read_tsv("outputs/longfin/new-counts-files.txt", col_names=c("File"))
+new$Sample<-gsub("_R1.sort.flt.bam","",new$File)
+newreads<-read_tsv("outputs/longfin/new-counts.txt", col_names=c("Out"))
+newreads$Reads<-gsub(" + 0 mapped (100.00% : N/A)", "",newreads$Out, fixed = TRUE)
+
+newtot<-bind_cols(new,newreads) %>% select(-Out) %>% select(Sample, File, Reads) %>% mutate(Alignment="New Genome")
+nrow(newtot)
+```
+
+```{r}
+comb<-bind_rows(oldtot,newtot)
+comb$Reads<-as.numeric(comb$Reads)
+mean(as.numeric(oldtot$Reads))
+mean(as.numeric(newtot$Reads))
+
+#Hmmm… Basic idea
+
+(578798.6-444797.9)/444797.9 * 100
+
+## [1] 30.1262
+```
+
+
+30% more?
+
+```{r}
+ggplot(comb) +
+  geom_histogram(aes(Reads, fill=Alignment), color="black", alpha=0.75, bins = 30) +
+  theme_bw() +
+  theme(axis.text.x=element_text(angle=45, vjust=0.5)) +
+  scale_fill_viridis_d(option="D", direction=-1) +
+  ylab("Count") 
+```
+
+### Basic Stuff
+
+Make a PCA and see what it is about?
+
+```{r}
+sub<-comb %>% filter(Alignment=="New Genome") %>% filter(Reads > 1.5e5) %>%
+  mutate(Path=paste0("/home/maccamp/data/longfin/",File))
+
+mean(sub$Reads)
+nrow(sub)
+```
+
+```{r}
+write_tsv(select(sub, Path), "bamlists/sub140.bamlist")
+```
+Generating beagle file
+
+```{sh, eval=FALSE}
+srun -p high -t 48:00:00 --mem=32G --nodes=2 $HOME/angsd/angsd -P 24 \
+  -bam $HOME/longfin/bamlists/sub140.bamlist -GL 1 \
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e6 -minMapQ 10 -minQ 20 \
+  -rf $HOME/delta-smelt/metadata/large-contigs.txt \
+  -out $HOME/longfin/outputs/101/sub140 > outputs/101/beagle.out 2> outputs/101/beagle.err &
+```
+
+
+
+#### PCA
+```{sh, eval=FALSE}
+
+python $HOME/pcangsd/pcangsd.py -beagle $HOME/longfin/101/sub140.beagle.gz \
+   -admix -o outputs/101/sub140-pca -threads 10
+
+```
+
+
+```{r}
+cov<-read_delim("outputs/101/sub140-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
+```{r}
+#' @param samples character vector with the individuals IDs in the order in which
+#' they were passed in the bamlist to angsd.
+#' @param cov covariance matrix
+covar2pcs <- function(samples, cov) {
+  
+  
+  eig <- eigen(cov, symm = TRUE)
+  PC <- as.data.frame(eig$vectors) %>%
+    as_tibble() %>%
+    setNames(sprintf("PC-%02d", 1:ncol(.)))
+  
+  samtib <- tibble(sample = samples)
+  
+  list(
+    PCs = bind_cols(samtib, PC),
+    eigevalues = eig$values
+  )
+}
+```
+
+```{r}
+pca <- covar2pcs(top2013$`Sequence File Name`, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+pp_meta <- pca_pairs %>%   # just keep the first 6 PCs around
+  left_join(., top2013, by = c("sample" = "Sequence File Name")) %>%
+  mutate(group = aggregated_new_classes) 
+```
+
+Plot    
+
+```{r}
+npc <- 6
+pp_meta2 <- pp_meta %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) )
+
+eig <- eigen(cov, symm = TRUE)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+```
+
+```{r}
+ggplot(pp_meta2, aes(x = val_x, y = val_y, color=aggregated_new_classes)) +
+  geom_point() +
+  facet_grid(PCx ~ PCy)
+```
+
+```{r}
+sub12<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
+
+pc12<-ggplot(sub12, aes(x = val_x, y = val_y, color=aggregated_new_classes))+
+  geom_point(size = 2, alpha=0.75) +
+  scale_fill_discrete(na.value = "white") + 
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values = c("red","blue")) 
+
+sub13<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
+
+pc13<-ggplot(sub13, aes(x = val_x, y = val_y, color = aggregated_new_classes)) +
+  geom_point(size = 2, alpha=0.75) +
+  scale_fill_discrete(na.value = "white") + 
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_manual(values = c("red","blue")) 
+
+pcs<-ggarrange(pc12, pc13, ncol = 2)
+pcs
+```
+

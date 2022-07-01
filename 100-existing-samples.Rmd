@@ -1,0 +1,109 @@
+---
+title: "100-existing-samples"
+author: "Mac Campbell"
+date: "7/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+
+Organizing in /home/maccamp/data/forage-fishes
+
+### Engraulidae
+
+n=20, in /home/maccamp/data/forage-fishes/BMAG043_Northern_Anchovy
+      
+NRAN_001_R1.fastq
+NRAN_002_R1.fastq
+NRAN_003_R1.fastq
+NRAN_004_R1.fastq
+NRAN_005_R1.fastq
+NRAN_006_R1.fastq
+NRAN_007_R1.fastq
+NRAN_008_R1.fastq
+NRAN_009_R1.fastq
+NRAN_010_R1.fastq
+NRAN_011_R1.fastq
+NRAN_012_R1.fastq
+NRAN_013_R1.fastq
+NRAN_014_R1.fastq
+NRAN_015_R1.fastq
+NRAN_016_R1.fastq
+NRAN_017_R1.fastq
+NRAN_018_R1.fastq
+NRAN_019_R1.fastq
+NRAN_020_R1.fastq
+
+### Clupeidae
+
+n=20, /home/maccamp/data/forage-fishes/BMAG043_Pacific_Herring 
+      
+PCHR_001_R1.fastq
+PCHR_002_R1.fastq
+PCHR_003_R1.fastq
+PCHR_004_R1.fastq
+PCHR_005_R1.fastq
+PCHR_006_R1.fastq
+PCHR_007_R1.fastq
+PCHR_008_R1.fastq
+PCHR_009_R1.fastq
+PCHR_010_R1.fastq
+PCHR_011_R1.fastq
+PCHR_012_R1.fastq
+PCHR_013_R1.fastq
+PCHR_014_R1.fastq
+PCHR_015_R1.fastq
+PCHR_016_R1.fastq
+PCHR_017_R1.fastq
+PCHR_018_R1.fastq
+PCHR_019_R1.fastq
+PCHR_020_R1.fastq
+
+## Osmeridae
+
+
+### Hypomesus nipponensis
+
+n=4, in /home/maccamp/data/forage-fishes/BMAG043_Wakasagi
+
+Found more in /home/maccamp/data/forage-fishes/snp-assay-wakasagi
+
+n=16, /home/iksaglam/longfin/SNPassay/wakasagi, look to be the same as /home/ajfinger/longfin/alignments/Wakasagi_samples and have overlap with  /home/maccamp/data/forage-fishes/BMAG043_Wakasagi
+
+WAKS_001_R1.fastq
+WAKS_002_R1.fastq
+WAKS_003_R1.fastq
+WAKS_004_R1.fastq
+WAKS_005_R1.fastq
+WAKS_006_R1.fastq
+WAKS_007_R1.fastq
+WAKS_008_R1.fastq
+WAKS_009_R1.fastq
+WAKS_010_R1.fastq
+WAKS_011_R1.fastq
+WAKS_012_R1.fastq
+WAKS_013_R1.fastq
+WAKS_018_R1.fastq
+WAKS_019_R1.fastq
+WAKS_036_R1.fastq
+
+### Hypomesus transpacificus
+
+Many options.   
+96 in /home/iksaglam/longfin/SNPassay/delta_smelt, now in  /home/maccamp/data/forage-fishes/snp-assay-delta-smelt    
+14 in /home/ajfinger/longfin/alignments/DeltaSmelt, now in /home/maccamp/data/forage-fishes/misc-delta-smelt
+
+Can use some from Campbell et al. (2022) that are accessioned in the SRA      
+
+### Thaleichthys
+
+n=10, in /home/maccamp/data/forage-fishes/BMAG043_Eulachon
+
+Many of these samples aren't useful. Very small.
+
+### Spirinchus thaleichthys
+
+190 samples in /home/ajfinger/longfin/fastq_files, now in /home/maccamp/data/forage-fishes/longfin-previous
