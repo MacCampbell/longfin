@@ -1,0 +1,54 @@
+---
+title: "102-demulti-new"
+author: "Mac Campbell"
+date: "8/22/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Demulti new samples
+
+Counting lines in the files to make sure demulti was complete. For example:
+ awk '{l++} END {print l/4}' LibPlate25_MORedband02_R1.fastq
+ 
+ l004:
+gunzip -c BMAG072_S1_L004_R1_001.fastq.gz |  awk '{l++} END {print l/4}'
+cat *R1.fastq | awk '{l++} END {print l/4}' 
+These are 
+
+
+We have three plates in two lanes. Due to space constraints, they are in two locations. 
+
+__1__ Combine into one file     
+
+Doing in data/combined-plates   
+
+```{sh, eval=FALSE}
+cat /group/millermrgrp4/maccamp/alanas-trout/LibPlate21_LongfinSmelt01_R1.fastq          /group/millermrgrp4/maccamp/alanas-trout-2/LibPlate21_LongfinSmelt01_R1.fastq > longfin-01_R1.fastq &
+
+cat /group/millermrgrp4/maccamp/alanas-trout/LibPlate22_LongfinSmelt02_R1.fastq          /group/millermrgrp4/maccamp/alanas-trout-2/LibPlate22_LongfinSmelt02_R1.fastq > longfin-02_R1.fastq &
+
+cat /group/millermrgrp4/maccamp/alanas-trout/LibPlate23_LongfinSmelt03_R1.fastq          /group/millermrgrp4/maccamp/alanas-trout-2/LibPlate23_LongfinSmelt03_R1.fastq > longfin-03_R1.fastq &
+
+
+cat /group/millermrgrp4/maccamp/alanas-trout/LibPlate21_LongfinSmelt01_R2.fastq          /group/millermrgrp4/maccamp/alanas-trout-2/LibPlate21_LongfinSmelt01_R2.fastq > longfin-01_R2.fastq &
+
+cat /group/millermrgrp4/maccamp/alanas-trout/LibPlate22_LongfinSmelt02_R2.fastq          /group/millermrgrp4/maccamp/alanas-trout-2/LibPlate22_LongfinSmelt02_R2.fastq > longfin-02_R2.fastq &
+
+cat /group/millermrgrp4/maccamp/alanas-trout/LibPlate23_LongfinSmelt03_R2.fastq          /group/millermrgrp4/maccamp/alanas-trout-2/LibPlate23_LongfinSmelt03_R2.fastq > longfin-03_R2.fastq &
+```
+
+__2__ demultiplex each plate
+      
+      
+      cat plate1-wellcode-edited.txt  | awk '{ print " BarcodeSplitListBestRadPairedEnd.pl", "plate1_R1.fastq", "plate1_R2.fastq", "GG"$2"TGCAGG", $1 }' > tasks.sh     
+      run -p high -t 10:00:00 --nodes=1 parallel -j 24 < tasks.sh > std.out 2>std.err &      
+      
+      

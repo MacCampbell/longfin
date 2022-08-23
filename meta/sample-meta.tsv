@@ -1,0 +1,236 @@
+Sample Name	Identifier	Index	Plate	Well	Plate Barcode 1	Plate Barcode 2	Well Barcode	Species	Location	Sample Date	Source	Genus	Species	Other	Total Reads	Aligned Reads	Deduped Aligned Reads
+22-0074	22-0074_A1	1	Plate 1	A1	TTAACT	TCCTACCT	ACAAGCTA	larval smelt	Russian River	1/26/22	Colin Brennan-ICF						
+22-0102	22-0102_B1	2	Plate 1	B1	TTAACT	TCCTACCT	AAACATCG	larval smelt	Russian River	2/3/22	Colin Brennan-ICF						
+19-0222	19-0222_C1	3	Plate 1	C1	TTAACT	TCCTACCT	ACATTGGC	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_D1	4	Plate 1	D1	TTAACT	TCCTACCT	ACCACTGT	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_E1	5	Plate 1	E1	TTAACT	TCCTACCT	AACGTGAT	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_F1	6	Plate 1	F1	TTAACT	TCCTACCT	CGCTGATC	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_G1	7	Plate 1	G1	TTAACT	TCCTACCT	CAGATCTG	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
+20-1325	20-1325_H1	8	Plate 1	H1	TTAACT	TCCTACCT	ATGCCTAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_A2	9	Plate 1	A2	TTAACT	TCCTACCT	AACGAACG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_B2	10	Plate 1	B2	TTAACT	TCCTACCT	AGTACAAG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_C2	11	Plate 1	C2	TTAACT	TCCTACCT	CATCAAGT	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_D2	12	Plate 1	D2	TTAACT	TCCTACCT	AGTGGTCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1291	20-1291_E2	13	Plate 1	E2	TTAACT	TCCTACCT	AACAACCA	larval smelt	Klamath River	1/13/20	Colin Brennan-ICF						
+20-1325	20-1325_F2	14	Plate 1	F2	TTAACT	TCCTACCT	AACCGAGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_G2	15	Plate 1	G2	TTAACT	TCCTACCT	AACGCTTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_H2	16	Plate 1	H2	TTAACT	TCCTACCT	AAGACGGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_A3	17	Plate 1	A3	TTAACT	TCCTACCT	AAGGTACA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_B3	18	Plate 1	B3	TTAACT	TCCTACCT	ACACAGAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_C3	19	Plate 1	C3	TTAACT	TCCTACCT	ACAGCAGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_D3	20	Plate 1	D3	TTAACT	TCCTACCT	ACCTCCAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_E3	21	Plate 1	E3	TTAACT	TCCTACCT	ACGCTCGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1325	20-1325_F3	22	Plate 1	F3	TTAACT	TCCTACCT	ACGTATCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1356	20-1356_G3	23	Plate 1	G3	TTAACT	TCCTACCT	ACTATGCA	larval smelt	Mad River	1/28/20	Colin Brennan-ICF						
+NS-1	NS-1_H3	24	Plate 1	H3	TTAACT	TCCTACCT	AGAGTCAA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-2	NS-2_A4	25	Plate 1	A4	TTAACT	TCCTACCT	AGATCGCA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-3	NS-3_B4	26	Plate 1	B4	TTAACT	TCCTACCT	AGCAGGAA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-4	NS-4_C4	27	Plate 1	C4	TTAACT	TCCTACCT	AGTCACTA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-5	NS-5_D4	28	Plate 1	D4	TTAACT	TCCTACCT	ATCCTGTA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-6	NS-6_E4	29	Plate 1	E4	TTAACT	TCCTACCT	ATTGAGGA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-7	NS-7_F4	30	Plate 1	F4	TTAACT	TCCTACCT	CAACCACA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-8	NS-8_G4	31	Plate 1	G4	TTAACT	TCCTACCT	CAAGACTA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-9	NS-9_H4	32	Plate 1	H4	TTAACT	TCCTACCT	CAATGGAA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-10	NS-10_A5	33	Plate 1	A5	TTAACT	TCCTACCT	CACTTCGA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-11	NS-11_B5	34	Plate 1	B5	TTAACT	TCCTACCT	CAGCGTTA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-12	NS-12_C5	35	Plate 1	C5	TTAACT	TCCTACCT	CATACCAA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-13	NS-13_D5	36	Plate 1	D5	TTAACT	TCCTACCT	CCAGTTCA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-14	NS-14_E5	37	Plate 1	E5	TTAACT	TCCTACCT	CCGAAGTA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-15	NS-15_F5	38	Plate 1	F5	TTAACT	TCCTACCT	CCGTGAGA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-16	NS-16_G5	39	Plate 1	G5	TTAACT	TCCTACCT	CCTCCTGA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-17	NS-17_H5	40	Plate 1	H5	TTAACT	TCCTACCT	CGAACTTA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-18	NS-18_A6	41	Plate 1	A6	TTAACT	TCCTACCT	CGACTGGA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-19	NS-19_B6	42	Plate 1	B6	TTAACT	TCCTACCT	CGCATACA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+NS-20	NS-20_C6	43	Plate 1	C6	TTAACT	TCCTACCT	CTCAATGA	night smelt	Groundfish Project	5/18/22	Connor Stewart - CDFW						
+150967	150967_D6	44	Plate 1	D6	TTAACT	TCCTACCT	CTGAGCCA	whitebait smelt	Eastern North Pacific		UWFC	Allosmerus	elongatus				
+156388	156388_E6	45	Plate 1	E6	TTAACT	TCCTACCT	CTGGCATA	whitebait smelt	Eastern North Pacific		UWFC	Allosmerus	elongatus				
+151184	151184_F6	46	Plate 1	F6	TTAACT	TCCTACCT	GAATCTGA	surf smelt	Eastern North Pacific		UWFC	Hypomesus	pretiosus				
+155858	155858_G6	47	Plate 1	G6	TTAACT	TCCTACCT	GACTAGTA	surf smelt	Eastern North Pacific		UWFC	Hypomesus	pretiosus				
+156301	156301_H6	48	Plate 1	H6	TTAACT	TCCTACCT	GAGCTGAA	eulachon	Eastern North Pacific		UWFC	Thaleichthys	pacificus				
+155882	155882_A7	49	Plate 1	A7	TTAACT	TCCTACCT	GATAGACA	surf smelt	Eastern North Pacific		UWFC	Hypomesus	pretiosus				
+156014	156014_B7	50	Plate 1	B7	TTAACT	TCCTACCT	GCCACATA	surf smelt	Eastern North Pacific		UWFC	Hypomesus	pretiosus				
+150968	150968_C7	51	Plate 1	C7	TTAACT	TCCTACCT	GCGAGTAA	night smelt	Eastern North Pacific		UWFC	Spirinchus	starksi				
+156400	156400_D7	52	Plate 1	D7	TTAACT	TCCTACCT	GCTAACGA	night smelt	Eastern North Pacific		UWFC	Spirinchus	starksi				
+158339	158339_E7	53	Plate 1	E7	TTAACT	TCCTACCT	GCTCGGTA	night smelt	Eastern North Pacific		UWFC	Spirinchus	starksi				
+159806	159806_F7	54	Plate 1	F7	TTAACT	TCCTACCT	GGAGAACA	night smelt	Eastern North Pacific		UWFC	Spirinchus	starksi				
+155929	155929_G7	55	Plate 1	G7	TTAACT	TCCTACCT	GGTGCGAA	eulachon	Eastern North Pacific		UWFC	Thaleichthys	pacificus				
+155956	155956_H7	56	Plate 1	H7	TTAACT	TCCTACCT	GTACGCAA	eulachon	Eastern North Pacific		UWFC	Thaleichthys	pacificus				
+155858	155858_A8	57	Plate 1	A8	TTAACT	TCCTACCT	GTCGTAGA	surf smelt	Eastern North Pacific		UWFC	Hypomesus	pretiosus				
+156302	156302_B8	58	Plate 1	B8	TTAACT	TCCTACCT	GTCTGTCA	eulachon	Eastern North Pacific		UWFC	Thaleichthys	pacificus				
+Nksk-2018_225	Nksk-2018_225_C8	59	Plate 1	C8	TTAACT	TCCTACCT	GTGTTCTA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_226	Nksk-2018_226_D8	60	Plate 1	D8	TTAACT	TCCTACCT	TAGGATGA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_227	Nksk-2018_227_E8	61	Plate 1	E8	TTAACT	TCCTACCT	TATCAGCA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_228	Nksk-2018_228_F8	62	Plate 1	F8	TTAACT	TCCTACCT	TCCGTCTA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_229	Nksk-2018_229_G8	63	Plate 1	G8	TTAACT	TCCTACCT	TCTTCACA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_230	Nksk-2018_230_H8	64	Plate 1	H8	TTAACT	TCCTACCT	TGAAGAGA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_231	Nksk-2018_231_A9	65	Plate 1	A9	TTAACT	TCCTACCT	TGGAACAA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_232	Nksk-2018_232_B9	66	Plate 1	B9	TTAACT	TCCTACCT	TGGCTTCA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_233	Nksk-2018_233_C9	67	Plate 1	C9	TTAACT	TCCTACCT	TGGTGGTA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_234	Nksk-2018_234_D9	68	Plate 1	D9	TTAACT	TCCTACCT	TTCACGCA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+19-0222	19-0222_E9	69	Plate 1	E9	TTAACT	TCCTACCT	ACACGAGA	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF			May be Nksk_2018_235?			
+Nksk-2018_236	Nksk-2018_236_F9	70	Plate 1	F9	TTAACT	TCCTACCT	AAGAGATC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_237	Nksk-2018_237_G9	71	Plate 1	G9	TTAACT	TCCTACCT	AAGGACAC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_238	Nksk-2018_238_H9	72	Plate 1	H9	TTAACT	TCCTACCT	AATCCGTC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_239	Nksk-2018_239_A10	73	Plate 1	A10	TTAACT	TCCTACCT	AATGTTGC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_240	Nksk-2018_240_B10	74	Plate 1	B10	TTAACT	TCCTACCT	ACACTGAC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_241	Nksk-2018_241_C10	75	Plate 1	C10	TTAACT	TCCTACCT	ACAGATTC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_242	Nksk-2018_242_D10	76	Plate 1	D10	TTAACT	TCCTACCT	AGATGTAC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_243	Nksk-2018_243_E10	77	Plate 1	E10	TTAACT	TCCTACCT	AGCACCTC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_244	Nksk-2018_244_F10	78	Plate 1	F10	TTAACT	TCCTACCT	AGCCATGC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+19-0225	19-0225_G10	79	Plate 1	G10	TTAACT	TCCTACCT	AGGCTAAC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0225	19-0225_H10	80	Plate 1	H10	TTAACT	TCCTACCT	ATAGCGAC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0225	19-0225_A11	81	Plate 1	A11	TTAACT	TCCTACCT	ACGACAAG	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0225	19-0225_B11	82	Plate 1	B11	TTAACT	TCCTACCT	ATTGGCTC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0225	19-0225_C11	83	Plate 1	C11	TTAACT	TCCTACCT	CAAGGAGC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+20-1329	20-1329_D11	84	Plate 1	D11	TTAACT	TCCTACCT	CACCTTAC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_E11	85	Plate 1	E11	TTAACT	TCCTACCT	CCATCCTC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_F11	86	Plate 1	F11	TTAACT	TCCTACCT	CCGACAAC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_G11	87	Plate 1	G11	TTAACT	TCCTACCT	AGTCAAGC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_H11	88	Plate 1	H11	TTAACT	TCCTACCT	CCTCTATC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_A12	89	Plate 1	A12	TTAACT	TCCTACCT	CGACACAC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_B12	90	Plate 1	B12	TTAACT	TCCTACCT	CGGATTGC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_C12	91	Plate 1	C12	TTAACT	TCCTACCT	CTAAGGTC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_D12	92	Plate 1	D12	TTAACT	TCCTACCT	GAACAGGC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_E12	93	Plate 1	E12	TTAACT	TCCTACCT	GACAGTGC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_F12	94	Plate 1	F12	TTAACT	TCCTACCT	GAGTTAGC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_G12	95	Plate 1	G12	TTAACT	TCCTACCT	GATGAATC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_H12	96	Plate 1	H12	TTAACT	TCCTACCT	GCCAAGAC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_A1	97	Plate 2	A1	TACTAT	GTTCTCGT	ACAAGCTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_B1	98	Plate 2	B1	TACTAT	GTTCTCGT	AAACATCG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_C1	99	Plate 2	C1	TACTAT	GTTCTCGT	ACATTGGC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_D1	100	Plate 2	D1	TACTAT	GTTCTCGT	ACCACTGT	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_E1	101	Plate 2	E1	TACTAT	GTTCTCGT	AACGTGAT	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_F1	102	Plate 2	F1	TACTAT	GTTCTCGT	CGCTGATC	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_G1	103	Plate 2	G1	TACTAT	GTTCTCGT	CAGATCTG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_H1	104	Plate 2	H1	TACTAT	GTTCTCGT	ATGCCTAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_A2	105	Plate 2	A2	TACTAT	GTTCTCGT	AACGAACG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_B2	106	Plate 2	B2	TACTAT	GTTCTCGT	AGTACAAG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_C2	107	Plate 2	C2	TACTAT	GTTCTCGT	CATCAAGT	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_D2	108	Plate 2	D2	TACTAT	GTTCTCGT	AGTGGTCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_E2	109	Plate 2	E2	TACTAT	GTTCTCGT	AACAACCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1329	20-1329_F2	110	Plate 2	F2	TACTAT	GTTCTCGT	AACCGAGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_G2	111	Plate 2	G2	TACTAT	GTTCTCGT	AACGCTTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_H2	112	Plate 2	H2	TACTAT	GTTCTCGT	AAGACGGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_A3	113	Plate 2	A3	TACTAT	GTTCTCGT	AAGGTACA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_B3	114	Plate 2	B3	TACTAT	GTTCTCGT	ACACAGAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_C3	115	Plate 2	C3	TACTAT	GTTCTCGT	ACAGCAGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_D3	116	Plate 2	D3	TACTAT	GTTCTCGT	ACCTCCAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_E3	117	Plate 2	E3	TACTAT	GTTCTCGT	ACGCTCGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_F3	118	Plate 2	F3	TACTAT	GTTCTCGT	ACGTATCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_G3	119	Plate 2	G3	TACTAT	GTTCTCGT	ACTATGCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_H3	120	Plate 2	H3	TACTAT	GTTCTCGT	AGAGTCAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_A4	121	Plate 2	A4	TACTAT	GTTCTCGT	AGATCGCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_B4	122	Plate 2	B4	TACTAT	GTTCTCGT	AGCAGGAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_C4	123	Plate 2	C4	TACTAT	GTTCTCGT	AGTCACTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_D4	124	Plate 2	D4	TACTAT	GTTCTCGT	ATCCTGTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_E4	125	Plate 2	E4	TACTAT	GTTCTCGT	ATTGAGGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_F4	126	Plate 2	F4	TACTAT	GTTCTCGT	CAACCACA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_G4	127	Plate 2	G4	TACTAT	GTTCTCGT	CAAGACTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_H4	128	Plate 2	H4	TACTAT	GTTCTCGT	CAATGGAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_A5	129	Plate 2	A5	TACTAT	GTTCTCGT	CACTTCGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_B5	130	Plate 2	B5	TACTAT	GTTCTCGT	CAGCGTTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_C5	131	Plate 2	C5	TACTAT	GTTCTCGT	CATACCAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_D5	132	Plate 2	D5	TACTAT	GTTCTCGT	CCAGTTCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_E5	133	Plate 2	E5	TACTAT	GTTCTCGT	CCGAAGTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_F5	134	Plate 2	F5	TACTAT	GTTCTCGT	CCGTGAGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_G5	135	Plate 2	G5	TACTAT	GTTCTCGT	CCTCCTGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_H5	136	Plate 2	H5	TACTAT	GTTCTCGT	CGAACTTA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_A6	137	Plate 2	A6	TACTAT	GTTCTCGT	CGACTGGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_B6	138	Plate 2	B6	TACTAT	GTTCTCGT	CGCATACA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_C6	139	Plate 2	C6	TACTAT	GTTCTCGT	CTCAATGA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_D6	140	Plate 2	D6	TACTAT	GTTCTCGT	CTGAGCCA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1330	20-1330_E6	141	Plate 2	E6	TACTAT	GTTCTCGT	CTGGCATA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
+20-1373	20-1373_F6	142	Plate 2	F6	TACTAT	GTTCTCGT	GAATCTGA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_G6	143	Plate 2	G6	TACTAT	GTTCTCGT	GACTAGTA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_H6	144	Plate 2	H6	TACTAT	GTTCTCGT	GAGCTGAA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_A7	145	Plate 2	A7	TACTAT	GTTCTCGT	GATAGACA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_B7	146	Plate 2	B7	TACTAT	GTTCTCGT	GCCACATA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_C7	147	Plate 2	C7	TACTAT	GTTCTCGT	GCGAGTAA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_D7	148	Plate 2	D7	TACTAT	GTTCTCGT	GCTAACGA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_E7	149	Plate 2	E7	TACTAT	GTTCTCGT	GCTCGGTA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_F7	150	Plate 2	F7	TACTAT	GTTCTCGT	GGAGAACA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_G7	151	Plate 2	G7	TACTAT	GTTCTCGT	GGTGCGAA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_H7	152	Plate 2	H7	TACTAT	GTTCTCGT	GTACGCAA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_A8	153	Plate 2	A8	TACTAT	GTTCTCGT	GTCGTAGA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_B8	154	Plate 2	B8	TACTAT	GTTCTCGT	GTCTGTCA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_C8	155	Plate 2	C8	TACTAT	GTTCTCGT	GTGTTCTA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_D8	156	Plate 2	D8	TACTAT	GTTCTCGT	TAGGATGA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_E8	157	Plate 2	E8	TACTAT	GTTCTCGT	TATCAGCA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_F8	158	Plate 2	F8	TACTAT	GTTCTCGT	TCCGTCTA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_G8	159	Plate 2	G8	TACTAT	GTTCTCGT	TCTTCACA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_H8	160	Plate 2	H8	TACTAT	GTTCTCGT	TGAAGAGA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_A9	161	Plate 2	A9	TACTAT	GTTCTCGT	TGGAACAA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_B9	162	Plate 2	B9	TACTAT	GTTCTCGT	TGGCTTCA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_C9	163	Plate 2	C9	TACTAT	GTTCTCGT	TGGTGGTA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_D9	164	Plate 2	D9	TACTAT	GTTCTCGT	TTCACGCA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_E9	165	Plate 2	E9	TACTAT	GTTCTCGT	ACACGAGA	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_F9	166	Plate 2	F9	TACTAT	GTTCTCGT	AAGAGATC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_G9	167	Plate 2	G9	TACTAT	GTTCTCGT	AAGGACAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_H9	168	Plate 2	H9	TACTAT	GTTCTCGT	AATCCGTC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_A10	169	Plate 2	A10	TACTAT	GTTCTCGT	AATGTTGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_B10	170	Plate 2	B10	TACTAT	GTTCTCGT	ACACTGAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_C10	171	Plate 2	C10	TACTAT	GTTCTCGT	ACAGATTC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1373	20-1373_D10	172	Plate 2	D10	TACTAT	GTTCTCGT	AGATGTAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_E10	173	Plate 2	E10	TACTAT	GTTCTCGT	AGCACCTC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_F10	174	Plate 2	F10	TACTAT	GTTCTCGT	AGCCATGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_G10	175	Plate 2	G10	TACTAT	GTTCTCGT	AGGCTAAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_H10	176	Plate 2	H10	TACTAT	GTTCTCGT	ATAGCGAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_A11	177	Plate 2	A11	TACTAT	GTTCTCGT	ACGACAAG	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_B11	178	Plate 2	B11	TACTAT	GTTCTCGT	ATTGGCTC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_C11	179	Plate 2	C11	TACTAT	GTTCTCGT	CAAGGAGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_D11	180	Plate 2	D11	TACTAT	GTTCTCGT	CACCTTAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_E11	181	Plate 2	E11	TACTAT	GTTCTCGT	CCATCCTC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_F11	182	Plate 2	F11	TACTAT	GTTCTCGT	CCGACAAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_G11	183	Plate 2	G11	TACTAT	GTTCTCGT	AGTCAAGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_H11	184	Plate 2	H11	TACTAT	GTTCTCGT	CCTCTATC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_A12	185	Plate 2	A12	TACTAT	GTTCTCGT	CGACACAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_B12	186	Plate 2	B12	TACTAT	GTTCTCGT	CGGATTGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_C12	187	Plate 2	C12	TACTAT	GTTCTCGT	CTAAGGTC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_D12	188	Plate 2	D12	TACTAT	GTTCTCGT	GAACAGGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_E12	189	Plate 2	E12	TACTAT	GTTCTCGT	GACAGTGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_F12	190	Plate 2	F12	TACTAT	GTTCTCGT	GAGTTAGC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_G12	191	Plate 2	G12	TACTAT	GTTCTCGT	GATGAATC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+20-1375	20-1375_H12	192	Plate 2	H12	TACTAT	GTTCTCGT	GCCAAGAC	larval smelt	Eel River	1/29/20	Colin Brennan-ICF						
+UW156806	UW156806_A1	193	Plate 3	A1	TTTGAT	GGTTGTCA	ACAAGCTA	surf smelt	Eastern North Pacific		UWFC	Hypomesus	pretiosus				
+UW150967	UW150967_B1	194	Plate 3	B1	TTTGAT	GGTTGTCA	AAACATCG	whitebait smelt	Eastern North Pacific	8/25/10	UWFC	Allosmerus	elongatus				
+UW150967	UW150967_C1	195	Plate 3	C1	TTTGAT	GGTTGTCA	ACATTGGC	whitebait smelt	Eastern North Pacific	8/25/10	UWFC	Allosmerus	elongatus				
+UW150967	UW150967_D1	196	Plate 3	D1	TTTGAT	GGTTGTCA	ACCACTGT	whitebait smelt	Eastern North Pacific	8/25/10	UWFC	Allosmerus	elongatus				
+UW150967	UW150967_E1	197	Plate 3	E1	TTTGAT	GGTTGTCA	AACGTGAT	whitebait smelt	Eastern North Pacific	8/25/10	UWFC	Allosmerus	elongatus				
+UW150967	UW150967_F1	198	Plate 3	F1	TTTGAT	GGTTGTCA	CGCTGATC	whitebait smelt	Eastern North Pacific	8/25/10	UWFC	Allosmerus	elongatus				
+UW156388	UW156388_G1	199	Plate 3	G1	TTTGAT	GGTTGTCA	CAGATCTG	whitebait smelt	Eastern North Pacific	6/10/16	UWFC	Allosmerus	elongatus				
+UW156388	UW156388_H1	200	Plate 3	H1	TTTGAT	GGTTGTCA	ATGCCTAA	whitebait smelt	Eastern North Pacific	6/10/16	UWFC	Allosmerus	elongatus				
+UW156388	UW156388_A2	201	Plate 3	A2	TTTGAT	GGTTGTCA	AACGAACG	whitebait smelt	Eastern North Pacific	6/10/16	UWFC	Allosmerus	elongatus				
+UW151184	UW151184_B2	202	Plate 3	B2	TTTGAT	GGTTGTCA	AGTACAAG	surf smelt	Eastern North Pacific	10/2/11	UWFC	Hypomesus	pretiosus				
+UW151184	UW151184_C2	203	Plate 3	C2	TTTGAT	GGTTGTCA	CATCAAGT	surf smelt	Eastern North Pacific	10/2/11	UWFC	Hypomesus	pretiosus				
+UW151184	UW151184_D2	204	Plate 3	D2	TTTGAT	GGTTGTCA	AGTGGTCA	surf smelt	Eastern North Pacific	10/2/11	UWFC	Hypomesus	pretiosus				
+UW155858	UW155858_E2	205	Plate 3	E2	TTTGAT	GGTTGTCA	AACAACCA	surf smelt	Eastern North Pacific	9/2/15	UWFC	Hypomesus	pretiosus				
+UW156014	UW156014_F2	206	Plate 3	F2	TTTGAT	GGTTGTCA	AACCGAGA	surf smelt	Eastern North Pacific	9/17/15	UWFC	Hypomesus	pretiosus				
+UW150968	UW150968_G2	207	Plate 3	G2	TTTGAT	GGTTGTCA	AACGCTTA	night smelt	Eastern North Pacific	9/29/10	UWFC	Spirinchus	starksi				
+UW150968	UW150968_H2	208	Plate 3	H2	TTTGAT	GGTTGTCA	AAGACGGA	night smelt	Eastern North Pacific	9/29/10	UWFC	Spirinchus	starksi				
+UW150968	UW150968_A3	209	Plate 3	A3	TTTGAT	GGTTGTCA	AAGGTACA	night smelt	Eastern North Pacific	9/29/10	UWFC	Spirinchus	starksi				
+UW150968	UW150968_B3	210	Plate 3	B3	TTTGAT	GGTTGTCA	ACACAGAA	night smelt	Eastern North Pacific	9/29/10	UWFC	Spirinchus	starksi				
+UW158339	UW158339_C3	211	Plate 3	C3	TTTGAT	GGTTGTCA	ACAGCAGA	night smelt	Eastern North Pacific	8/21/18	UWFC	Spirinchus	starksi				
+UW159806	UW159806_D3	212	Plate 3	D3	TTTGAT	GGTTGTCA	ACCTCCAA	night smelt	Eastern North Pacific	8/20/19	UWFC	Spirinchus	starksi				
+UW159806	UW159806_E3	213	Plate 3	E3	TTTGAT	GGTTGTCA	ACGCTCGA	night smelt	Eastern North Pacific	8/20/19	UWFC	Spirinchus	starksi				
+UW159806	UW159806_F3	214	Plate 3	F3	TTTGAT	GGTTGTCA	ACGTATCA	night smelt	Eastern North Pacific	8/20/19	UWFC	Spirinchus	starksi				
+UW155929	UW155929_G3	215	Plate 3	G3	TTTGAT	GGTTGTCA	ACTATGCA	eulachon	Eastern North Pacific	8/10/15	UWFC	Thaleichthys	pacificus				
+UW155929	UW155929_H3	216	Plate 3	H3	TTTGAT	GGTTGTCA	AGAGTCAA	eulachon	Eastern North Pacific	8/10/15	UWFC	Thaleichthys	pacificus				
+UW155929	UW155929_A4	217	Plate 3	A4	TTTGAT	GGTTGTCA	AGATCGCA	eulachon	Eastern North Pacific	8/10/15	UWFC	Thaleichthys	pacificus				
+UW155929	UW155929_B4	218	Plate 3	B4	TTTGAT	GGTTGTCA	AGCAGGAA	eulachon	Eastern North Pacific	8/10/15	UWFC	Thaleichthys	pacificus				
+UW155956	UW155956_C4	219	Plate 3	C4	TTTGAT	GGTTGTCA	AGTCACTA	eulachon	Eastern North Pacific	8/25/15	UWFC	Thaleichthys	pacificus				
+UW155956	UW155956_D4	220	Plate 3	D4	TTTGAT	GGTTGTCA	ATCCTGTA	eulachon	Eastern North Pacific	8/25/15	UWFC	Thaleichthys	pacificus				
+UW155956	UW155956_E4	221	Plate 3	E4	TTTGAT	GGTTGTCA	ATTGAGGA	eulachon	Eastern North Pacific	8/25/15	UWFC	Thaleichthys	pacificus				
+UW155956	UW155956_F4	222	Plate 3	F4	TTTGAT	GGTTGTCA	CAACCACA	eulachon	Eastern North Pacific	8/25/15	UWFC	Thaleichthys	pacificus				
+RX02	RX02_G4	223	Plate 3	G4	TTTGAT	GGTTGTCA	CAAGACTA	wakasagi	wild caught'		Evan - FCCL	Hypomesus	nipponensis				
+1320	1320_H4	224	Plate 3	H4	TTTGAT	GGTTGTCA	CAATGGAA	wakasagi	FCCL WAGS 2022		Tien-FCCL	Hypomesus	nipponensis				
+E232	E232_A5	225	Plate 3	A5	TTTGAT	GGTTGTCA	CACTTCGA	wakasagi	EDSM 2020 Trawl		Bruce Hammock	Hypomesus	nipponensis				
+E480	E480_B5	226	Plate 3	B5	TTTGAT	GGTTGTCA	CAGCGTTA	wakasagi	EDSM 2020 Trawl		Bruce Hammock	Hypomesus	nipponensis				
+E487	E487_C5	227	Plate 3	C5	TTTGAT	GGTTGTCA	CATACCAA	putative surf smelt	EDSM 2021 Trawl		Bruce Hammock	Hypomesus	pretiosus				
+fin1	fin1_D5	228	Plate 3	D5	TTTGAT	GGTTGTCA	CCAGTTCA	wakasagi	"Flash #:2559,Lamope 04-LOWE #1"		Michelle Avila	Hypomesus	nipponensis				
+fin2	fin2_E5	229	Plate 3	E5	TTTGAT	GGTTGTCA	CCGAAGTA	wakasagi	"Flash #:2560,Lamope 04-LOWE #2"		Michelle Avila	Hypomesus	nipponensis				
+fin12	fin12_F5	230	Plate 3	F5	TTTGAT	GGTTGTCA	CCGTGAGA	wakasagi	"Flash #:2561,Lamope 04-LOWE #12"		Michelle Avila	Hypomesus	nipponensis				
+fin14	fin14_G5	231	Plate 3	G5	TTTGAT	GGTTGTCA	CCTCCTGA	wakasagi	"Flash #:2562,Lamope 04-LOWE #14"		Michelle Avila	Hypomesus	nipponensis				
+fin17	fin17_H5	232	Plate 3	H5	TTTGAT	GGTTGTCA	CGAACTTA	wakasagi	"Flash #: none,Lamope 04-LOWE #17"		Michelle Avila	Hypomesus	nipponensis				
+22-DS-Mac1	22-DS-Mac1_A6	233	Plate 3	A6	TTTGAT	GGTTGTCA	CGACTGGA	wakasagi	"CDFW -FRP, Flash #: 2556"		Christina Burdi	Hypomesus	nipponensis				
+22-DS-Mac3	22-DS-Mac3_B6	234	Plate 3	B6	TTTGAT	GGTTGTCA	CGCATACA	wakasagi	"CDFW -FRP, Flash #: 2557"		Christina Burdi	Hypomesus	nipponensis				
+22-DS-Lamope3	22-DS-Lamope3_C6	235	Plate 3	C6	TTTGAT	GGTTGTCA	CTCAATGA	wakasagi	"CDFW -FRP, Flash #: 2558"		Christina Burdi	Hypomesus	nipponensis				
