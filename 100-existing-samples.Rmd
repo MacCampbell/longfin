@@ -107,3 +107,4 @@ Many of these samples aren't useful. Very small.
 ### Spirinchus thaleichthys
 
 190 samples in /home/ajfinger/longfin/fastq_files, now in /home/maccamp/data/forage-fishes/longfin-previous
+
