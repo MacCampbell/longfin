@@ -81,3 +81,9 @@ Previously, I used the non-accessioned genome.
 `@SQ	SN:lg03	LN:15692960`
 `bwa mem /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa ALVS_097_R1.fastq.gz ALVS_097_R2.fastq.gz`
 
+(base) maccamp@farm:~/longfin/data/plate-1$ ls | grep RA | perl -pe 's/.fastq//g' > forward 
+(base) maccamp@farm:~/longfin/data/plate-1$ ls | grep RB | perl -pe 's/.fastq//g' > reverse
+(base) maccamp@farm:~/longfin/data/plate-1$ ls | grep RA | cut -f 1-2 -d "_" > names
+(base) maccamp@farm:~/longfin/data/plate-1$ paste forward reverse names  > files.txt
+
+
