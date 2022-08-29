@@ -1,11 +1,11 @@
 Sample Name	Identifier	Index	Plate	Well	Plate Barcode 1	Plate Barcode 2	Well Barcode	Common Name	Location	Sample Date	Source	Genus	Species	Other	Total Reads	Aligned Reads	Deduped Aligned Reads
 22-0074	22-0074_A1	1	Plate 1	A1	TTAACT	TCCTACCT	ACAAGCTA	larval smelt	Russian River	1/26/22	Colin Brennan-ICF						
 22-0102	22-0102_B1	2	Plate 1	B1	TTAACT	TCCTACCT	AAACATCG	larval smelt	Russian River	2/3/22	Colin Brennan-ICF						
-19-0222	19-0222_C1	3	Plate 1	C1	TTAACT	TCCTACCT	ACATTGGC	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
-19-0222	19-0222_D1	4	Plate 1	D1	TTAACT	TCCTACCT	ACCACTGT	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
-19-0222	19-0222_E1	5	Plate 1	E1	TTAACT	TCCTACCT	AACGTGAT	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
-19-0222	19-0222_F1	6	Plate 1	F1	TTAACT	TCCTACCT	CGCTGATC	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
-19-0222	19-0222_G1	7	Plate 1	G1	TTAACT	TCCTACCT	CAGATCTG	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_C1	3	Plate 1	C1	TTAACT	TCCTACCT	ACATTGGC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_D1	4	Plate 1	D1	TTAACT	TCCTACCT	ACCACTGT	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_E1	5	Plate 1	E1	TTAACT	TCCTACCT	AACGTGAT	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_F1	6	Plate 1	F1	TTAACT	TCCTACCT	CGCTGATC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
+19-0222	19-0222_G1	7	Plate 1	G1	TTAACT	TCCTACCT	CAGATCTG	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
 20-1325	20-1325_H1	8	Plate 1	H1	TTAACT	TCCTACCT	ATGCCTAA	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
 20-1325	20-1325_A2	9	Plate 1	A2	TTAACT	TCCTACCT	AACGAACG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
 20-1325	20-1325_B2	10	Plate 1	B2	TTAACT	TCCTACCT	AGTACAAG	larval smelt	Eel River	1/15/20	Colin Brennan-ICF						
@@ -67,7 +67,7 @@ Nksk-2018_231	Nksk-2018_231	65	Plate 1	A9	TTAACT	TCCTACCT	TGGAACAA	longfin smelt
 Nksk-2018_232	Nksk-2018_232	66	Plate 1	B9	TTAACT	TCCTACCT	TGGCTTCA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
 Nksk-2018_233	Nksk-2018_233	67	Plate 1	C9	TTAACT	TCCTACCT	TGGTGGTA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
 Nksk-2018_234	Nksk-2018_234	68	Plate 1	D9	TTAACT	TCCTACCT	TTCACGCA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-19-0222	19-0222_E9	69	Plate 1	E9	TTAACT	TCCTACCT	ACACGAGA	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF			May be Nksk_2018_235?			
+19-0222	19-0222_E9	69	Plate 1	E9	TTAACT	TCCTACCT	ACACGAGA	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF			May be Nksk_2018_235?			
 Nksk-2018_236	Nksk-2018_236	70	Plate 1	F9	TTAACT	TCCTACCT	AAGAGATC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
 Nksk-2018_237	Nksk-2018_237	71	Plate 1	G9	TTAACT	TCCTACCT	AAGGACAC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
 Nksk-2018_238	Nksk-2018_238	72	Plate 1	H9	TTAACT	TCCTACCT	AATCCGTC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
