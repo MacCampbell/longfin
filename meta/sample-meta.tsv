@@ -1,4 +1,4 @@
-Sample Name	Identifier	Index	Plate	Well	Plate Barcode 1	Plate Barcode 2	Well Barcode	Species	Location	Sample Date	Source	Genus	Species	Other	Total Reads	Aligned Reads	Deduped Aligned Reads
+Sample Name	Identifier	Index	Plate	Well	Plate Barcode 1	Plate Barcode 2	Well Barcode	Common Name	Location	Sample Date	Source	Genus	Species	Other	Total Reads	Aligned Reads	Deduped Aligned Reads
 22-0074	22-0074_A1	1	Plate 1	A1	TTAACT	TCCTACCT	ACAAGCTA	larval smelt	Russian River	1/26/22	Colin Brennan-ICF						
 22-0102	22-0102_B1	2	Plate 1	B1	TTAACT	TCCTACCT	AAACATCG	larval smelt	Russian River	2/3/22	Colin Brennan-ICF						
 19-0222	19-0222_C1	3	Plate 1	C1	TTAACT	TCCTACCT	ACATTGGC	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF						
@@ -57,26 +57,26 @@ NS-20	NS-20_C6	43	Plate 1	C6	TTAACT	TCCTACCT	CTCAATGA	night smelt	Groundfish Pro
 155956	155956_H7	56	Plate 1	H7	TTAACT	TCCTACCT	GTACGCAA	eulachon	Eastern North Pacific		UWFC	Thaleichthys	pacificus				
 155858	155858_A8	57	Plate 1	A8	TTAACT	TCCTACCT	GTCGTAGA	surf smelt	Eastern North Pacific		UWFC	Hypomesus	pretiosus				
 156302	156302_B8	58	Plate 1	B8	TTAACT	TCCTACCT	GTCTGTCA	eulachon	Eastern North Pacific		UWFC	Thaleichthys	pacificus				
-Nksk-2018_225	Nksk-2018_225_C8	59	Plate 1	C8	TTAACT	TCCTACCT	GTGTTCTA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_226	Nksk-2018_226_D8	60	Plate 1	D8	TTAACT	TCCTACCT	TAGGATGA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_227	Nksk-2018_227_E8	61	Plate 1	E8	TTAACT	TCCTACCT	TATCAGCA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_228	Nksk-2018_228_F8	62	Plate 1	F8	TTAACT	TCCTACCT	TCCGTCTA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_229	Nksk-2018_229_G8	63	Plate 1	G8	TTAACT	TCCTACCT	TCTTCACA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_230	Nksk-2018_230_H8	64	Plate 1	H8	TTAACT	TCCTACCT	TGAAGAGA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_231	Nksk-2018_231_A9	65	Plate 1	A9	TTAACT	TCCTACCT	TGGAACAA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_232	Nksk-2018_232_B9	66	Plate 1	B9	TTAACT	TCCTACCT	TGGCTTCA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_233	Nksk-2018_233_C9	67	Plate 1	C9	TTAACT	TCCTACCT	TGGTGGTA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_234	Nksk-2018_234_D9	68	Plate 1	D9	TTAACT	TCCTACCT	TTCACGCA	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_225	Nksk-2018_225	59	Plate 1	C8	TTAACT	TCCTACCT	GTGTTCTA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_226	Nksk-2018_226	60	Plate 1	D8	TTAACT	TCCTACCT	TAGGATGA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_227	Nksk-2018_227	61	Plate 1	E8	TTAACT	TCCTACCT	TATCAGCA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_228	Nksk-2018_228	62	Plate 1	F8	TTAACT	TCCTACCT	TCCGTCTA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_229	Nksk-2018_229	63	Plate 1	G8	TTAACT	TCCTACCT	TCTTCACA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_230	Nksk-2018_230	64	Plate 1	H8	TTAACT	TCCTACCT	TGAAGAGA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_231	Nksk-2018_231	65	Plate 1	A9	TTAACT	TCCTACCT	TGGAACAA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_232	Nksk-2018_232	66	Plate 1	B9	TTAACT	TCCTACCT	TGGCTTCA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_233	Nksk-2018_233	67	Plate 1	C9	TTAACT	TCCTACCT	TGGTGGTA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_234	Nksk-2018_234	68	Plate 1	D9	TTAACT	TCCTACCT	TTCACGCA	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
 19-0222	19-0222_E9	69	Plate 1	E9	TTAACT	TCCTACCT	ACACGAGA	larval smelt	Eureka slough	4/9/19	Colin Brennan-ICF			May be Nksk_2018_235?			
-Nksk-2018_236	Nksk-2018_236_F9	70	Plate 1	F9	TTAACT	TCCTACCT	AAGAGATC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_237	Nksk-2018_237_G9	71	Plate 1	G9	TTAACT	TCCTACCT	AAGGACAC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_238	Nksk-2018_238_H9	72	Plate 1	H9	TTAACT	TCCTACCT	AATCCGTC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_239	Nksk-2018_239_A10	73	Plate 1	A10	TTAACT	TCCTACCT	AATGTTGC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_240	Nksk-2018_240_B10	74	Plate 1	B10	TTAACT	TCCTACCT	ACACTGAC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_241	Nksk-2018_241_C10	75	Plate 1	C10	TTAACT	TCCTACCT	ACAGATTC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_242	Nksk-2018_242_D10	76	Plate 1	D10	TTAACT	TCCTACCT	AGATGTAC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_243	Nksk-2018_243_E10	77	Plate 1	E10	TTAACT	TCCTACCT	AGCACCTC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
-Nksk-2018_244	Nksk-2018_244_F10	78	Plate 1	F10	TTAACT	TCCTACCT	AGCCATGC	longfins smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_236	Nksk-2018_236	70	Plate 1	F9	TTAACT	TCCTACCT	AAGAGATC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_237	Nksk-2018_237	71	Plate 1	G9	TTAACT	TCCTACCT	AAGGACAC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_238	Nksk-2018_238	72	Plate 1	H9	TTAACT	TCCTACCT	AATCCGTC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_239	Nksk-2018_239	73	Plate 1	A10	TTAACT	TCCTACCT	AATGTTGC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_240	Nksk-2018_240	74	Plate 1	B10	TTAACT	TCCTACCT	ACACTGAC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_241	Nksk-2018_241	75	Plate 1	C10	TTAACT	TCCTACCT	ACAGATTC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_242	Nksk-2018_242	76	Plate 1	D10	TTAACT	TCCTACCT	AGATGTAC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_243	Nksk-2018_243	77	Plate 1	E10	TTAACT	TCCTACCT	AGCACCTC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
+Nksk-2018_244	Nksk-2018_244	78	Plate 1	F10	TTAACT	TCCTACCT	AGCCATGC	longfin smelt	Nooksack River		Brandi Kammermans - NWIC	Spirinchus	thaleichthys				
 19-0225	19-0225_G10	79	Plate 1	G10	TTAACT	TCCTACCT	AGGCTAAC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
 19-0225	19-0225_H10	80	Plate 1	H10	TTAACT	TCCTACCT	ATAGCGAC	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
 19-0225	19-0225_A11	81	Plate 1	A11	TTAACT	TCCTACCT	ACGACAAG	larval smelt	Eureka Slough	4/9/19	Colin Brennan-ICF						
