@@ -11,5 +11,126 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 
 ```{r}
 library(tidyverse)
+library(ggtree)
+library(ape)
+library(phangorn)
 ```
 
+One thing we can do is make a phylogeny. 
+
+```{sh, eval=FALSE}
+srun -p bigmemh -t 18:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 6 \
+-bam bamlists/initial179.bamlist \
+-out /home/maccamp/longfin/outputs/103/plink \
+-anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-r lg01 \
+-minInd 161 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/103/std.out 2>outputs/103/std.err &
+```
+
+```{sh, eval=FALSE}
+srun -p bigmemh -t 18:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 6 \
+-bam bamlists/initial179.bamlist \
+-out /home/maccamp/longfin/outputs/103/plink \
+-anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-rf $HOME/delta-smelt/metadata/large-contigs.txt  \
+-minInd 161 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/103/std.out 2>outputs/103/std.err &
+```
+
+99,335 variants
+  
+  
+## Process
+
+
+```{sh, eval=FALSE}
+plink --tped plink.tped --tfam plink.tfam  --out binary --recode --allow-extra-chr --noweb
+plink --ped binary.ped --map binary.map --recode vcf --allow-extra-chr -out recode
+bcftools +prune -l 0.9 -w 100000 recode.vcf  -Ov -o recode.prune.vcf
+bcftools reheader --samples ../../bamlists/initial179.names -o recode.prune.reheadered.vcf recode.prune.vcf
+
+```
+
+Convert to phylip, then nexus. Create a missing data set
+
+```{sh, eval=FALSE}
+source activate py2; ~/github/mccloud-rrt/vcf2phylip.py -i recode.prune.reheadered.vcf; conda deactivate;
+seqConverter.pl -drecode.prune.reheadered.min4.phy -on
+
+#Corrected for ascertainment bias
+~/github/mccloud-rrt/103-remove-invariant.py -p recode.prune.reheadered.min4.phy -o recode.prune.reheadered.min4.asc.phy
+seqConverter.pl -drecode.prune.reheadered.min4.asc.phy -on
+
+#Now remove missing??
+ ~/github/relict-dace/201.1-removeMissing.pl recode.prune.reheadered.min4.asc.phy  > filtered.phy
+seqConverter.pl -dfiltered.phy -on
+```
+   
+   local test of lg01/ 
+```{sh, eval=FALSE}
+iqtree -s filtered.phy -st DNA -m MFP+ASC -bb 1000 -alrt 1000 -redo
+iqtree -s filtered.phy.varsites.phy -st DNA -m GTR+F+ASC -bb 1000 -alrt 1000 -redo
+```
+
+local test of more data
+(base) Macs-MacBook-Pro-2:103 mac$ selectSites.pl -s 1-3000 filtered.phy.varsites.fasta  > sub.fasta
+(base) Macs-MacBook-Pro-2:103 mac$ seqConverter.pl -dsub.fasta -ope
+iqtree -s sub.phylip -st DNA -m GTR+F+ASC -bb 1000 -alrt 1000 -redo
+
+On farm
+```{sh, eval=FALSE}
+srun -p high -t 5:00:00 --nodes=1 iqtree -s filtered.phy.varsites.phy -st DNA -m MFP+ASC -bb 1000 -alrt 1000 -T AUTO -redo
+
+```
+
+```{r}
+treemeta<-read_csv(file = "meta/initial.csv")
+treemeta$Tip<-gsub("-","_",treemeta$Identifier)
+treemeta<-treemeta %>% relocate(Tip) 
+
+tm2<-treemeta %>% relocate(Identifier)
+```
+
+```{r}
+iq<-read.tree("outputs/103/filtered.phy.varsites.phy.contree")
+m<-midpoint(iq)
+
+t<-as.polytomy(m, feature='node.label', fun=function(x) as.numeric(x) < 75)
+t<-ggtree(t)
+t
+```
+
+```{r}
+t %<+% tm2 +
+  geom_tiplab(aes(label=label), align=TRUE, size=3, offset=0.01)+
+  geom_tippoint(aes(fill=`Common Name`), pch=21, cex=2) +
+  scale_fill_viridis_d(option="turbo") +
+  geom_treescale() +
+  xlim(0,.5)
+
+ggsave("outputs/103/ml-tree-longfin.pdf", height=20)
+
+```
+  
+
+
+
+```{r}
+nj<-read.nexus("outputs/103/nj.tre")
+nnj<-midpoint(nj)
+nt<-ggtree(nnj, layout = 'rectangular', branch.length = 'none') %<+%  treemeta 
+
+```
+
+
+```{r}
+nt + geom_tiplab(aes(label=Identifier), align=TRUE, size=3, offset = 1)+
+  geom_tippoint(aes(fill=`Common Name`), pch=21, cex=2) +
+  scale_fill_viridis_d(option="turbo") +
+  geom_treescale() +
+  xlim(0,25)
+  
+
+ggsave("outputs/103/distance-tree-longfin.pdf", height=20)
+```
