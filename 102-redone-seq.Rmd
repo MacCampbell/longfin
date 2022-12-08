@@ -1,0 +1,25 @@
+---
+title: "102-redone-seq"
+author: "Mac Campbell"
+date: "2022-12-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Align and examine new data     
+
+```{r}
+meta<-read_csv("meta/NightSmLFS_Redband_sampledata.csv") %>% filter(Species %in% c("LarvalLFS","NightSmelt"))
+
+meta
+```
+
+batch rename, move to data/new-data     
+
