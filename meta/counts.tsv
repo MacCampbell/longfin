@@ -1,0 +1,381 @@
+Sample	File	Reads	Alignment
+ALVS_091	ALVS_091_sorted_flt.bam	370889	Original
+ALVS_092	ALVS_092_sorted_flt.bam	161320	Original
+ALVS_093	ALVS_093_sorted_flt.bam	271864	Original
+ALVS_094	ALVS_094_sorted_flt.bam	323233	Original
+ALVS_095	ALVS_095_sorted_flt.bam	318079	Original
+ALVS_096	ALVS_096_sorted_flt.bam	333267	Original
+ALVS_097	ALVS_097_sorted_flt.bam	375644	Original
+ALVS_098	ALVS_098_sorted_flt.bam	500811	Original
+ALVS_099	ALVS_099_sorted_flt.bam	351874	Original
+ALVS_100	ALVS_100_sorted_flt.bam	292794	Original
+ALVS_101	ALVS_101_sorted_flt.bam	407504	Original
+ALVS_102	ALVS_102_sorted_flt.bam	189791	Original
+CHPI_106	CHPI_106_sorted_flt.bam	25123	Original
+CHPI_107	CHPI_107_sorted_flt.bam	34178	Original
+CHPI_114	CHPI_114_sorted_flt.bam	11004	Original
+CHPI_115	CHPI_115_sorted_flt.bam	53746	Original
+CHPI_117	CHPI_117_sorted_flt.bam	3905	Original
+CHPI_118	CHPI_118_sorted_flt.bam	7273	Original
+CHPI_119	CHPI_119_sorted_flt.bam	37996	Original
+CHPI_120	CHPI_120_sorted_flt.bam	38753	Original
+CHPI_121	CHPI_121_sorted_flt.bam	13228	Original
+CHPI_125	CHPI_125_sorted_flt.bam	44336	Original
+CHPI_127	CHPI_127_sorted_flt.bam	21597	Original
+CHPI_129	CHPI_129_sorted_flt.bam	24561	Original
+CHPI_703	CHPI_703_sorted_flt.bam	205906	Original
+CHPI_707	CHPI_707_sorted_flt.bam	533238	Original
+CHPI_725	CHPI_725_sorted_flt.bam	391717	Original
+CHPI_735	CHPI_735_sorted_flt.bam	438445	Original
+CHPI_916	CHPI_916_sorted_flt.bam	547012	Original
+CHPI_924	CHPI_924_sorted_flt.bam	341854	Original
+CHPI_925	CHPI_925_sorted_flt.bam	180838	Original
+COLR_001	COLR_001_sorted_flt.bam	181989	Original
+COLR_002	COLR_002_sorted_flt.bam	19694	Original
+COLR_003	COLR_003_sorted_flt.bam	93971	Original
+COLR_004	COLR_004_sorted_flt.bam	12550	Original
+COLR_005	COLR_005_sorted_flt.bam	29559	Original
+COLR_007	COLR_007_sorted_flt.bam	202886	Original
+COLR_011	COLR_011_sorted_flt.bam	41087	Original
+COLR_013	COLR_013_sorted_flt.bam	1538	Original
+COLR_021	COLR_021_sorted_flt.bam	2733	Original
+COLR_022	COLR_022_sorted_flt.bam	4513	Original
+COLR_024	COLR_024_sorted_flt.bam	3707	Original
+COLR_025	COLR_025_sorted_flt.bam	1457	Original
+COLR_026	COLR_026_sorted_flt.bam	1043	Original
+COLR_027	COLR_027_sorted_flt.bam	3582	Original
+COLR_028	COLR_028_sorted_flt.bam	3456	Original
+COLR_029	COLR_029_sorted_flt.bam	6240	Original
+COLR_030	COLR_030_sorted_flt.bam	1170757	Original
+COLR_031	COLR_031_sorted_flt.bam	180426	Original
+COLR_032	COLR_032_sorted_flt.bam	549040	Original
+COLR_033	COLR_033_sorted_flt.bam	222550	Original
+COLR_034	COLR_034_sorted_flt.bam	37526	Original
+COLR_035	COLR_035_sorted_flt.bam	232031	Original
+HRLC_001	HRLC_001_sorted_flt.bam	228040	Original
+HRLC_262	HRLC_262_sorted_flt.bam	415	Original
+HRLC_263	HRLC_263_sorted_flt.bam	68069	Original
+HRLC_264	HRLC_264_sorted_flt.bam	135674	Original
+HRLC_265	HRLC_265_sorted_flt.bam	18705	Original
+HRLC_266	HRLC_266_sorted_flt.bam	225182	Original
+HRLC_271	HRLC_271_sorted_flt.bam	413480	Original
+HRLC_272	HRLC_272_sorted_flt.bam	355034	Original
+HRLC_273	HRLC_273_sorted_flt.bam	37	Original
+HRLC_274	HRLC_274_sorted_flt.bam	360869	Original
+HRLC_275	HRLC_275_sorted_flt.bam	5406	Original
+HRLC_301	HRLC_301_sorted_flt.bam	15536	Original
+HRLC_302	HRLC_302_sorted_flt.bam	91963	Original
+HUMB_001	HUMB_001_sorted_flt.bam	1339117	Original
+HUMB_002	HUMB_002_sorted_flt.bam	2384090	Original
+HUMB_003	HUMB_003_sorted_flt.bam	1960623	Original
+HUMB_004	HUMB_004_sorted_flt.bam	1164406	Original
+HUMB_005	HUMB_005_sorted_flt.bam	1594921	Original
+HUMB_006	HUMB_006_sorted_flt.bam	1738441	Original
+HUMB_007	HUMB_007_sorted_flt.bam	1379822	Original
+HUMB_008	HUMB_008_sorted_flt.bam	1002875	Original
+LWSH_032	LWSH_032_sorted_flt.bam	15122	Original
+LWSH_035	LWSH_035_sorted_flt.bam	43383	Original
+LWSH_037	LWSH_037_sorted_flt.bam	947519	Original
+LWSH_040	LWSH_040_sorted_flt.bam	387875	Original
+LWSH_042	LWSH_042_sorted_flt.bam	332962	Original
+LWSH_050	LWSH_050_sorted_flt.bam	152040	Original
+LWSH_051	LWSH_051_sorted_flt.bam	274267	Original
+LWSH_052	LWSH_052_sorted_flt.bam	373357	Original
+LWSH_053	LWSH_053_sorted_flt.bam	1526570	Original
+LWSH_055	LWSH_055_sorted_flt.bam	11746	Original
+LWSH_057	LWSH_057_sorted_flt.bam	601714	Original
+LWSH_058	LWSH_058_sorted_flt.bam	952613	Original
+LWSH_060	LWSH_060_sorted_flt.bam	633886	Original
+LWSH_068	LWSH_068_sorted_flt.bam	1563818	Original
+LWSH_076	LWSH_076_sorted_flt.bam	1243000	Original
+LWSH_080	LWSH_080_sorted_flt.bam	776071	Original
+LWSH_084	LWSH_084_sorted_flt.bam	163721	Original
+LWSH_090	LWSH_090_sorted_flt.bam	345630	Original
+LWSH_091	LWSH_091_sorted_flt.bam	786490	Original
+LWSH_102	LWSH_102_sorted_flt.bam	649896	Original
+PETA_064	PETA_064_sorted_flt.bam	199458	Original
+PETA_065	PETA_065_sorted_flt.bam	558520	Original
+PETA_066	PETA_066_sorted_flt.bam	205937	Original
+PETA_067	PETA_067_sorted_flt.bam	406378	Original
+PETA_068	PETA_068_sorted_flt.bam	459120	Original
+PETA_069	PETA_069_sorted_flt.bam	496213	Original
+PTLC_002	PTLC_002_sorted_flt.bam	69296	Original
+PTLC_004	PTLC_004_sorted_flt.bam	2473	Original
+PTLC_005	PTLC_005_sorted_flt.bam	1932	Original
+PTLC_006	PTLC_006_sorted_flt.bam	124041	Original
+PTLC_008	PTLC_008_sorted_flt.bam	63191	Original
+PTLC_010	PTLC_010_sorted_flt.bam	121047	Original
+PTLC_012	PTLC_012_sorted_flt.bam	2098	Original
+PTLC_013	PTLC_013_sorted_flt.bam	103599	Original
+PTLC_014	PTLC_014_sorted_flt.bam	117784	Original
+PTLC_016	PTLC_016_sorted_flt.bam	205385	Original
+PTLC_017	PTLC_017_sorted_flt.bam	556	Original
+PTLC_019	PTLC_019_sorted_flt.bam	91538	Original
+PTLC_021	PTLC_021_sorted_flt.bam	262225	Original
+PTLC_022	PTLC_022_sorted_flt.bam	244251	Original
+PTLC_023	PTLC_023_sorted_flt.bam	1251	Original
+PTLC_024	PTLC_024_sorted_flt.bam	258935	Original
+PTLC_025	PTLC_025_sorted_flt.bam	61902	Original
+PTLC_026	PTLC_026_sorted_flt.bam	13025	Original
+PTLC_028	PTLC_028_sorted_flt.bam	103151	Original
+PTLC_029	PTLC_029_sorted_flt.bam	47573	Original
+SFBY_075	SFBY_075_sorted_flt.bam	318845	Original
+SFBY_076	SFBY_076_sorted_flt.bam	240031	Original
+SFBY_077	SFBY_077_sorted_flt.bam	255631	Original
+SFBY_078	SFBY_078_sorted_flt.bam	206723	Original
+SFBY_079	SFBY_079_sorted_flt.bam	529688	Original
+SFBY_080	SFBY_080_sorted_flt.bam	357452	Original
+SFBY_081	SFBY_081_sorted_flt.bam	363643	Original
+SFBY_083	SFBY_083_sorted_flt.bam	311745	Original
+SFBY_086	SFBY_086_sorted_flt.bam	482398	Original
+SFBY_088	SFBY_088_sorted_flt.bam	417306	Original
+SFBY_089	SFBY_089_sorted_flt.bam	460612	Original
+SFBY_090	SFBY_090_sorted_flt.bam	322146	Original
+SFBY_132	SFBY_132_sorted_flt.bam	391488	Original
+SFBY_134	SFBY_134_sorted_flt.bam	121605	Original
+SFBY_135	SFBY_135_sorted_flt.bam	297641	Original
+SFBY_137	SFBY_137_sorted_flt.bam	167649	Original
+SFBY_142	SFBY_142_sorted_flt.bam	390504	Original
+SFBY_144	SFBY_144_sorted_flt.bam	287200	Original
+SFBY_146	SFBY_146_sorted_flt.bam	178167	Original
+SFBY_148	SFBY_148_sorted_flt.bam	270704	Original
+SKNA_043	SKNA_043_sorted_flt.bam	234798	Original
+SKNA_044	SKNA_044_sorted_flt.bam	287627	Original
+SKNA_045	SKNA_045_sorted_flt.bam	989318	Original
+SKNA_046	SKNA_046_sorted_flt.bam	1317386	Original
+SKNA_047	SKNA_047_sorted_flt.bam	631558	Original
+SKNA_048	SKNA_048_sorted_flt.bam	875862	Original
+SKNA_049	SKNA_049_sorted_flt.bam	147848	Original
+SKNA_050	SKNA_050_sorted_flt.bam	855490	Original
+SKNA_051	SKNA_051_sorted_flt.bam	1155361	Original
+SKNA_052	SKNA_052_sorted_flt.bam	1002525	Original
+SUIB_014	SUIB_014_sorted_flt.bam	576454	Original
+SUIB_015	SUIB_015_sorted_flt.bam	999659	Original
+SUIB_016	SUIB_016_sorted_flt.bam	1069002	Original
+SUIB_017	SUIB_017_sorted_flt.bam	636546	Original
+SUIB_018	SUIB_018_sorted_flt.bam	275607	Original
+SUIB_019	SUIB_019_sorted_flt.bam	717056	Original
+SUIB_020	SUIB_020_sorted_flt.bam	718026	Original
+SUIB_021	SUIB_021_sorted_flt.bam	899743	Original
+SUIB_023	SUIB_023_sorted_flt.bam	714912	Original
+SUIB_024	SUIB_024_sorted_flt.bam	921762	Original
+SUIB_028	SUIB_028_sorted_flt.bam	833991	Original
+SUIB_029	SUIB_029_sorted_flt.bam	726960	Original
+SUIB_030	SUIB_030_sorted_flt.bam	1054483	Original
+SUIB_031	SUIB_031_sorted_flt.bam	359013	Original
+SUIB_033	SUIB_033_sorted_flt.bam	642693	Original
+SUIB_040	SUIB_040_sorted_flt.bam	483837	Original
+SUIB_042	SUIB_042_sorted_flt.bam	476101	Original
+SUIB_043	SUIB_043_sorted_flt.bam	644759	Original
+SUIB_044	SUIB_044_sorted_flt.bam	760319	Original
+SUIB_046	SUIB_046_sorted_flt.bam	608904	Original
+YBAK_001	YBAK_001_sorted_flt.bam	453788	Original
+YBAK_002	YBAK_002_sorted_flt.bam	1083360	Original
+YBAK_003	YBAK_003_sorted_flt.bam	590570	Original
+YBAK_005	YBAK_005_sorted_flt.bam	1070028	Original
+YBAK_006	YBAK_006_sorted_flt.bam	828421	Original
+YBAK_007	YBAK_007_sorted_flt.bam	942171	Original
+YBAK_008	YBAK_008_sorted_flt.bam	977926	Original
+YBAK_009	YBAK_009_sorted_flt.bam	923358	Original
+YBAK_010	YBAK_010_sorted_flt.bam	887615	Original
+YBAK_011	YBAK_011_sorted_flt.bam	639703	Original
+YBAK_012	YBAK_012_sorted_flt.bam	502963	Original
+YBAK_014	YBAK_014_sorted_flt.bam	550573	Original
+YBAK_015	YBAK_015_sorted_flt.bam	929366	Original
+YBAK_016	YBAK_016_sorted_flt.bam	1068706	Original
+YBAK_017	YBAK_017_sorted_flt.bam	955657	Original
+YBAK_018	YBAK_018_sorted_flt.bam	968007	Original
+YBAK_020	YBAK_020_sorted_flt.bam	945842	Original
+YBAK_021	YBAK_021_sorted_flt.bam	879320	Original
+YBAK_022	YBAK_022_sorted_flt.bam	497010	Original
+YBAK_023	YBAK_023_sorted_flt.bam	489058	Original
+ALVS_091	ALVS_091_R1.sort.flt.bam	498802	New Genome
+ALVS_092	ALVS_092_R1.sort.flt.bam	225523	New Genome
+ALVS_093	ALVS_093_R1.sort.flt.bam	371449	New Genome
+ALVS_094	ALVS_094_R1.sort.flt.bam	438541	New Genome
+ALVS_095	ALVS_095_R1.sort.flt.bam	433426	New Genome
+ALVS_096	ALVS_096_R1.sort.flt.bam	457538	New Genome
+ALVS_097	ALVS_097_R1.sort.flt.bam	515777	New Genome
+ALVS_098	ALVS_098_R1.sort.flt.bam	676628	New Genome
+ALVS_099	ALVS_099_R1.sort.flt.bam	482317	New Genome
+ALVS_100	ALVS_100_R1.sort.flt.bam	404365	New Genome
+ALVS_101	ALVS_101_R1.sort.flt.bam	554217	New Genome
+ALVS_102	ALVS_102_R1.sort.flt.bam	264557	New Genome
+CHPI_106	CHPI_106_R1.sort.flt.bam	36194	New Genome
+CHPI_107	CHPI_107_R1.sort.flt.bam	48083	New Genome
+CHPI_114	CHPI_114_R1.sort.flt.bam	15704	New Genome
+CHPI_115	CHPI_115_R1.sort.flt.bam	74873	New Genome
+CHPI_117	CHPI_117_R1.sort.flt.bam	5305	New Genome
+CHPI_118	CHPI_118_R1.sort.flt.bam	10213	New Genome
+CHPI_119	CHPI_119_R1.sort.flt.bam	54816	New Genome
+CHPI_120	CHPI_120_R1.sort.flt.bam	55165	New Genome
+CHPI_121	CHPI_121_R1.sort.flt.bam	18756	New Genome
+CHPI_125	CHPI_125_R1.sort.flt.bam	62804	New Genome
+CHPI_127	CHPI_127_R1.sort.flt.bam	31248	New Genome
+CHPI_129	CHPI_129_R1.sort.flt.bam	35095	New Genome
+CHPI_703	CHPI_703_R1.sort.flt.bam	280535	New Genome
+CHPI_707	CHPI_707_R1.sort.flt.bam	700365	New Genome
+CHPI_725	CHPI_725_R1.sort.flt.bam	514296	New Genome
+CHPI_735	CHPI_735_R1.sort.flt.bam	584538	New Genome
+CHPI_916	CHPI_916_R1.sort.flt.bam	716229	New Genome
+CHPI_924	CHPI_924_R1.sort.flt.bam	457434	New Genome
+CHPI_925	CHPI_925_R1.sort.flt.bam	250910	New Genome
+COLR_001	COLR_001_R1.sort.flt.bam	258297	New Genome
+COLR_002	COLR_002_R1.sort.flt.bam	47282	New Genome
+COLR_003	COLR_003_R1.sort.flt.bam	143876	New Genome
+COLR_004	COLR_004_R1.sort.flt.bam	29295	New Genome
+COLR_005	COLR_005_R1.sort.flt.bam	48365	New Genome
+COLR_007	COLR_007_R1.sort.flt.bam	296521	New Genome
+COLR_011	COLR_011_R1.sort.flt.bam	63696	New Genome
+COLR_013	COLR_013_R1.sort.flt.bam	5632	New Genome
+COLR_021	COLR_021_R1.sort.flt.bam	5476	New Genome
+COLR_022	COLR_022_R1.sort.flt.bam	9836	New Genome
+COLR_024	COLR_024_R1.sort.flt.bam	8573	New Genome
+COLR_025	COLR_025_R1.sort.flt.bam	3099	New Genome
+COLR_026	COLR_026_R1.sort.flt.bam	2476	New Genome
+COLR_027	COLR_027_R1.sort.flt.bam	7757	New Genome
+COLR_028	COLR_028_R1.sort.flt.bam	6754	New Genome
+COLR_029	COLR_029_R1.sort.flt.bam	13896	New Genome
+COLR_030	COLR_030_R1.sort.flt.bam	1433654	New Genome
+COLR_031	COLR_031_R1.sort.flt.bam	247932	New Genome
+COLR_032	COLR_032_R1.sort.flt.bam	726471	New Genome
+COLR_033	COLR_033_R1.sort.flt.bam	306723	New Genome
+COLR_034	COLR_034_R1.sort.flt.bam	64348	New Genome
+COLR_035	COLR_035_R1.sort.flt.bam	327624	New Genome
+HRLC_001	HRLC_001_R1.sort.flt.bam	309026	New Genome
+HRLC_262	HRLC_262_R1.sort.flt.bam	1133	New Genome
+HRLC_263	HRLC_263_R1.sort.flt.bam	98180	New Genome
+HRLC_264	HRLC_264_R1.sort.flt.bam	189742	New Genome
+HRLC_265	HRLC_265_R1.sort.flt.bam	27411	New Genome
+HRLC_266	HRLC_266_R1.sort.flt.bam	310382	New Genome
+HRLC_271	HRLC_271_R1.sort.flt.bam	549193	New Genome
+HRLC_272	HRLC_272_R1.sort.flt.bam	474948	New Genome
+HRLC_273	HRLC_273_R1.sort.flt.bam	73	New Genome
+HRLC_274	HRLC_274_R1.sort.flt.bam	484484	New Genome
+HRLC_275	HRLC_275_R1.sort.flt.bam	7486	New Genome
+HRLC_301	HRLC_301_R1.sort.flt.bam	22442	New Genome
+HRLC_302	HRLC_302_R1.sort.flt.bam	129958	New Genome
+HUMB_001	HUMB_001_R1.sort.flt.bam	1658489	New Genome
+HUMB_002	HUMB_002_R1.sort.flt.bam	2829442	New Genome
+HUMB_003	HUMB_003_R1.sort.flt.bam	2349005	New Genome
+HUMB_004	HUMB_004_R1.sort.flt.bam	1433887	New Genome
+HUMB_005	HUMB_005_R1.sort.flt.bam	1916198	New Genome
+HUMB_006	HUMB_006_R1.sort.flt.bam	2079840	New Genome
+HUMB_007	HUMB_007_R1.sort.flt.bam	1686615	New Genome
+HUMB_008	HUMB_008_R1.sort.flt.bam	1237057	New Genome
+LWSH_032	LWSH_032_R1.sort.flt.bam	21631	New Genome
+LWSH_035	LWSH_035_R1.sort.flt.bam	63675	New Genome
+LWSH_037	LWSH_037_R1.sort.flt.bam	1240081	New Genome
+LWSH_040	LWSH_040_R1.sort.flt.bam	537534	New Genome
+LWSH_042	LWSH_042_R1.sort.flt.bam	461191	New Genome
+LWSH_050	LWSH_050_R1.sort.flt.bam	212708	New Genome
+LWSH_051	LWSH_051_R1.sort.flt.bam	374500	New Genome
+LWSH_052	LWSH_052_R1.sort.flt.bam	511068	New Genome
+LWSH_053	LWSH_053_R1.sort.flt.bam	1945314	New Genome
+LWSH_055	LWSH_055_R1.sort.flt.bam	17836	New Genome
+LWSH_057	LWSH_057_R1.sort.flt.bam	794991	New Genome
+LWSH_058	LWSH_058_R1.sort.flt.bam	1236615	New Genome
+LWSH_060	LWSH_060_R1.sort.flt.bam	829514	New Genome
+LWSH_068	LWSH_068_R1.sort.flt.bam	1957174	New Genome
+LWSH_076	LWSH_076_R1.sort.flt.bam	1572599	New Genome
+LWSH_080	LWSH_080_R1.sort.flt.bam	1003439	New Genome
+LWSH_084	LWSH_084_R1.sort.flt.bam	226257	New Genome
+LWSH_090	LWSH_090_R1.sort.flt.bam	464301	New Genome
+LWSH_091	LWSH_091_R1.sort.flt.bam	1015463	New Genome
+LWSH_102	LWSH_102_R1.sort.flt.bam	855992	New Genome
+PETA_064	PETA_064_R1.sort.flt.bam	275687	New Genome
+PETA_065	PETA_065_R1.sort.flt.bam	737210	New Genome
+PETA_066	PETA_066_R1.sort.flt.bam	284840	New Genome
+PETA_067	PETA_067_R1.sort.flt.bam	543833	New Genome
+PETA_068	PETA_068_R1.sort.flt.bam	616978	New Genome
+PETA_069	PETA_069_R1.sort.flt.bam	662145	New Genome
+PTLC_002	PTLC_002_R1.sort.flt.bam	98979	New Genome
+PTLC_004	PTLC_004_R1.sort.flt.bam	3995	New Genome
+PTLC_005	PTLC_005_R1.sort.flt.bam	3031	New Genome
+PTLC_006	PTLC_006_R1.sort.flt.bam	173331	New Genome
+PTLC_008	PTLC_008_R1.sort.flt.bam	89349	New Genome
+PTLC_010	PTLC_010_R1.sort.flt.bam	167574	New Genome
+PTLC_012	PTLC_012_R1.sort.flt.bam	3223	New Genome
+PTLC_013	PTLC_013_R1.sort.flt.bam	146874	New Genome
+PTLC_014	PTLC_014_R1.sort.flt.bam	164257	New Genome
+PTLC_016	PTLC_016_R1.sort.flt.bam	280764	New Genome
+PTLC_017	PTLC_017_R1.sort.flt.bam	859	New Genome
+PTLC_019	PTLC_019_R1.sort.flt.bam	128613	New Genome
+PTLC_021	PTLC_021_R1.sort.flt.bam	352020	New Genome
+PTLC_022	PTLC_022_R1.sort.flt.bam	328503	New Genome
+PTLC_023	PTLC_023_R1.sort.flt.bam	3557	New Genome
+PTLC_024	PTLC_024_R1.sort.flt.bam	345180	New Genome
+PTLC_025	PTLC_025_R1.sort.flt.bam	87018	New Genome
+PTLC_026	PTLC_026_R1.sort.flt.bam	19221	New Genome
+PTLC_028	PTLC_028_R1.sort.flt.bam	143908	New Genome
+PTLC_029	PTLC_029_R1.sort.flt.bam	68041	New Genome
+SFBY_075	SFBY_075_R1.sort.flt.bam	684288	New Genome
+SFBY_076	SFBY_076_R1.sort.flt.bam	330507	New Genome
+SFBY_077	SFBY_077_R1.sort.flt.bam	350872	New Genome
+SFBY_078	SFBY_078_R1.sort.flt.bam	284946	New Genome
+SFBY_079	SFBY_079_R1.sort.flt.bam	703083	New Genome
+SFBY_080	SFBY_080_R1.sort.flt.bam	483544	New Genome
+SFBY_081	SFBY_081_R1.sort.flt.bam	502841	New Genome
+SFBY_083	SFBY_083_R1.sort.flt.bam	494349	New Genome
+SFBY_086	SFBY_086_R1.sort.flt.bam	645071	New Genome
+SFBY_088	SFBY_088_R1.sort.flt.bam	566511	New Genome
+SFBY_089	SFBY_089_R1.sort.flt.bam	621522	New Genome
+SFBY_090	SFBY_090_R1.sort.flt.bam	445780	New Genome
+SFBY_132	SFBY_132_R1.sort.flt.bam	519280	New Genome
+SFBY_134	SFBY_134_R1.sort.flt.bam	170076	New Genome
+SFBY_135	SFBY_135_R1.sort.flt.bam	399537	New Genome
+SFBY_137	SFBY_137_R1.sort.flt.bam	229611	New Genome
+SFBY_142	SFBY_142_R1.sort.flt.bam	521560	New Genome
+SFBY_144	SFBY_144_R1.sort.flt.bam	391570	New Genome
+SFBY_146	SFBY_146_R1.sort.flt.bam	247772	New Genome
+SFBY_148	SFBY_148_R1.sort.flt.bam	373469	New Genome
+SKNA_043	SKNA_043_R1.sort.flt.bam	311513	New Genome
+SKNA_044	SKNA_044_R1.sort.flt.bam	378749	New Genome
+SKNA_045	SKNA_045_R1.sort.flt.bam	1213414	New Genome
+SKNA_046	SKNA_046_R1.sort.flt.bam	1587961	New Genome
+SKNA_047	SKNA_047_R1.sort.flt.bam	794029	New Genome
+SKNA_048	SKNA_048_R1.sort.flt.bam	1083029	New Genome
+SKNA_049	SKNA_049_R1.sort.flt.bam	198312	New Genome
+SKNA_050	SKNA_050_R1.sort.flt.bam	1051398	New Genome
+SKNA_051	SKNA_051_R1.sort.flt.bam	1400257	New Genome
+SKNA_052	SKNA_052_R1.sort.flt.bam	1221981	New Genome
+SUIB_014	SUIB_014_R1.sort.flt.bam	759415	New Genome
+SUIB_015	SUIB_015_R1.sort.flt.bam	1283054	New Genome
+SUIB_016	SUIB_016_R1.sort.flt.bam	1355966	New Genome
+SUIB_017	SUIB_017_R1.sort.flt.bam	832049	New Genome
+SUIB_018	SUIB_018_R1.sort.flt.bam	374368	New Genome
+SUIB_019	SUIB_019_R1.sort.flt.bam	940355	New Genome
+SUIB_020	SUIB_020_R1.sort.flt.bam	932247	New Genome
+SUIB_021	SUIB_021_R1.sort.flt.bam	1156152	New Genome
+SUIB_023	SUIB_023_R1.sort.flt.bam	929726	New Genome
+SUIB_024	SUIB_024_R1.sort.flt.bam	1186987	New Genome
+SUIB_028	SUIB_028_R1.sort.flt.bam	1080515	New Genome
+SUIB_029	SUIB_029_R1.sort.flt.bam	947433	New Genome
+SUIB_030	SUIB_030_R1.sort.flt.bam	1357408	New Genome
+SUIB_031	SUIB_031_R1.sort.flt.bam	482900	New Genome
+SUIB_033	SUIB_033_R1.sort.flt.bam	846282	New Genome
+SUIB_040	SUIB_040_R1.sort.flt.bam	645855	New Genome
+SUIB_042	SUIB_042_R1.sort.flt.bam	634433	New Genome
+SUIB_043	SUIB_043_R1.sort.flt.bam	846824	New Genome
+SUIB_044	SUIB_044_R1.sort.flt.bam	993165	New Genome
+SUIB_046	SUIB_046_R1.sort.flt.bam	802692	New Genome
+YBAK_001	YBAK_001_R1.sort.flt.bam	611498	New Genome
+YBAK_002	YBAK_002_R1.sort.flt.bam	1392621	New Genome
+YBAK_003	YBAK_003_R1.sort.flt.bam	785231	New Genome
+YBAK_005	YBAK_005_R1.sort.flt.bam	1380147	New Genome
+YBAK_006	YBAK_006_R1.sort.flt.bam	1086259	New Genome
+YBAK_007	YBAK_007_R1.sort.flt.bam	1221365	New Genome
+YBAK_008	YBAK_008_R1.sort.flt.bam	1264087	New Genome
+YBAK_009	YBAK_009_R1.sort.flt.bam	1203149	New Genome
+YBAK_010	YBAK_010_R1.sort.flt.bam	1155217	New Genome
+YBAK_011	YBAK_011_R1.sort.flt.bam	841957	New Genome
+YBAK_012	YBAK_012_R1.sort.flt.bam	668683	New Genome
+YBAK_014	YBAK_014_R1.sort.flt.bam	734572	New Genome
+YBAK_015	YBAK_015_R1.sort.flt.bam	1211705	New Genome
+YBAK_016	YBAK_016_R1.sort.flt.bam	1392226	New Genome
+YBAK_017	YBAK_017_R1.sort.flt.bam	1254641	New Genome
+YBAK_018	YBAK_018_R1.sort.flt.bam	1270060	New Genome
+YBAK_020	YBAK_020_R1.sort.flt.bam	1239618	New Genome
+YBAK_021	YBAK_021_R1.sort.flt.bam	1154727	New Genome
+YBAK_022	YBAK_022_R1.sort.flt.bam	660810	New Genome
+YBAK_023	YBAK_023_R1.sort.flt.bam	649354	New Genome
