@@ -14,12 +14,28 @@ library(tidyverse)
 ```
 
 ## Align and examine new data     
-
+LFS1_S113_L006 LFS2_S114_L006
 ```{r}
-meta<-read_csv("meta/NightSmLFS_Redband_sampledata.csv") %>% filter(Species %in% c("LarvalLFS","NightSmelt"))
+meta<-read_csv("meta/NightSmLFS_Redband_sampledata.csv") %>% filter(Species %in% c("LarvalLFS","NightSmelt","LongfinSmelt")) %>% 
+  mutate(Prefix=ifelse(Plate=="NightSmelt_LFS_Normalized_1","LFS1_S113_L006","LFS2_S114_L006"))
 
 meta
 ```
 
 batch rename, move to data/new-data     
 
+```{r}
+commands<-meta %>% mutate(Command1=paste0("mv /home/maccamp/missouri-trout/data/",Plate,"/",
+                                          Prefix,"_RA_","GG",
+                                          `WellBarcode`,"TGCAGG.fastq"," data/new-data/",
+                                          `SampleID`,"_RA.fastq")) %>% 
+  mutate(Command2=paste0("mv /home/maccamp/missouri-trout/data/",Plate,"/",
+                         Prefix,"_RB_","GG",`WellBarcode`,"TGCAGG.fastq",
+                                   " data/new-data/",`SampleID`,"_RB.fastq"))
+
+c1<- select(commands, Command1) %>% rename(Command=Command1)
+c2<- select(commands, Command2) %>% rename(Command=Command2)
+c3 <- bind_rows(c1, c2)
+write_tsv(c3, file="102.1-batch-rename.sh", col_names = FALSE)
+
+```
