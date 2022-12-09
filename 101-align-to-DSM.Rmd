@@ -46,7 +46,7 @@ mean(as.numeric(newtot$Reads))
 #Hmmm… Basic idea
 
 (578798.6-444797.9)/444797.9 * 100
-
+write_tsv(comb, file="meta/counts.tsv")
 ## [1] 30.1262
 ```
 
