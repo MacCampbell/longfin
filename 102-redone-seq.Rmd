@@ -218,6 +218,9 @@ downsample<-read_tsv("meta/counts.tsv") %>% filter(Alignment !="Original") %>% f
 write_csv(downsample$ReductionCommand %>% as_tibble(), "102.1-downsample.sh", col_names = FALSE)
 ```
 
+running like so:
+(base) maccamp@farm:~/longfin$ srun -p high -time 01:00:00 --nodes=1 parallel -j 10 < 102.1-downsample.sh 
+
 
 ```{r}
 lfs<-downsample %>% select(-Alignment,-ReductionCommand) %>%
@@ -225,9 +228,9 @@ lfs<-downsample %>% select(-Alignment,-ReductionCommand) %>%
   rename(Path=newPath)
 
 
-lfs<-lfs %>% bind_rows(new2%>% mutate(Frac=1))
+lfs<-lfs %>% bind_rows(new2%>%filter(Reads > 75000) %>% mutate(Frac=1))
 
-write_tsv(select(lfs,Path), file="bamlists/193-sub.bamlist", col_names = FALSE)
+write_tsv(select(lfs,Path), file="bamlists/175-sub.bamlist", col_names = FALSE)
 
 ggplot(lfs) +
   geom_histogram(aes(x=(Frac*Reads), fill=Location)) +
@@ -237,23 +240,46 @@ ggplot(lfs) +
 ```{sh, eval=FALSE}
 srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 24 \
   -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
-  -bam $HOME/longfin/bamlists/188-sub.bamlist -GL 1 \
+  -bam $HOME/longfin/bamlists/193-sub.bamlist -GL 1 \
   -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-3 -minMapQ 10 -minQ 20 -minMaf 0.05 \
-  -rf $HOME/delta-smelt/metadata/large-contigs.txt  -minInd 141 \
-  -out $HOME/longfin/outputs/102/188-sub> outputs/102/beagle.out 2> outputs/102/beagle.err &
+  -rf $HOME/delta-smelt/metadata/large-contigs.txt  -minInd 145 \
+  -out $HOME/longfin/outputs/102/193-sub> outputs/102/beagle.out 2> outputs/102/beagle.err &
   
-srun -p high -t 01:00:00 --nodes=1 python $HOME/pcangsd/pcangsd.py -beagle outputs/102/188-sub.beagle.gz \
-   -admix -o outputs/102/188-sub-pca -threads 10
+srun -p high -t 01:00:00 --nodes=1 python $HOME/pcangsd/pcangsd.py -beagle outputs/102/193-sub.beagle.gz \
+   -admix -o outputs/102/193-sub-pca -threads 10
+   
+   
+srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 36 \
+  -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+  -bam $HOME/longfin/bamlists/193-sub.bamlist -GL 1 \
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-3 -minMapQ 10 -minQ 20 -minMaf 0.05 \
+  -rf $HOME/delta-smelt/metadata/large-contigs.txt  -minInd 97 \
+  -out $HOME/longfin/outputs/102/193-sub50> outputs/102/beagle50.out 2> outputs/102/beagle50.err &
+  
+srun -p high -t 01:00:00 --nodes=1 python $HOME/pcangsd/pcangsd.py -beagle outputs/102/193-sub50.beagle.gz \
+   -admix -o outputs/102/193-sub50-pca -threads 10
+   
+srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 36 \
+  -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+  -bam $HOME/longfin/bamlists/175-sub.bamlist -GL 1 \
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-3 -minMapQ 10 -minQ 20 -minMaf 0.05 \
+  -rf $HOME/delta-smelt/metadata/large-contigs.txt  -minInd 88 \
+  -out $HOME/longfin/outputs/102/175-sub50> outputs/102/beagle50.out 2> outputs/102/beagle50.err &
+  
+srun -p high -t 01:00:00 --nodes=1 python $HOME/pcangsd/pcangsd.py -beagle outputs/102/175-sub50.beagle.gz \
+   -admix -o outputs/102/175-sub50-pca -threads 10
 ```
 
-5505 sites with minInd 141
+
+2378 sites when using 100k read depth and 75% threshold.   
+19766 with 50% threshold, new samples still crappy. Removing < 75K read samples and trying again.    
 
 ```{r}
-cov<-read_delim("outputs/102/188-sub-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+cov<-read_delim("outputs/102/193-sub50-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
 meta<-lfs
 
 meta$Location<-factor(meta$Location, levels=c("YBAK","SKNA","New","PTLC","HRLC","FRAS","LWSH","COLR",
-                                              "HUMB","SFBY","PETA","ALVS","SUIB","CHPI"))
+                                             "HUMB","SFBY","PETA","ALVS","SUIB","CHPI"))
 ```
 
 ```{r}
@@ -278,11 +304,7 @@ pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>
 pp_meta <- pca_pairs %>%   # just keep the first 6 PCs around
   left_join(., meta, by = c("sample" = "Sample")) %>%
   mutate(group = Location) 
-```
 
-Plot    
-
-```{r}
 npc <- 3
 pp_meta2 <- pp_meta %>%
   filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
@@ -309,7 +331,7 @@ text<- sub12 %>% select(sample,Location,val_x,val_y) %>% group_by(Location) %>%
   mutate(meanX=mean(val_x), meanY=mean(val_y)) %>% select(Location, meanX, meanY) %>%
   unique()   
 
-ggplot(sub12, aes(x = val_x, y = val_y, color=Location))+
+ggplot(sub12%>% filter(Location=="New"), aes(x = val_x, y = val_y, color=Location))+
   geom_point(size = 2, alpha=0.5) +
   geom_text_repel(data=text, aes(x=meanX, y=meanY, label=Location), max.overlaps = Inf) +
   scale_fill_discrete(na.value = "white") + 
