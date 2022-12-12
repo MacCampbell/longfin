@@ -1,0 +1,38 @@
+---
+title: "103-old-reference"
+author: "Mac Campbell"
+date: "2022-12-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## What about the old reference?
+
+Using "23,525 unique RAD-contigs ranging from 300 to 800 bp and served as a de-novo reference for all downstream analyses."      
+
+
+Oh arggh, need a different reference.
+(base) maccamp@farm:/home/ajfinger/longfin/Combined_libraries$ samtools view -H  YBAK_023_sorted_flt.bam |grep '^@SQ' | wc -l
+19496
+
+bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/longfin-denovo/longfin_contigs_300.fasta     
+
+In data/de-novo
+
+### Old data
+In data/old-data-de-novo/     
+
+```{sh}
+ls | grep R1 | perl -pe 's/.fastq.gz//g' > forward
+ls | grep R2 | perl -pe 's/.fastq.gz//g' > reverse
+ls | grep R1 | perl -pe 's/_R1.fastq.gz//g' > name
+paste forward reverse name  > samples.txt
+
+bash $HOME/longfin/doAlign-zipped.sh samples.txt /home/maccamp/genomes/longfin-denovo/longfin_contigs_300.fasta     
+
+```
+
+190 samples
