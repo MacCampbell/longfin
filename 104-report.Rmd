@@ -160,12 +160,14 @@ covs<-eig$vectors[,1:3] %>% as_tibble() %>% bind_cols(meta)
 text12<-covs %>% select(Sample, Location, V1, V2) %>%
   group_by(Location) %>% summarize(Count=n(), x=mean(V1), y=mean(V2))
 
-ggplot(covs) +
+covs12<-ggplot(covs) +
   geom_point(aes(x=V1, y=V2, fill=Location), pch=21, alpha=0.75) +
   geom_text_repel(data=text12, aes(x=x, y=y, label=Location), max.overlaps = Inf) +
   xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
   ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = "")) +
-  theme_bw()
+  theme_bw() +
+  theme(legend.position="")
+covs12
 ```
 
 ```{r}
@@ -173,14 +175,21 @@ ggplot(covs) +
 text13<-covs %>% select(Sample, Location, V1, V3) %>%
   group_by(Location) %>% summarize(Count=n(), x=mean(V1), y=mean(V3))
 
-ggplot(covs) +
+covs13<-ggplot(covs) +
   geom_point(aes(x=V1, y=V3, fill=Location), pch=21, alpha=0.75) +
   geom_text_repel(data=text13, aes(x=x, y=y, label=Location), max.overlaps = Inf) +
   xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
   ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = "")) +
   theme_bw()
+covs13
 ``` 
 
+    
+```{r}
+ggarrange(covs12, covs13, widths=c(1,1.3))
+ggsave("outputs/104/longfin175-ibs-pc123.jpeg", width=10, height=5)
+
+```
 ## Read Counts
 
 
@@ -246,4 +255,88 @@ ggplot(quants[!startsWith(quants$Sample, "Nksk"),] %>% filter(DNA=="Concentrated
   geom_hline(aes(yintercept=1.5e5), lty=2)
 
 ggsave("outputs/104/dna-reads-no-nooksack.jpeg", width=6, height=4)
+```
+
+
+## What about those other species of smelts??
+
+~/data/forage-fishes symlinking some to ~/longfin/data/forage-fishes    
+EULN_006, 007, 010     
+WAKS 010, 011, 012    
+14 DSM (can downsample)
+
+There is no mtDNA in reference, dang.  How to figure out mystery fish from phylogeny? Blast to mtDNA, make new reference for mtDNA???
+
+No H. transpacificus, no A. elongatus, No S. starksi, No S. thaleichthys (S. lanceolatus) exists.   
+
+
+Align reference EULN WAKS DSM
+
+```{sh, eval=FALSE}
+# in data/forage-fish
+ls | grep R1 | perl -pe 's/.fastq//g' > forward
+ls | grep R2 | perl -pe 's/.fastq//g' > reverse
+ls | grep R1 | perl -pe 's/_R1.fastq//g' > name
+paste forward reverse name  > samples.txt
+bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa 
+```    
+
+(Can include some Longfin)
+ALVS_097_R1.sort.flt.bam 
+ALVS_098_R1.sort.flt.bam
+CHPI_707_R1.sort.flt.bam
+HUMB_004_R1.sort.flt.bam
+HUMB_005_R1.sort.flt.bam
+HUMB_006_R1.sort.flt.bam
+SUIB_033_R1.sort.flt.bam
+SUIB_044_R1.sort.flt.bam
+YBAK_003_R1.sort.flt.bam
+YBAK_007_R1.sort.flt.bam
+COLR_030_R1.sort.flt.bam
+
+```{r}
+refs<-read_csv("outputs/102/forage-fishes.dat", col_names = c("Sample","Sort","Dedup")) %>% 
+  mutate(Path=paste0("data/forage-fishes/",Sample,".sort.flt.bam"))
+
+ggplot(refs) +
+  geom_histogram(aes(x=Dedup))
+```
+
+Mystery fish:
+(base) maccamp@farm:~/longfin/data$ cat ./alt-1/alt-1.dat ./alt-2/alt-2.dat ./alt-3/alt-3.dat > alt.dat
+
+```{r}
+dat<-read_csv("outputs/104/alt.dat", col_names = c("Sample","Sort","Dedup"))
+
+ggplot(dat) +
+  geom_histogram(aes(x=Dedup))
+```
+
+Making calls with phylogeny, want quite a few reads
+```{r}
+ds<-dat %>% filter(Dedup > 5e5) %>% mutate(Path=paste0("data/alt-bams/",Sample,".sort.flt.bam"))
+nrow(ds)
+```
+
+
+```{r}
+combine<-bind_rows(refs,ds)
+write_csv(combine,"outputs/102/combine.csv")
+```
+
+```{r}
+m216<-read_csv("meta/216.csv")
+write_tsv(m216 %>% select(Path), col_names = FALSE, file="bamlists/216.bamlist")
+```
+
+
+
+```{sh, eval=FALSE}
+srun -p high -t 18:00:00 --mem=16G --nodes=1 angsd -P 24 \
+-bam bamlists/216.bamlist \
+-out /home/maccamp/longfin/outputs/104/plink \
+-anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-rf $HOME/delta-smelt/metadata/large-contigs.txt  \
+-minInd 195 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/104/std.out 2>outputs/104/std.err &
 ```

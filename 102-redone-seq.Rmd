@@ -121,6 +121,32 @@ trying minind 166, 911 sites
 50 inds 137815 sites?
 150 inds 	-> Number of sites retained after filtering: 8199    
 160 inds 1858 sites        
+
+```{r}
+m <- as.matrix(read.table("outputs/102/188-min50-ibs-gl.covMat"))
+
+meta<-read_csv("meta/188-edited.csv")
+eig <- eigen(m)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+covs<-eig$vectors[,1:3] %>% as_tibble() %>% bind_cols(meta)
+
+text12<-covs %>% select(Sample, Loc, V1, V2) %>%
+  group_by(Loc) %>% summarize(Count=n(), x=mean(V1), y=mean(V2))
+
+covs12<-ggplot(covs) +
+  geom_point(aes(x=V1, y=V2, fill=Loc), pch=21, alpha=0.75) +
+  geom_text_repel(data=text12, aes(x=x, y=y, label=Loc), max.overlaps = Inf) +
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = "")) +
+  theme_bw() +
+  theme(legend.position="")
+covs12
+```
+
 ```{r}
 cov<-read_delim("outputs/102/188-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
 meta<-together

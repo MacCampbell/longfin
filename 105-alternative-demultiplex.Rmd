@@ -1,0 +1,62 @@
+---
+title: "105-alternative-demultiplex"
+author: "Mac Campbell"
+date: "2022-12-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+## Previously....
+
+We sequenced a lot of smelt, but the naming is whack!
+
+
+in data/alt*
+
+ mv longfin-01_R1.fastq HS2253_R1_AGTCAA.fastq
+ mv longfin-01_R2.fastq HS2253_R3_AGTCAA.fastq
+ sbatch -t 12:00:00 run_BestRadSplit.sh HS2253_R1_AGTCAA.fastq HS2253_R3_AGTCAA.fastq HS2253_AGTCAA
+
+mv longfin-02_R1.fastq HS2253_R1_AGTCAA.fastq
+mv longfin-02_R2.fastq HS2253_R3_AGTCAA.fastq
+sbatch -t 12:00:00 run_BestRadSplit.sh HS2253_R1_AGTCAA.fastq HS2253_R3_AGTCAA.fastq HS2253_AGTCAA
+
+mv longfin-03_R1.fastq HS2253_R1_AGTCAA.fastq
+mv longfin-03_R2.fastq HS2253_R3_AGTCAA.fastq
+sbatch -t 12:00:00 run_BestRadSplit.sh HS2253_R1_AGTCAA.fastq HS2253_R3_AGTCAA.fastq HS2253_AGTCAA
+
+Let's align these all against a reference.  
+
+in data/alt-* etc.   
+
+alt-1
+
+```{sh, eval=FALSE}
+ls | grep RA | perl -pe 's/.fastq//g' > forward
+ls | grep RB | perl -pe 's/.fastq//g' > reverse
+ls | grep RA | perl -pe 's/TGCAGG.fastq//g' | perl -pe 's/_RA_GG/-/g' > name
+paste forward reverse name  > samples.txt
+bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa 
+```
+
+alt-2     
+```{sh, eval=FALSE}
+ls | grep RA | perl -pe 's/.fastq//g' > forward
+ls | grep RB | perl -pe 's/.fastq//g' > reverse
+ls | grep RA | perl -pe 's/TGCAGG.fastq//g' | perl -pe 's/_RA_GG/-/g' | perl -pe 's/HS2253_AGTCAA/plate-2/g' > name
+paste forward reverse name  > samples.txt
+bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa 
+```     
+
+
+alt-3     
+```{sh, eval=FALSE}
+ls | grep RA | perl -pe 's/.fastq//g' > forward
+ls | grep RB | perl -pe 's/.fastq//g' > reverse
+ls | grep RA | perl -pe 's/TGCAGG.fastq//g' | perl -pe 's/_RA_GG/-/g' | perl -pe 's/HS2253_AGTCAA/plate-3/g' > name
+paste forward reverse name  > samples.txt
+bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa 
+```
