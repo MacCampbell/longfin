@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 library(tidyverse)
 library(ggrepel)
 library(ggpubr)
+library(adegenet)
+library(vcfR)
 ```
      
 Some ideas:
@@ -130,7 +132,15 @@ ggarrange(pc12, pc13)
 ggsave("outputs/104/longfin175-pc123.jpeg", width=10, height=5)
 ```
 ```{r}
-meta %>% group_by(Location) %>% summarize(Count=n())
+meta %>% group_by(Location) %>% summarize(Count=n(), AvgReads=mean(Reads)) %>% arrange(AvgReads)
+```
+
+```{r}
+new<-meta %>% filter(Location %in% c("KLAMR","EURS","EELR","MADR","NOOK"))
+ggplot(new) +
+  geom_histogram(aes(x=Reads, fill=Collection))
+
+new %>% filter(Location=="NOOK") %>% select(Reads)
 ```
 
 ## IBS version
@@ -170,6 +180,14 @@ covs12<-ggplot(covs) +
 covs12
 ```
 
+```{r}
+ggplot(covs%>% filter(Location %in% c("EELR","EURS","NOOK"))) +
+  geom_point(aes(x=V1, y=V2, fill=Reads), pch=21, alpha=0.75) +
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = "")) +
+  facet_wrap(.~Location) +
+  theme_bw()
+```
 ```{r}
 
 text13<-covs %>% select(Sample, Location, V1, V3) %>%
@@ -327,6 +345,8 @@ write_csv(combine,"outputs/102/combine.csv")
 ```{r}
 m216<-read_csv("meta/216.csv")
 write_tsv(m216 %>% select(Path), col_names = FALSE, file="bamlists/216.bamlist")
+write_tsv(m216 %>% select(Sample), col_names = FALSE, file="bamlists/216.samples")
+
 ```
 
 
@@ -339,4 +359,133 @@ srun -p high -t 18:00:00 --mem=16G --nodes=1 angsd -P 24 \
 -rf $HOME/delta-smelt/metadata/large-contigs.txt  \
 -minInd 195 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
 -doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/104/std.out 2>outputs/104/std.err &
+```     
+
+	-> Number of sites retained after filtering: 100035 
+
+## Process
+
+
+```{sh, eval=FALSE}
+plink --tped plink.tped --tfam plink.tfam  --out binary --recode --allow-extra-chr --noweb
+plink --ped binary.ped --map binary.map --recode vcf --allow-extra-chr -out recode
+bcftools +prune -l 0.25 -w 10000 recode.vcf  -Ov -o recode.prune.vcf
+bcftools reheader --samples ../../bamlists/216.samples -o recode.prune.reheadered.vcf recode.prune.vcf
+
 ```
+
+After pruning, 7380 snps
+
+onvert to phylip, then nexus. Create a missing data set
+
+```{sh, eval=FALSE}
+source activate py2; ~/github/mccloud-rrt/vcf2phylip.py -i recode.prune.reheadered.vcf; conda deactivate;
+seqConverter.pl -drecode.prune.reheadered.min4.phy -on
+
+#Corrected for ascertainment bias
+conda activate py3; ~/github/mccloud-rrt/103-remove-invariant.py -p recode.prune.reheadered.min4.phy -o recode.prune.reheadered.min4.asc.phy; conda deactivate
+
+seqConverter.pl -drecode.prune.reheadered.min4.asc.phy -on
+
+#Now remove missing?? 
+ ~/github/relict-dace/201.1-removeMissing.pl recode.prune.reheadered.min4.asc.phy  > filtered.phy
+seqConverter.pl -dfiltered.phy -on
+
+Our dumped samples are DELS, WAKS and EULN. 
+```
+
+Local test:
+
+```{sh, eval=FALSE}
+seqConverter.pl -drecode.prune.reheadered.min4.asc.phy -of
+selectSites.pl -s 1-1000 recode.prune.reheadered.min4.asc.fasta  > sub.fasta
+seqConverter.pl -dsub.fasta -ope
+iqtree -s sub.phylip -st DNA -m GTR+F+ASC -bb 1000 -alrt 1000 -redo
+
+```
+
+Removed some low quality samples from dumpers (DELS 710 733, an ALVS sample, now 213 samples)
+iqtree -s align.phy -st DNA -m GTR+F+ASC -bb 1000 -alrt 1000 -redo
+iqtree -s align.phy.varsites.phy -st DNA -m GTR+F+ASC -bb 1000 -alrt 1000 -redo
+
+-T 2 (two cores available apparently)    
+
+```{sh, eval=FALSE}
+srun -p high -t 5:00:00 --nodes=1 iqtree -s align.phy.varsites.phy -st DNA -m MFP+ASC -bb 1000 -alrt 1000 -T AUTO -redo
+```
+
+## Get samples by species
+
+```{r}
+snps<-read.vcfR("outputs/104/recode.prune.reheadered.vcf")
+gen<-vcfR2genind(snps)
+```
+
+```{r}
+x<- tab(gen, NA.method="mean")
+pca <- dudi.pca(x,scannf=FALSE,scale=FALSE,nf=5)
+plot(pca$li)
+```
+
+
+```{r}
+d<- pca$l1 %>% as_tibble()
+d$Sample<-rownames(pca$l1)
+
+#Pull out cumulative variance
+eig<-pca$eig
+sum<-sum(eig)
+var<-(eig/sum)*100
+
+d<- d %>% left_join(m216)
+
+#text<-dsba %>% group_by(`River Basin`) %>% mutate(meanx=mean(RS1), meany=mean(RS2)) %>% 
+ # select(`River Basin`, meanx, meany) %>% unique()
+
+pc12<-ggplot(d) +
+  geom_point(aes(x=RS1, y=RS2), pch=21, alpha=0.75, fill="black") +
+#  geom_label_repel(data=text, aes(x=meanx, y=meany, label=`River Basin`),
+  #                 fill="white", max.overlaps = Inf, alpha=0.9) +
+  #scale_fill_viridis_d(option="H") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  theme(legend.position = "") +
+  xlab(paste0("PC1"," ",round(var[1],2),"%")) +
+  ylab(paste0("PC2"," ",round(var[2],2),"%")) 
+
+pc12
+```    
+```{r}
+longs<-d %>% filter(RS1 >0)
+other<-d %>% filter(RS1 <0) %>% filter(!(Sample %in% c("DELS_710","DELS_733")))
+```
+Removed some low quality samples from dumpers (DELS 710 733, an ALVS sample, now 213 samples)     
+
+```{r}
+ggplot(other, aes(x=RS1, y=RS2)) +
+  geom_point(pch=21, alpha=0.5, fill="black") + geom_text_repel(aes(label=Sample), max.overlaps = Inf)
+ggsave("outputs/104/smelts.pdf", width=22, height=22)
+```   
+
+Create a bamllist of reference samples
+
+```{r}
+ls<-c("ALVS_098_R1","CHPI_707_R1","HUMB_004_R1","HUMB_005_R1","HUMB_006_R1","SUIB_033_R1","SUIB_044_R1","YBAK_003_R1","YBAK_007_R1","COLR_030_R1") %>%
+  as_tibble() %>% rename(Sample=value)
+
+smelts<-select(other, Sample) %>% bind_rows(ls)
+m72<-smelts %>% left_join(m216)
+write_tsv(m72 %>% select(Path), file="bamlists/72.bamlist")
+write_tsv(m72 %>% select(Sample), file="bamlists/72.samples")
+```
+
+```{sh, eval=FALSE}
+srun -p high -t 18:00:00 --mem=16G --nodes=1 angsd -P 24 \
+-bam bamlists/216.bamlist \
+-out /home/maccamp/longfin/outputs/104/refs/plink \
+-anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-rf $HOME/delta-smelt/metadata/large-contigs.txt  \
+-minInd 65 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/104/refs/std.out 2>outputs/104/refs/std.err &
+```
+
