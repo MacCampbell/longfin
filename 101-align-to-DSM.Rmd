@@ -104,6 +104,8 @@ meta<-sub %>% separate(Sample, into=c("Loc","Number"), sep="_", remove=FALSE)
 #Factor N->S
 meta$Location<-factor(meta$Loc, levels=c("YBAK","SKNA","PTLC","HRLC","FRAS","LWSH","COLR",
                                               "HUMB","SFBY","PETA","ALVS","SUIB","CHPI"))
+
+write_csv(meta, "meta/meta140.csv")
 ```
 
 

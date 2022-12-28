@@ -651,10 +651,161 @@ write_tsv(select(newseq, Path), col_names = FALSE, file="bamlists/141.bamlists")
 ```{sh, eval=FALSE}
 srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 36 \
   -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
-  -bam $HOME/longfin/bamlists/141.bamlist -GL 1 \
+  -bam $HOME/longfin/bamlists/141.bamlists -GL 1 \
   -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-3 -minMapQ 10 -minQ 20 -minMaf 0.05 \
   -rf $HOME/delta-smelt/metadata/large-contigs.txt  -minInd 71 \
-  -out $HOME/longfin/outputs/105/141> outputs/104/beagle-141.out 2> outputs/104/beagle-141.err &
+  -out $HOME/longfin/outputs/104/141> outputs/104/beagle-141.out 2> outputs/104/beagle-141.err &
   
+srun -p high -t 12:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/141.bamlists -rf $HOME/delta-smelt/metadata/large-contigs.txt \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 71 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/104/141-ibs > outputs/104/141-ibs.stdout 2> outputs/104/141-ibs.stderr &
+
+  
+srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 36 \
+  -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+  -bam $HOME/longfin/bamlists/141.bamlists -GL 1 \
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-3 -minMapQ 10 -minQ 20 -minMaf 0.05 \
+  -r lg01  -minInd 71 \
+  -out $HOME/longfin/outputs/104/141-sub > outputs/104/beagle-sub-141.out 2> outputs/104/beagle-sub-141.err &
+
+
+srun -p high -t 12:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/141.bamlists -r lg01 \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 71 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/104/141-lg01-ibs > outputs/104/141-lg01-ibs.stdout 2> outputs/104/141-lg01-ibs.stderr &
 ```
 
+4143 sites on lg01 w/o ibs
+4518 sites on lg01 w/ibs
+
+```{r}
+m <- as.matrix(read.table("outputs/104/141-lg01-ibs.covMat"))
+meta<-newseq
+eig <- eigen(m)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+covs<-eig$vectors[,1:3] %>% as_tibble() %>% bind_cols(meta)
+
+#text12<-covs %>% select(Sample, Location, V1, V2) %>%
+ # group_by(Location) %>% summarize(Count=n(), x=mean(V1), y=mean(V2))
+
+covs12<-ggplot(covs) +
+    geom_point(aes(x=V1, y=V2), pch=21, fill="black", alpha=0.75) +
+#  geom_point(aes(x=V1, y=V2, fill=Location), pch=21, alpha=0.75) +
+#  geom_text_repel(data=text12, aes(x=x, y=y, label=Location), max.overlaps = Inf) +
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = "")) +
+  theme_bw() +
+  theme(legend.position="")
+covs12
+```
+
+```{r}
+
+#text13<-covs %>% select(Sample, Location, V1, V3) %>%
+ # group_by(Location) %>% summarize(Count=n(), x=mean(V1), y=mean(V3))
+
+covs13<-ggplot(covs) +
+  geom_point(aes(x=V1, y=V3), pch=21, fill="black",alpha=0.75) +
+  #  geom_point(aes(x=V1, y=V3, fill=Location), pch=21, alpha=0.75) +
+#  geom_text_repel(data=text13, aes(x=x, y=y, label=Location), max.overlaps = Inf) +
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
+  ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = "")) +
+  theme_bw()
+covs13
+``` 
+
+```{r}
+mynooks<-covs %>% filter(V1 < -0.1)
+```
+
+```{r}
+v2<-v
+names2<-bind_rows(names, mynooks %>% select(label) %>% rename(Sample=label) %>% mutate(Species="Longfin Smelt"))
+data2<-v2$data %>% select(-Species)
+
+v2ddf<- data2  %>% left_join(names2, by=c("label"="Sample")) %>% filter(isTip==TRUE) %>% select(label, Species) %>%  replace(is.na(.), "Larval Smelt")
+v2ddf$Species<-factor(v2ddf$Species, levels=c("Larval Smelt", "Longfin Smelt", "Night Smelt", "Eulachon", "Whitebait Smelt", "Wakasagi", "Surf Smelt", "Delta Smelt" ))
+v2$data<-v2$data %>% select(-Species) %>% left_join(v2ddf)
+```
+
+```{r}
+v2 +
+  geom_point(data=df, aes(x=x, y=y, color=Support), pch=18, cex=4, alpha=1) +
+  geom_tippoint(aes(fill=Species), pch=21, alpha=1, cex=4, offset=0.01) +
+  geom_treescale() +
+  xlim(0, 0.1) +
+  scale_fill_viridis_d(option = "H") +
+  scale_color_manual(values=c("grey50","grey","black"))
+
+ggsave("outputs/104/lfs-with-refs-tree.pdf", width=8.5, height=11)
+
+```
+
+## LFS only
+
+
+(1) new LFS samples
+
+```{r}
+newseq2<-newseq %>% mutate(Location=ifelse(label %in% mynooks$label, "Nooksack","Larval Smelt")) %>% select(-Sort, -Species) %>%
+  rename(Sample=label, Reads=Dedup)
+newseq2
+```
+
+(2) Previous
+
+```{r}
+meta140<-read_csv("meta/meta140.csv") %>% select(-Loc, -Number, -File, -Alignment)
+meta140
+```
+
+
+```{r}
+comb281<-bind_rows(newseq2, meta140)
+comb281
+
+write_tsv(select(comb281, Path),"bamlists/281.bamlist",col_names=FALSE)
+```
+```{sh, eval=FALSE}
+srun -p high -t 12:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/281.bamlist -rf $HOME/delta-smelt/metadata/large-contigs.txt \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 71 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/104/281-ibs > outputs/104/281-ibs.stdout 2> outputs/104/281-ibs.stderr &
+
+
+srun -p high -t 12:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/281.bamlist -r lg01 \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 71 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/104/281-lg01-ibs > outputs/104/281-lg01-ibs.stdout 2> outputs/104/281-lg01-ibs.stderr &
+
+```
+
+```{sh, eval=FALSE}
+for i in {1..12};
+do
+
+    for j in {1..1};
+    do echo -n "$i - $j ";
+    srun -p high -t 4:00:00 $HOME/angsd/misc/NGSadmix -likes outputs/108/239-ibs.beagle.gz -K $i -o outputs/108/ngsadmix239/ngsadmix-k$i-run$j -P 36;
+    done;
+
+  echo "";
+done;
+```
