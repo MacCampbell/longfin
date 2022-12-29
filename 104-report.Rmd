@@ -686,7 +686,7 @@ srun -p high -t 12:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
 4518 sites on lg01 w/ibs
 
 ```{r}
-m <- as.matrix(read.table("outputs/104/141-lg01-ibs.covMat"))
+m <- as.matrix(read.table("outputs/104/141-ibs.covMat"))
 meta<-newseq
 eig <- eigen(m)
 var<-eig$values/sum(eig$values)
@@ -726,7 +726,8 @@ covs13
 ``` 
 
 ```{r}
-mynooks<-covs %>% filter(V1 < -0.1)
+mynooks<-covs %>% filter(V1 > 0.1)
+mynooks
 ```
 
 ```{r}
@@ -795,6 +796,101 @@ srun -p high -t 12:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
 -doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
 -out outputs/104/281-lg01-ibs > outputs/104/281-lg01-ibs.stdout 2> outputs/104/281-lg01-ibs.stderr &
 
+
+#Altering minInd/MAF
+srun -p med -t 2:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/281.bamlist -r lg01 \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 141 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/104/281-lg01-ibs-50 > outputs/104/281-lg01-ibs.stdout 2> outputs/104/281-lg01-ibs.stderr &
+
+srun -p med -t 2:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/281.bamlist -r lg01 \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 225 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/104/281-lg01-ibs-80 > outputs/104/281-lg01-ibs-80.stdout 2> outputs/104/281-lg01-ibs-80.stderr &
+
+#Altering minInd/MAF
+srun -p med -t 2:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/281.bamlist -r lg01 \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 141 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.1 \
+-out outputs/104/281-lg01-ibs-50-1 > outputs/104/281-lg01-ibs.stdout 2> outputs/104/281-lg01-ibs.stderr &
+
+srun -p med -t 2:00:00 --mem=32G --nodes=1 $HOME/angsd/angsd -P 36  \
+-bam bamlists/281.bamlist -r lg01 \
+-ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-minInd 225 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-3 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.1 \
+-out outputs/104/281-lg01-ibs-80-1 > outputs/104/281-lg01-ibs-80.stdout 2> outputs/104/281-lg01-ibs-80.stderr &
+
+```
+
+lg01 has 6129 snps
+212901 snps total with 1/4 missing
+
+lg01 @ 50% missing MAF 0.05 3858 SNPs
+lg01 @ 80% missing MAF 0.05 2218 SNPs
+
+lg01 @ 50% missing MAF 0.10 2419 SNPs     
+lg01 @ 80% missing MAF 0.10 1468 SNPs    
+```{r}
+m <- as.matrix(read.table("outputs/104/281-lg01-ibs-80-1.covMat"))
+meta<-comb281
+eig <- eigen(m)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+covs<-eig$vectors[,1:3] %>% as_tibble() %>% bind_cols(meta)
+
+text12<-covs %>% select(Sample, Location, V1, V2) %>%
+  group_by(Location) %>% summarize(Count=n(), x=mean(V1), y=mean(V2))
+
+covs12<-ggplot(covs) +
+  geom_point(aes(x=V1, y=V2, fill=Location), pch=21, alpha=0.75) +
+  geom_text_repel(data=text12, aes(x=x, y=y, label=Location), max.overlaps = Inf) +
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = "")) +
+  theme_bw() +
+  theme(legend.position="")
+
+
+text13<-covs %>% select(Sample, Location, V1, V3) %>%
+ group_by(Location) %>% summarize(Count=n(), x=mean(V1), y=mean(V3))
+
+covs13<-ggplot(covs) +
+  geom_point(aes(x=V1, y=V3, fill=Location), pch=21, alpha=0.75) +
+  geom_text_repel(data=text13, aes(x=x, y=y, label=Location), max.overlaps = Inf) +
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
+  ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = "")) +
+  theme_bw() +
+  theme(legend.position="")
+
+
+ggarrange(covs12, covs13)
+```
+
+     V1      V2    V3 Sample    Reads Path                                                Location
+   <dbl>   <dbl> <dbl> <chr>     <dbl> <chr>                                               <chr>   
+1 0.0528 -0.0661 0.658 SFBY_075 684288 /home/maccamp/data/longfin/SFBY_075_R1.sort.flt.bam SFBY    
+2 0.0499 -0.0561 0.488 SFBY_083 494349 /home/maccamp/data/longfin/SFBY_083_R1.sort.flt.bam SFBY    
+
+```{r}
+covs12
+ggsave("outputs/104/first-sequencing-run-pcs.jpeg")
+```
+```{sh, eval=FALSE}
+srun -p high -t 00:30:00 --nodes=1 python $HOME/pcangsd/pcangsd.py -beagle outputs/104/initial-lg01.beagle.gz \
+    -o outputs/102/initial-pca -threads 10
 ```
 
 ```{sh, eval=FALSE}

@@ -624,3 +624,11 @@ ggplot(covs) +
   geom_point(aes(x=V1, y=V2, fill=Loc), pch=21) +
   facet_wrap(.~Location)
 ```
+
+
+## Trim FASTQs to 100bp each
+in new-data-trim
+
+module load seqtk
+
+seqtk trimfq -e 100 in.fastq > out.fastq
