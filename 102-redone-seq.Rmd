@@ -42,7 +42,6 @@ write_tsv(c3, file="102.1-batch-rename.sh", col_names = FALSE)
 
 
 ```{sh, eval=FALSE}
-# in split2
 ls | grep RA | perl -pe 's/.fastq//g' > forward
 ls | grep RB | perl -pe 's/.fastq//g' > reverse
 ls | grep RA | perl -pe 's/_RA.fastq//g' > name
@@ -631,4 +630,35 @@ in new-data-trim
 
 module load seqtk
 
-seqtk trimfq -e 100 in.fastq > out.fastq
+seqtk trimfq -e 35 in.fastq > out.fastq
+
+My forward are 135 bp in length theirs are 85, trimming 50 bp
+My reverse are 151 bp in length, theirs are 101, trimming 50 bp
+```{r}
+m1<-read_csv("meta/NightSmLFS_Redband_sampledata.csv") %>% filter(Species %in% c("LarvalLFS","NightSmelt","LongfinSmelt")) %>% 
+  mutate(Prefix=ifelse(Plate=="NightSmelt_LFS_Normalized_1","LFS1_S113_L006","LFS2_S114_L006"))
+
+rename<-m1 %>% mutate(r1=paste0("seqtk trimfq -e 50 data/new-data/",
+                                          `SampleID`,"_RA.fastq > data/new-data-trim/", `SampleID`,"_RA.fastq")) %>% 
+  mutate(r2=paste0("seqtk trimfq -e 50 data/new-data/",
+                         `SampleID`,"_RB.fastq > data/new-data-trim/",`SampleID`,"_RB.fastq"))
+
+r1<- select(rename, r1) %>% rename(Command=r1)
+r2<- select(rename, r2) %>% rename(Command=r2)
+r3 <- bind_rows(r1, r2)
+r3
+write_tsv(r3, "102.2-batch-trim.sh",col_names = FALSE)
+```
+
+
+Trim and re-align
+```{sh, eval=FALSE}
+ls | grep RA | perl -pe 's/.fastq//g' > forward
+ls | grep RB | perl -pe 's/.fastq//g' > reverse
+ls | grep RA | perl -pe 's/_RA.fastq//g' > name
+paste forward reverse name  > samples.txt
+bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa 
+```
+
+m1 has 114 samples.
+
