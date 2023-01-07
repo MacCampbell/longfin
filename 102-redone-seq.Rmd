@@ -311,6 +311,20 @@ srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 36 \
   -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-3 -minMapQ 10 -minQ 20 -minMaf 0.05 \
   -rf $HOME/delta-smelt/metadata/large-contigs.txt  -minInd 88 \
   -out $HOME/longfin/outputs/102/175-sub50> outputs/102/beagle50.out 2> outputs/102/beagle50.err &
+
+
+   
+srun -p bigmemh -t 8:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 36 \
+  -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+  -bam $HOME/longfin/bamlists/175-sub.bamlist -GL 1 -r lg01 \
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-3 -minMapQ 10 -minQ 20 -minMaf 0.05 \
+  -minInd 149 \
+  -out $HOME/longfin/outputs/102/175-sub95> outputs/102/beagle95.out 2> outputs/102/beagle95.err &
+
+#  -rf $HOME/delta-smelt/metadata/large-contigs.txt
+#lg01 has 0 sites at 0.95
+#lg01 has 0 sites at 0.9
+#lg01 has sites at 0.85
   
 srun -p high -t 01:00:00 --nodes=1 python $HOME/pcangsd/pcangsd.py -beagle outputs/102/175-sub50.beagle.gz \
    -admix -o outputs/102/175-sub50-pca -threads 10

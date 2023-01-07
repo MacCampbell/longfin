@@ -631,6 +631,8 @@ plate23<-dat[(!startsWith(dat$Sample, "HS2253")),]
 plate23<-plate23 %>% separate(Sample, into = c("p1","p2","Barcode"), remove=FALSE) %>% mutate(Plate=paste0(p1,"-",p2)) %>% select(-p1,-p2)
 
 plates<-bind_rows(plate1, plate23)
+
+
 ```
 
 ```{r}
