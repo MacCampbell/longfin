@@ -135,6 +135,13 @@ srun -p high -t 02:00:00 --nodes=1 parallel -j 10 < 105.1-downsample.sh > output
 ```{r}
 m192<-m3 %>% filter(Dedup > 2e5)
 write_tsv(m192 %>% select(Path), col_names = FALSE, "bamlists/192.bamlist")
+
+names<-read_tsv("meta/non-lfs.tsv")
+names$Sample<-gsub("HS2253_AGTCAA","plate-1",names$Sample)
+m155<-m3 %>% filter(!(Sample %in% names$Sample)) 
+
+write_tsv(m155 %>% select(Path), col_names = FALSE, "bamlists/155.bamlist")
+
 ```
 
      
@@ -144,9 +151,92 @@ srun -p high -t 14:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 8 \
   -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
   -bam $HOME/longfin/bamlists/192.bamlist -GL 1 \
   -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -minMaf 0.05 \
-  -r lg01
+  -r lg01 \
    -minInd 144 \
-  -out $HOME/longfin/outputs/105-beagles > outputs/105/beagle-contigs.out 2> outputs/105/beagle-contigs.err &
+  -out $HOME/longfin/outputs/105-beagle > outputs/105/beagle-contigs.out 2> outputs/105/beagle-contigs.err &
 ```
 
--rf $HOME/delta-smelt/metadata/large-contigs.txt     
+-rf $HOME/delta-smelt/metadata/large-contigs.txt  
+   
+-r lg01 9420 sites
+
+```{sh, eval=FALSE}
+python $HOME/pcangsd/pcangsd.py -beagle outputs/105-beagle.beagle.gz \
+   -admix -o outputs/105/192-pca -threads 10
+```
+
+
+
+
+```{r}
+cov<-read_delim("outputs/105/192-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
+```{r}
+#' @param samples character vector with the individuals IDs in the order in which
+#' they were passed in the bamlist to angsd.
+#' @param cov covariance matrix
+covar2pcs <- function(samples, cov) {
+  
+  
+  eig <- eigen(cov, symm = TRUE)
+  PC <- as.data.frame(eig$vectors) %>%
+    as_tibble() %>%
+    setNames(sprintf("PC-%02d", 1:ncol(.)))
+  
+  samtib <- tibble(sample = samples)
+  
+  list(
+    PCs = bind_cols(samtib, PC),
+    eigevalues = eig$values
+  )
+}
+```
+
+```{r}
+meta<-m192
+pca <- covar2pcs(meta$Sample, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+pp_meta <- pca_pairs %>%   # just keep the first 6 PCs around
+  left_join(., meta, by = c("sample" = "Sample")) 
+```
+
+Plot    
+
+```{r}
+npc <- 3
+pp_meta2 <- pp_meta %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) )
+
+eig <- eigen(cov, symm = TRUE)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+```
+
+```{r}
+ggplot(pp_meta2, aes(x = val_x, y = val_y)) +
+  geom_point() +
+  facet_grid(PCx ~ PCy)
+```
+
+Now to remove non-longfin from data
