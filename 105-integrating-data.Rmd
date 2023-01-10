@@ -25,6 +25,11 @@ existing<-existing %>% filter(Alignment=="New Genome") %>%
 ggplot(existing) + geom_histogram(aes(x=Reads))
 ```
 
+```{r}
+existing %>% summarize(Mean=mean(Reads), Median=median(Reads), max(Reads))
+  
+```
+
 ## New Data
 
 ```{r}
@@ -80,7 +85,7 @@ r3
 write_tsv(r3, "105.1-batch-trim.sh",col_names = FALSE)
 ```
 
-srun -p bigmemh --nodes=1 parallel -j 10 < 105.1-batch-trim.sh > outputs/105/trim.stdout 2> outputs/105/trim.stderr 
+srun -p bigmemh -t 02:00:00 --nodes=1 parallel -j 10 < 105.1-batch-trim.sh > outputs/105/trim.stdout 2> outputs/105/trim.stderr 
 
 Trim and re-align
 ```{sh, eval=FALSE}
@@ -89,4 +94,38 @@ ls | grep RB | perl -pe 's/.fastq//g' > reverse
 ls | grep RA | perl -pe 's/_RA.fastq//g' > name
 paste forward reverse name  > samples.txt
 bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa 
+```
+
+Then downsample!!     
+
+
+```{r}
+reads<-read_csv("outputs/105/alt-trim-reads.txt", col_names=c("Sample","Aligned","Dedup"))
+m2<-rename %>% select(-Sort, -Dedup, -PathRA, -PathRB, -r1, -r2) %>% left_join(reads)
+m2 %>% filter(Dedup > 1e5) %>% 
+  summarize(Mean=mean(Aligned), Median=median(Dedup))
+```
+
+```{r}
+ggplot(m2 %>% filter(Dedup > 1e5)) +
+   geom_histogram(aes(x=Dedup))
+```
+
+Downsample to 1e6
+
+```{r}
+m3<-m2 %>% filter(Dedup > 1e5) %>% mutate(Frac=1e6/Dedup)  %>% 
+  mutate(Path=ifelse(Dedup > 1e6, paste0("data/alt-trim/",Sample,".reduced.bam" ),
+                paste0("data/alt-trim/",Sample,".sort.flt.bam")))
+
+downsample<-m3 %>% filter(Dedup > 1e6 ) %>%
+  mutate(ReductionCommand = paste0("samtools view -bs ",Frac, " ", "/home/maccamp/longfin/data/alt-trim/",
+                                   Sample, ".sort.flt.bam"," > ",
+                                   "/home/maccamp/longfin/data/alt-trim/",
+                                   Sample,".reduced.bam" )) 
+
+write_csv(downsample$ReductionCommand %>% as_tibble(), "105.1-downsample.sh", col_names = FALSE)
+
+
+m3
 ```
