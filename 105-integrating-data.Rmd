@@ -647,7 +647,7 @@ nm$Location
 134 Samples
 
 ```{sh, eval=FALSE}
-srun -p high -t 5:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 12 \
+srun -p high -t 5:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 22 \
   -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
   -bam $HOME/longfin/bamlists/bamlist134.bamlist -GL 1 \
   -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -minMaf 0.05 \
