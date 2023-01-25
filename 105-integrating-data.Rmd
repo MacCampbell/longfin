@@ -301,14 +301,27 @@ srun -p high -t 5:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 12 \
 
 python $HOME/pcangsd/pcangsd.py -beagle outputs/105/260-beagle.beagle.gz \
   -o outputs/105/260-pca -threads 10
+  
+srun -p high -t 5:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 12 \
+  -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+  -bam $HOME/longfin/bamlists/260.bamlist -GL 1 \
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -minMaf 0.05 \
+   -rf $HOME/delta-smelt/metadata/large-contigs.txt  \
+   -minInd 234 \
+  -out $HOME/longfin/outputs/105/260-beagle-90 > outputs/105/260-beagle-contigs.out 2> outputs/105/260-beagle-contigs.err &
+  
+
+python $HOME/pcangsd/pcangsd.py -beagle outputs/105/260-beagle-90.beagle.gz \
+  -o outputs/105/260-pca-90 -threads 10
 ```
 
 -r lg01 2323
 all chroms: 76108
 
+all chroms 90 % 49039     
 
 ```{r}
-cov<-read_delim("outputs/105/260-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+cov<-read_delim("outputs/105/260-pca-90.cov", col_names=FALSE, delim=" ") %>% as.matrix()
 ```
 
 ```{r}
@@ -640,7 +653,7 @@ ggsave("outputs/105/lfs-dsm-reference-k5.jpg")
 #Isolate Nook
 ```{r}
 nm<-meta %>% filter(Location !="New Sequencing")
-write_tsv(nm %>%select(Path), file="bamlists/bamlist134.bamlist")
+write_tsv(nm %>%select(Path), file="bamlists/bamlist134.bamlist", col_names=FALSE)
 nm$Location
 ```
 
@@ -658,4 +671,262 @@ srun -p high -t 5:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 22 \
 
 python $HOME/pcangsd/pcangsd.py -beagle outputs/105/130-beagle.beagle.gz \
   -o outputs/105/130-pca -threads 10
+```
+
+48759 snps
+
+```{r}
+cov<-read_delim("outputs/105/130-pca.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
+```{r}
+meta<-nm
+meta$Location<-factor(meta$Location, levels=c("YBAK","SKNA","HRLC","PTLC","NOOK",
+                                               "LWSH",
+                                              "COLR",
+                                              "HUMB","PETA","ALVS","SUIB","CHPI"))
+
+pca <- covar2pcs(meta$Sample, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+pp_meta <- pca_pairs %>%   # just keep the first 6 PCs around
+  left_join(., meta, by = c("sample" = "Sample")) 
+```
+
+
+```{r}
+npc <- 3
+pp_meta2 <- pp_meta %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  mutate(Origin=ifelse(Location=="New Sequencing","New","Old"))
+
+eig <- eigen(cov, symm = TRUE)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+```
+
+```{r}
+ggplot(pp_meta2, aes(x = val_x, y = val_y)) +
+  geom_point(aes(color=Location)) + 
+  facet_grid(PCx ~ PCy)
+```
+
+```{r}
+sub12<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
+text<- sub12 %>% select(sample,Location,val_x,val_y) %>% group_by(Location) %>%
+  mutate(meanX=mean(val_x), meanY=mean(val_y)) %>% select(Location, meanX, meanY) %>%
+  unique()   
+
+pc12<-ggplot(sub12, aes(x = val_x, y = val_y, color=Location))+
+  geom_point(size = 2, alpha=0.75) +
+  geom_label_repel(data=text, aes(x=meanX, y=meanY, color=Location,
+                                  label=Location), max.overlaps = Inf) +
+  scale_fill_discrete(na.value = "white") + 
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  theme(plot.title = element_text(hjust = 0.5)) 
+
+sub13<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
+text13<- sub13 %>% select(sample,Location,val_x,val_y) %>% group_by(Location) %>%
+  mutate(meanX=mean(val_x), meanY=mean(val_y)) %>% select(Location, meanX, meanY) %>%
+  unique()   
+
+pc13<-ggplot(sub13, aes(x = val_x, y = val_y, color = Location)) +
+  geom_point(size = 2, alpha=0.75) +
+   geom_label_repel(data=text13, aes(x=meanX, y=meanY, color=Location,
+                                  label=Location), max.overlaps = Inf) +
+  scale_fill_discrete(na.value = "white") + 
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = ""))+
+  theme(plot.title = element_text(hjust = 0.5)) 
+
+pcs<-ggarrange(pc12, pc13, ncol= 2, widths=c(1,1.5))
+pcs
+
+ggsave("outputs/105/saglam-nooksack-pcs.jpeg")
+```
+
+```{sh, eval=FALSE}
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/105/130-beagle.beagle.gz -K 2 -o outputs/105/130-K2
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/105/130-beagle.beagle.gz -K 3 -o outputs/105/130-K3
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/105/130-beagle.beagle.gz -K 4 -o outputs/105/130-K4
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/105/130-beagle.beagle.gz -K 5 -o outputs/105/130-K5
+
+```
+
+#### k2
+
+```{r}
+q2<-read_delim("outputs/105/130-K2.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2) %>%
+  rename(Q1=X1, Q2=X2)
+
+df2<-bind_cols(q2, meta)            
+
+q2s<-df2 %>% select(Location, Sample, Q1, Q2) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:4) %>% mutate(K=2)
+
+pops2<-q2s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p2 <- ggplot(q2s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 2") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p2
+
+ggsave("outputs/105/sag-nook-dsm-reference-k2.jpg")
+```
+
+
+```{r}
+q3<-read_delim("outputs/105/130-K3.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3)
+
+df3<-bind_cols(q3, meta)            
+
+q3s<-df3 %>% select(Location, Sample, Q1, Q2, Q3) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:5) %>% mutate(K=3)
+
+pops3<-q3s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p3 <- ggplot(q3s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 3") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p3
+
+ggsave("outputs/105/sag-nook-dsm-reference-k3.jpg")
+```
+
+
+
+```{r}
+q4<-read_delim("outputs/105/130-K4.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4)
+
+df4<-bind_cols(q4, meta)            
+
+q4s<-df4 %>% select(Location, Sample, Q1, Q2, Q3, Q4) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:6) %>% mutate(K=4)
+
+pops4<-q4s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p4 <- ggplot(q4s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 4") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p4
+
+ggsave("outputs/105/sag-nook-dsm-reference-k4.jpg")
+```
+
+```{r}
+q5<-read_delim("outputs/105/130-K5.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4, X5) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4, Q5=X5)
+
+df5<-bind_cols(q5, meta)            
+
+q5s<-df5 %>% select(Location, Sample, Q1, Q2, Q3, Q4, Q5) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:7) %>% mutate(K=5)
+
+pops4<-q4s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p5 <- ggplot(q5s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 5") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p5
+
+ggsave("outputs/105/sag-nook-dsm-reference-k5.jpg")
 ```
