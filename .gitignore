@@ -4,6 +4,7 @@
 /bams/
 /data/
 
+*.DS_Store
 
 # History files
 .Rhistory
