@@ -181,11 +181,174 @@ ggsave("outputs/106/combined-pca-260.jpeg", width=10)
 ```
 
 ```{sh, eval=FALSE}
-srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgs.beagle.beagle.gz -K 2 -o outputs/106/260-lgs.K2
-srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgsb.eagle.beagle.gz -K 3 -o outputs/106/260-lgs.K3
-srun -p     high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgs.beagle.beagle.gz -K 4 -o outputs/106/260-lgs.K4
-srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgs.beagle.beagle.gz -K 5 -o outputs/106/260-lgs.K5
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgs.beagle.gz -K 2 -o outputs/106/260-lgs.K2 &
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgs.beagle.gz -K 3 -o outputs/106/260-lgs.K3 &
+srun -p  high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgs.beagle.gz -K 4 -o outputs/106/260-lgs.K4 &
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/106/260-lgs.beagle.gz -K 5 -o outputs/106/260-lgs.K5 &
 
+```
+
+
+
+```{r}
+q2<-read_delim("outputs/106/260-lgs.K2.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2) %>%
+  rename(Q1=X1, Q2=X2)
+
+df2<-bind_cols(q2, meta)            
+
+q2s<-df2 %>% select(Location, Sample, Q1, Q2) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:4) %>% mutate(K=2)
+
+pops2<-q2s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p2 <- ggplot(q2s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 2") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p2
+
+ggsave("outputs/106/lfs-dsm-reference-k2.jpg")
+```
+
+```{r}
+q3<-read_delim("outputs/106/260-lgs.K3.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3)
+
+df3<-bind_cols(q3, meta)            
+
+q3s<-df3 %>% select(Location, Sample, Q1, Q2, Q3) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:5) %>% mutate(K=3)
+
+pops3<-q3s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p3 <- ggplot(q3s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 3") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p3
+
+ggsave("outputs/106/lfs-dsm-reference-k3.jpg")
+```
+
+
+```{r}
+q4<-read_delim("outputs/106/260-lgs.K4.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4)
+
+df4<-bind_cols(q4, meta)            
+
+q4s<-df4 %>% select(Location, Sample, Q1, Q2, Q3, Q4) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:6) %>% mutate(K=4)
+
+pops4<-q4s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p4 <- ggplot(q4s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 4") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p4
+
+ggsave("outputs/106/lfs-dsm-reference-k4.jpg")
+```
+
+```{r}
+q5<-read_delim("outputs/106/260-lgs.K5.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4, X5) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4, Q5=X5)
+
+df5<-bind_cols(q5, meta)            
+
+q5s<-df5 %>% select(Location, Sample, Q1, Q2, Q3, Q4, Q5) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:7) %>% mutate(K=5)
+
+pops5<-q5s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p5 <- ggplot(q5s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 5") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p5
+
+ggsave("outputs/106/lfs-dsm-reference-k5.jpg")
 ```
 
 ## Phylogeny
@@ -198,23 +361,70 @@ night<-read_csv("meta/non-lfs-meta.csv") %>% filter(Species %in% c("Whitebait Sm
 
 phylo<-bind_rows(meta,night)
 write_tsv(phylo %>% select(Path), col_names =FALSE, file="bamlists/phylo271.bamlist")
+write_tsv(phylo %>% select(Sample), col_names =FALSE, file="bamlists/phylo271.names")
+
 ```
 
 Gives us 11 fish. 271 total
+-rf $HOME/longfin/outputs/106/lgs.txt  \
 
 ```{sh, eval=FALSE}
-srun -p high -t 38:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
+srun -p high -t 02:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
+-bam bamlists/phylo271.bamlist \
+-out /home/maccamp/longfin/outputs/106/plink-lg01 \
+-anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-r lg01 \
+-minInd 244 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/106/plink.out 2>outputs/106/plink.stderr &
+
+#342 sites
+
+srun -p high -t 12:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
 -bam bamlists/phylo271.bamlist \
 -out /home/maccamp/longfin/outputs/106/plink \
+-anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-rf $HOME/delta-smelt/metadata/large-contigs.txt  \
+-minInd 244 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/106/plink.out 2>outputs/106/plink.stderr &
+
+
+#no ogs, 260 individuals
+
+srun -p high -t 12:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
+-bam bamlists/260.bamlist \
+-out /home/maccamp/longfin/outputs/106/plink-260 \
+-anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+-rf $HOME/delta-smelt/metadata/large-contigs.txt  \
+-minInd 234 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/106/plink-260.out 2>outputs/106/plink-260.stderr &
+
+#next, can restrict to certain sites
+
+srun -p high -t 38:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
+-bam bamlists/phylo271.bamlist \
+-out /home/maccamp/longfin/outputs/106/plink-sites \
 -anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
 -rf $HOME/longfin/outputs/106/lgs.txt  \
 -minInd 244 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
 -doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/106/plink.out 2>outputs/106/plink.stderr &
 
-#next, can restrict to certain sites
+```
+
+```{sh, eval=FALSE}
+plink --tped plink.tped --tfam plink.tfam  --out binary --recode --allow-extra-chr --noweb
+plink --ped binary.ped --map binary.map --recode vcf --allow-extra-chr -out recode
+module load bcftools
+bcftools +prune -m 0.6 -w 10000 recode.vcf  -Ov -o recode.prune.vcf
+bcftools reheader --samples ../../bamlists/phylo271.names -o recode.prune.reheadered.vcf recode.prune.vcf
+
+source activate py2; ~/mccloud-rrt/vcf2phylip.py -i recode.prune.reheadered.vcf; conda deactivate;
+
+#mv recode.prune.reheadered.min4.phy lg01.phy
 ```
 
 
+dat<-read.nexus.data(file="outputs/202/svdq/259-svdq.nex")
+write.nexus.data(dat, file="outputs/203/259-forsplits.nex")
 ## With NOOK only
 
 ```{sh, eval=FALSE}
