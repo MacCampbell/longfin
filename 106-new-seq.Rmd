@@ -22,6 +22,14 @@ meta$Location<-factor(meta$Location, levels=c("YBAK","SKNA","PTLC","HRLC","FRAS"
                                          "New Sequencing"))
 
 meta
+
+write_tsv(meta %>% select(Sample), file="bamlists/260.names",col_names = FALSE)
+
+
+m154<-meta %>% group_by(Location) %>% top_n(20, Dedup)
+write_tsv(m154 %>% select(Path), file="bamlists/154.bamlist",col_names = FALSE)
+write_tsv(m154 %>% select(Sample), file="bamlists/154.names",col_names = FALSE)
+
 ```
 ## Have seqs
 
@@ -411,11 +419,13 @@ srun -p high -t 38:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
 ```
 
 ```{sh, eval=FALSE}
-plink --tped plink.tped --tfam plink.tfam  --out binary --recode --allow-extra-chr --noweb
+plink --tped plink-260.tped --tfam plink-260.tfam  --out binary --recode --allow-extra-chr --noweb
 plink --ped binary.ped --map binary.map --recode vcf --allow-extra-chr -out recode
 module load bcftools
 bcftools +prune -m 0.6 -w 10000 recode.vcf  -Ov -o recode.prune.vcf
-bcftools reheader --samples ../../bamlists/phylo271.names -o recode.prune.reheadered.vcf recode.prune.vcf
+bcftools reheader --samples ../../bamlists/260.names -o recode.prune.reheadered.vcf recode.prune.vcf
+
+#bcftools reheader --samples ../../bamlists/phylo271.names -o recode.prune.reheadered.vcf recode.prune.vcf
 
 source activate py2; ~/mccloud-rrt/vcf2phylip.py -i recode.prune.reheadered.vcf; conda deactivate;
 
