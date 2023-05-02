@@ -558,3 +558,155 @@ srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes output
 ```
 
 
+
+```{r}
+meta<-m134
+q2<-read_delim("outputs/106/134-lgs.K2.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2) %>%
+  rename(Q1=X1, Q2=X2)
+
+df2<-bind_cols(q2, meta)            
+
+q2s<-df2 %>% select(Location, Sample, Q1, Q2) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:4) %>% mutate(K=2)
+
+pops2<-q2s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p2 <- ggplot(q2s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 2") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p2
+
+ggsave("outputs/106/sag-nook-dsm-reference-k2.jpg")
+```
+
+
+```{r}
+q3<-read_delim("outputs/106/134-lgs.K3.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3)
+
+df3<-bind_cols(q3, meta)            
+
+q3s<-df3 %>% select(Location, Sample, Q1, Q2, Q3) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:5) %>% mutate(K=3)
+
+pops3<-q3s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p3 <- ggplot(q3s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 3") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p3
+
+ggsave("outputs/106/sag-nook-dsm-reference-k3.jpg")
+```
+
+
+
+```{r}
+q4<-read_delim("outputs/106/134-lgs.K4.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4)
+
+df4<-bind_cols(q4, meta)            
+
+q4s<-df4 %>% select(Location, Sample, Q1, Q2, Q3, Q4) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:6) %>% mutate(K=4)
+
+pops4<-q4s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p4 <- ggplot(q4s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 4") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p4
+
+ggsave("outputs/106/sag-nook-dsm-reference-k4.jpg")
+```
+
+```{r}
+q5<-read_delim("outputs/106/134-lgs.K5.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4, X5) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4, Q5=X5)
+
+df5<-bind_cols(q5, meta)            
+
+q5s<-df5 %>% select(Location, Sample, Q1, Q2, Q3, Q4, Q5) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:7) %>% mutate(K=5)
+
+pops4<-q4s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+p5 <- ggplot(q5s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 5") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p5
+
+ggsave("outputs/106/sag-nook-dsm-reference-k5.jpg")
+```
