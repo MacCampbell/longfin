@@ -89,13 +89,15 @@ write_tsv(r3, "105.1-batch-trim.sh",col_names = FALSE)
 
 srun -p bigmemh -t 02:00:00 --nodes=1 parallel -j 10 < 105.1-batch-trim.sh > outputs/105/trim.stdout 2> outputs/105/trim.stderr 
 
-Trim and re-align
+Trim and re-align in data/trim     
+
 ```{sh, eval=FALSE}
 ls | grep RA | perl -pe 's/.fastq//g' > forward
 ls | grep RB | perl -pe 's/.fastq//g' > reverse
 ls | grep RA | perl -pe 's/_RA.fastq//g' > name
 paste forward reverse name  > samples.txt
-bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa 
+
+bash $HOME/missouri-trout/doAlign-unzipped.sh samples.txt $HOME/mccloud-rrt/genome/omyV6Chr.fasta 
 ```
 
 Then downsample!!     
@@ -430,6 +432,8 @@ meta$Location<-factor(meta$Loc, levels=c("YBAK","SKNA","PTLC","HRLC","FRAS","LWS
                                               "NOOK","COLR",
                                               "HUMB","PETA","ALVS","SUIB","CHPI",
                                          "New Sequencing"))
+
+write_csv(meta, file="meta/meta260.csv")
 
 ```
 

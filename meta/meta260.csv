@@ -1,0 +1,261 @@
+Sample,Location,Dedup,Path,Loc
+ALVS_091,ALVS,498802,/home/maccamp/data/longfin/ALVS_091_R1.sort.flt.bam,ALVS
+ALVS_092,ALVS,225523,/home/maccamp/data/longfin/ALVS_092_R1.sort.flt.bam,ALVS
+ALVS_093,ALVS,371449,/home/maccamp/data/longfin/ALVS_093_R1.sort.flt.bam,ALVS
+ALVS_094,ALVS,438541,/home/maccamp/data/longfin/ALVS_094_R1.sort.flt.bam,ALVS
+ALVS_095,ALVS,433426,/home/maccamp/data/longfin/ALVS_095_R1.sort.flt.bam,ALVS
+ALVS_096,ALVS,457538,/home/maccamp/data/longfin/ALVS_096_R1.sort.flt.bam,ALVS
+ALVS_097,ALVS,515777,/home/maccamp/data/longfin/ALVS_097_R1.sort.flt.bam,ALVS
+ALVS_098,ALVS,676628,/home/maccamp/data/longfin/ALVS_098_R1.sort.flt.bam,ALVS
+ALVS_099,ALVS,482317,/home/maccamp/data/longfin/ALVS_099_R1.sort.flt.bam,ALVS
+ALVS_100,ALVS,404365,/home/maccamp/data/longfin/ALVS_100_R1.sort.flt.bam,ALVS
+ALVS_101,ALVS,554217,/home/maccamp/data/longfin/ALVS_101_R1.sort.flt.bam,ALVS
+ALVS_102,ALVS,264557,/home/maccamp/data/longfin/ALVS_102_R1.sort.flt.bam,ALVS
+CHPI_703,CHPI,280535,/home/maccamp/data/longfin/CHPI_703_R1.sort.flt.bam,CHPI
+CHPI_707,CHPI,700365,/home/maccamp/data/longfin/CHPI_707_R1.sort.flt.bam,CHPI
+CHPI_725,CHPI,514296,/home/maccamp/data/longfin/CHPI_725_R1.sort.flt.bam,CHPI
+CHPI_735,CHPI,584538,/home/maccamp/data/longfin/CHPI_735_R1.sort.flt.bam,CHPI
+CHPI_916,CHPI,716229,/home/maccamp/data/longfin/CHPI_916_R1.sort.flt.bam,CHPI
+CHPI_924,CHPI,457434,/home/maccamp/data/longfin/CHPI_924_R1.sort.flt.bam,CHPI
+CHPI_925,CHPI,250910,/home/maccamp/data/longfin/CHPI_925_R1.sort.flt.bam,CHPI
+COLR_001,COLR,258297,/home/maccamp/data/longfin/COLR_001_R1.sort.flt.bam,COLR
+COLR_007,COLR,296521,/home/maccamp/data/longfin/COLR_007_R1.sort.flt.bam,COLR
+COLR_030,COLR,1433654,/home/maccamp/data/longfin/COLR_030_R1.sort.flt.bam,COLR
+COLR_031,COLR,247932,/home/maccamp/data/longfin/COLR_031_R1.sort.flt.bam,COLR
+COLR_032,COLR,726471,/home/maccamp/data/longfin/COLR_032_R1.sort.flt.bam,COLR
+COLR_033,COLR,306723,/home/maccamp/data/longfin/COLR_033_R1.sort.flt.bam,COLR
+COLR_035,COLR,327624,/home/maccamp/data/longfin/COLR_035_R1.sort.flt.bam,COLR
+HRLC_001,HRLC,309026,/home/maccamp/data/longfin/HRLC_001_R1.sort.flt.bam,HRLC
+HRLC_266,HRLC,310382,/home/maccamp/data/longfin/HRLC_266_R1.sort.flt.bam,HRLC
+HRLC_271,HRLC,549193,/home/maccamp/data/longfin/HRLC_271_R1.sort.flt.bam,HRLC
+HRLC_272,HRLC,474948,/home/maccamp/data/longfin/HRLC_272_R1.sort.flt.bam,HRLC
+HRLC_274,HRLC,484484,/home/maccamp/data/longfin/HRLC_274_R1.sort.flt.bam,HRLC
+HUMB_001,HUMB,1658489,/home/maccamp/data/longfin/HUMB_001_R1.sort.flt.bam,HUMB
+HUMB_002,HUMB,2829442,/home/maccamp/data/longfin/HUMB_002_R1.sort.flt.bam,HUMB
+HUMB_003,HUMB,2349005,/home/maccamp/data/longfin/HUMB_003_R1.sort.flt.bam,HUMB
+HUMB_004,HUMB,1433887,/home/maccamp/data/longfin/HUMB_004_R1.sort.flt.bam,HUMB
+HUMB_005,HUMB,1916198,/home/maccamp/data/longfin/HUMB_005_R1.sort.flt.bam,HUMB
+HUMB_006,HUMB,2079840,/home/maccamp/data/longfin/HUMB_006_R1.sort.flt.bam,HUMB
+HUMB_007,HUMB,1686615,/home/maccamp/data/longfin/HUMB_007_R1.sort.flt.bam,HUMB
+HUMB_008,HUMB,1237057,/home/maccamp/data/longfin/HUMB_008_R1.sort.flt.bam,HUMB
+LWSH_037,LWSH,1240081,/home/maccamp/data/longfin/LWSH_037_R1.sort.flt.bam,LWSH
+LWSH_040,LWSH,537534,/home/maccamp/data/longfin/LWSH_040_R1.sort.flt.bam,LWSH
+LWSH_042,LWSH,461191,/home/maccamp/data/longfin/LWSH_042_R1.sort.flt.bam,LWSH
+LWSH_050,LWSH,212708,/home/maccamp/data/longfin/LWSH_050_R1.sort.flt.bam,LWSH
+LWSH_051,LWSH,374500,/home/maccamp/data/longfin/LWSH_051_R1.sort.flt.bam,LWSH
+LWSH_052,LWSH,511068,/home/maccamp/data/longfin/LWSH_052_R1.sort.flt.bam,LWSH
+LWSH_053,LWSH,1945314,/home/maccamp/data/longfin/LWSH_053_R1.sort.flt.bam,LWSH
+LWSH_057,LWSH,794991,/home/maccamp/data/longfin/LWSH_057_R1.sort.flt.bam,LWSH
+LWSH_058,LWSH,1236615,/home/maccamp/data/longfin/LWSH_058_R1.sort.flt.bam,LWSH
+LWSH_060,LWSH,829514,/home/maccamp/data/longfin/LWSH_060_R1.sort.flt.bam,LWSH
+LWSH_068,LWSH,1957174,/home/maccamp/data/longfin/LWSH_068_R1.sort.flt.bam,LWSH
+LWSH_076,LWSH,1572599,/home/maccamp/data/longfin/LWSH_076_R1.sort.flt.bam,LWSH
+LWSH_080,LWSH,1003439,/home/maccamp/data/longfin/LWSH_080_R1.sort.flt.bam,LWSH
+LWSH_084,LWSH,226257,/home/maccamp/data/longfin/LWSH_084_R1.sort.flt.bam,LWSH
+LWSH_090,LWSH,464301,/home/maccamp/data/longfin/LWSH_090_R1.sort.flt.bam,LWSH
+LWSH_091,LWSH,1015463,/home/maccamp/data/longfin/LWSH_091_R1.sort.flt.bam,LWSH
+LWSH_102,LWSH,855992,/home/maccamp/data/longfin/LWSH_102_R1.sort.flt.bam,LWSH
+PETA_064,PETA,275687,/home/maccamp/data/longfin/PETA_064_R1.sort.flt.bam,PETA
+PETA_065,PETA,737210,/home/maccamp/data/longfin/PETA_065_R1.sort.flt.bam,PETA
+PETA_066,PETA,284840,/home/maccamp/data/longfin/PETA_066_R1.sort.flt.bam,PETA
+PETA_067,PETA,543833,/home/maccamp/data/longfin/PETA_067_R1.sort.flt.bam,PETA
+PETA_068,PETA,616978,/home/maccamp/data/longfin/PETA_068_R1.sort.flt.bam,PETA
+PETA_069,PETA,662145,/home/maccamp/data/longfin/PETA_069_R1.sort.flt.bam,PETA
+PTLC_016,PTLC,280764,/home/maccamp/data/longfin/PTLC_016_R1.sort.flt.bam,PTLC
+PTLC_021,PTLC,352020,/home/maccamp/data/longfin/PTLC_021_R1.sort.flt.bam,PTLC
+PTLC_022,PTLC,328503,/home/maccamp/data/longfin/PTLC_022_R1.sort.flt.bam,PTLC
+PTLC_024,PTLC,345180,/home/maccamp/data/longfin/PTLC_024_R1.sort.flt.bam,PTLC
+SKNA_043,SKNA,311513,/home/maccamp/data/longfin/SKNA_043_R1.sort.flt.bam,SKNA
+SKNA_044,SKNA,378749,/home/maccamp/data/longfin/SKNA_044_R1.sort.flt.bam,SKNA
+SKNA_045,SKNA,1213414,/home/maccamp/data/longfin/SKNA_045_R1.sort.flt.bam,SKNA
+SKNA_046,SKNA,1587961,/home/maccamp/data/longfin/SKNA_046_R1.sort.flt.bam,SKNA
+SKNA_047,SKNA,794029,/home/maccamp/data/longfin/SKNA_047_R1.sort.flt.bam,SKNA
+SKNA_048,SKNA,1083029,/home/maccamp/data/longfin/SKNA_048_R1.sort.flt.bam,SKNA
+SKNA_050,SKNA,1051398,/home/maccamp/data/longfin/SKNA_050_R1.sort.flt.bam,SKNA
+SKNA_051,SKNA,1400257,/home/maccamp/data/longfin/SKNA_051_R1.sort.flt.bam,SKNA
+SKNA_052,SKNA,1221981,/home/maccamp/data/longfin/SKNA_052_R1.sort.flt.bam,SKNA
+SUIB_014,SUIB,759415,/home/maccamp/data/longfin/SUIB_014_R1.sort.flt.bam,SUIB
+SUIB_015,SUIB,1283054,/home/maccamp/data/longfin/SUIB_015_R1.sort.flt.bam,SUIB
+SUIB_016,SUIB,1355966,/home/maccamp/data/longfin/SUIB_016_R1.sort.flt.bam,SUIB
+SUIB_017,SUIB,832049,/home/maccamp/data/longfin/SUIB_017_R1.sort.flt.bam,SUIB
+SUIB_018,SUIB,374368,/home/maccamp/data/longfin/SUIB_018_R1.sort.flt.bam,SUIB
+SUIB_019,SUIB,940355,/home/maccamp/data/longfin/SUIB_019_R1.sort.flt.bam,SUIB
+SUIB_020,SUIB,932247,/home/maccamp/data/longfin/SUIB_020_R1.sort.flt.bam,SUIB
+SUIB_021,SUIB,1156152,/home/maccamp/data/longfin/SUIB_021_R1.sort.flt.bam,SUIB
+SUIB_023,SUIB,929726,/home/maccamp/data/longfin/SUIB_023_R1.sort.flt.bam,SUIB
+SUIB_024,SUIB,1186987,/home/maccamp/data/longfin/SUIB_024_R1.sort.flt.bam,SUIB
+SUIB_028,SUIB,1080515,/home/maccamp/data/longfin/SUIB_028_R1.sort.flt.bam,SUIB
+SUIB_029,SUIB,947433,/home/maccamp/data/longfin/SUIB_029_R1.sort.flt.bam,SUIB
+SUIB_030,SUIB,1357408,/home/maccamp/data/longfin/SUIB_030_R1.sort.flt.bam,SUIB
+SUIB_031,SUIB,482900,/home/maccamp/data/longfin/SUIB_031_R1.sort.flt.bam,SUIB
+SUIB_033,SUIB,846282,/home/maccamp/data/longfin/SUIB_033_R1.sort.flt.bam,SUIB
+SUIB_040,SUIB,645855,/home/maccamp/data/longfin/SUIB_040_R1.sort.flt.bam,SUIB
+SUIB_042,SUIB,634433,/home/maccamp/data/longfin/SUIB_042_R1.sort.flt.bam,SUIB
+SUIB_043,SUIB,846824,/home/maccamp/data/longfin/SUIB_043_R1.sort.flt.bam,SUIB
+SUIB_044,SUIB,993165,/home/maccamp/data/longfin/SUIB_044_R1.sort.flt.bam,SUIB
+SUIB_046,SUIB,802692,/home/maccamp/data/longfin/SUIB_046_R1.sort.flt.bam,SUIB
+YBAK_001,YBAK,611498,/home/maccamp/data/longfin/YBAK_001_R1.sort.flt.bam,YBAK
+YBAK_002,YBAK,1392621,/home/maccamp/data/longfin/YBAK_002_R1.sort.flt.bam,YBAK
+YBAK_003,YBAK,785231,/home/maccamp/data/longfin/YBAK_003_R1.sort.flt.bam,YBAK
+YBAK_005,YBAK,1380147,/home/maccamp/data/longfin/YBAK_005_R1.sort.flt.bam,YBAK
+YBAK_006,YBAK,1086259,/home/maccamp/data/longfin/YBAK_006_R1.sort.flt.bam,YBAK
+YBAK_007,YBAK,1221365,/home/maccamp/data/longfin/YBAK_007_R1.sort.flt.bam,YBAK
+YBAK_008,YBAK,1264087,/home/maccamp/data/longfin/YBAK_008_R1.sort.flt.bam,YBAK
+YBAK_009,YBAK,1203149,/home/maccamp/data/longfin/YBAK_009_R1.sort.flt.bam,YBAK
+YBAK_010,YBAK,1155217,/home/maccamp/data/longfin/YBAK_010_R1.sort.flt.bam,YBAK
+YBAK_011,YBAK,841957,/home/maccamp/data/longfin/YBAK_011_R1.sort.flt.bam,YBAK
+YBAK_012,YBAK,668683,/home/maccamp/data/longfin/YBAK_012_R1.sort.flt.bam,YBAK
+YBAK_014,YBAK,734572,/home/maccamp/data/longfin/YBAK_014_R1.sort.flt.bam,YBAK
+YBAK_015,YBAK,1211705,/home/maccamp/data/longfin/YBAK_015_R1.sort.flt.bam,YBAK
+YBAK_016,YBAK,1392226,/home/maccamp/data/longfin/YBAK_016_R1.sort.flt.bam,YBAK
+YBAK_017,YBAK,1254641,/home/maccamp/data/longfin/YBAK_017_R1.sort.flt.bam,YBAK
+YBAK_018,YBAK,1270060,/home/maccamp/data/longfin/YBAK_018_R1.sort.flt.bam,YBAK
+YBAK_020,YBAK,1239618,/home/maccamp/data/longfin/YBAK_020_R1.sort.flt.bam,YBAK
+YBAK_021,YBAK,1154727,/home/maccamp/data/longfin/YBAK_021_R1.sort.flt.bam,YBAK
+YBAK_022,YBAK,660810,/home/maccamp/data/longfin/YBAK_022_R1.sort.flt.bam,YBAK
+YBAK_023,YBAK,649354,/home/maccamp/data/longfin/YBAK_023_R1.sort.flt.bam,YBAK
+plate-1-AAACATCG,New Sequencing,2370431,data/alt-trim/plate-1-AAACATCG.reduced.bam,New Sequencing
+plate-1-AACCGAGA,New Sequencing,1572619,data/alt-trim/plate-1-AACCGAGA.reduced.bam,New Sequencing
+plate-1-AACGAACG,NOOK,300773,data/alt-trim/plate-1-AACGAACG.sort.flt.bam,NOOK
+plate-1-AACGCTTA,New Sequencing,2205935,data/alt-trim/plate-1-AACGCTTA.reduced.bam,New Sequencing
+plate-1-AAGAGATC,NOOK,735026,data/alt-trim/plate-1-AAGAGATC.sort.flt.bam,NOOK
+plate-1-AAGGACAC,New Sequencing,1482195,data/alt-trim/plate-1-AAGGACAC.reduced.bam,New Sequencing
+plate-1-AATCCGTC,New Sequencing,2441801,data/alt-trim/plate-1-AATCCGTC.reduced.bam,New Sequencing
+plate-1-ACACGAGA,NOOK,399213,data/alt-trim/plate-1-ACACGAGA.sort.flt.bam,NOOK
+plate-1-ACACTGAC,New Sequencing,1525474,data/alt-trim/plate-1-ACACTGAC.reduced.bam,New Sequencing
+plate-1-ACATTGGC,New Sequencing,1905133,data/alt-trim/plate-1-ACATTGGC.reduced.bam,New Sequencing
+plate-1-ACGACAAG,NOOK,562044,data/alt-trim/plate-1-ACGACAAG.sort.flt.bam,NOOK
+plate-1-ACGCTCGA,NOOK,450998,data/alt-trim/plate-1-ACGCTCGA.sort.flt.bam,NOOK
+plate-1-ACGTATCA,NOOK,558153,data/alt-trim/plate-1-ACGTATCA.sort.flt.bam,NOOK
+plate-1-ACTATGCA,New Sequencing,1282142,data/alt-trim/plate-1-ACTATGCA.reduced.bam,New Sequencing
+plate-1-AGAGTCAA,New Sequencing,1886685,data/alt-trim/plate-1-AGAGTCAA.reduced.bam,New Sequencing
+plate-1-AGCAGGAA,New Sequencing,1841434,data/alt-trim/plate-1-AGCAGGAA.reduced.bam,New Sequencing
+plate-1-AGTACAAG,NOOK,739821,data/alt-trim/plate-1-AGTACAAG.sort.flt.bam,NOOK
+plate-1-AGTCACTA,New Sequencing,2071507,data/alt-trim/plate-1-AGTCACTA.reduced.bam,New Sequencing
+plate-1-AGTGGTCA,New Sequencing,851303,data/alt-trim/plate-1-AGTGGTCA.sort.flt.bam,New Sequencing
+plate-1-ATAGCGAC,NOOK,478550,data/alt-trim/plate-1-ATAGCGAC.sort.flt.bam,NOOK
+plate-1-ATTGGCTC,New Sequencing,1026147,data/alt-trim/plate-1-ATTGGCTC.reduced.bam,New Sequencing
+plate-1-CAAGGAGC,New Sequencing,1891511,data/alt-trim/plate-1-CAAGGAGC.reduced.bam,New Sequencing
+plate-1-CAATGGAA,NOOK,429504,data/alt-trim/plate-1-CAATGGAA.sort.flt.bam,NOOK
+plate-1-CACCTTAC,New Sequencing,1528924,data/alt-trim/plate-1-CACCTTAC.reduced.bam,New Sequencing
+plate-1-CACTTCGA,NOOK,449446,data/alt-trim/plate-1-CACTTCGA.sort.flt.bam,NOOK
+plate-1-CAGCGTTA,NOOK,453392,data/alt-trim/plate-1-CAGCGTTA.sort.flt.bam,NOOK
+plate-1-CATACCAA,New Sequencing,876486,data/alt-trim/plate-1-CATACCAA.sort.flt.bam,New Sequencing
+plate-1-CATCAAGT,New Sequencing,975371,data/alt-trim/plate-1-CATCAAGT.sort.flt.bam,New Sequencing
+plate-1-CCAGTTCA,New Sequencing,2450505,data/alt-trim/plate-1-CCAGTTCA.reduced.bam,New Sequencing
+plate-1-CCATCCTC,New Sequencing,693381,data/alt-trim/plate-1-CCATCCTC.sort.flt.bam,New Sequencing
+plate-1-CCGACAAC,New Sequencing,1511833,data/alt-trim/plate-1-CCGACAAC.reduced.bam,New Sequencing
+plate-1-CCGTGAGA,New Sequencing,1820386,data/alt-trim/plate-1-CCGTGAGA.reduced.bam,New Sequencing
+plate-1-CCTCCTGA,New Sequencing,1458382,data/alt-trim/plate-1-CCTCCTGA.reduced.bam,New Sequencing
+plate-1-CTGAGCCA,NOOK,327182,data/alt-trim/plate-1-CTGAGCCA.sort.flt.bam,NOOK
+plate-1-CTGGCATA,NOOK,362214,data/alt-trim/plate-1-CTGGCATA.sort.flt.bam,NOOK
+plate-1-GAACAGGC,NOOK,290596,data/alt-trim/plate-1-GAACAGGC.sort.flt.bam,NOOK
+plate-1-GAATCTGA,NOOK,342727,data/alt-trim/plate-1-GAATCTGA.sort.flt.bam,NOOK
+plate-1-GACAGTGC,NOOK,430723,data/alt-trim/plate-1-GACAGTGC.sort.flt.bam,NOOK
+plate-1-GACTAGTA,New Sequencing,1800491,data/alt-trim/plate-1-GACTAGTA.reduced.bam,New Sequencing
+plate-1-GAGCTGAA,New Sequencing,1007872,data/alt-trim/plate-1-GAGCTGAA.reduced.bam,New Sequencing
+plate-1-GAGTTAGC,New Sequencing,1375510,data/alt-trim/plate-1-GAGTTAGC.reduced.bam,New Sequencing
+plate-1-GATGAATC,New Sequencing,827721,data/alt-trim/plate-1-GATGAATC.sort.flt.bam,New Sequencing
+plate-1-GCCAAGAC,New Sequencing,1438006,data/alt-trim/plate-1-GCCAAGAC.reduced.bam,New Sequencing
+plate-1-GCCACATA,New Sequencing,221640,data/alt-trim/plate-1-GCCACATA.sort.flt.bam,New Sequencing
+plate-1-GCGAGTAA,New Sequencing,1089437,data/alt-trim/plate-1-GCGAGTAA.reduced.bam,New Sequencing
+plate-1-GTACGCAA,NOOK,300372,data/alt-trim/plate-1-GTACGCAA.sort.flt.bam,NOOK
+plate-1-GTCTGTCA,NOOK,367940,data/alt-trim/plate-1-GTCTGTCA.sort.flt.bam,NOOK
+plate-1-GTGTTCTA,New Sequencing,1948765,data/alt-trim/plate-1-GTGTTCTA.reduced.bam,New Sequencing
+plate-1-TAGGATGA,New Sequencing,1697442,data/alt-trim/plate-1-TAGGATGA.reduced.bam,New Sequencing
+plate-1-TCCGTCTA,New Sequencing,1398230,data/alt-trim/plate-1-TCCGTCTA.reduced.bam,New Sequencing
+plate-1-TCTTCACA,New Sequencing,1357607,data/alt-trim/plate-1-TCTTCACA.reduced.bam,New Sequencing
+plate-1-TTCACGCA,NOOK,758490,data/alt-trim/plate-1-TTCACGCA.sort.flt.bam,NOOK
+plate-2-AAACATCG,New Sequencing,3034984,data/alt-trim/plate-2-AAACATCG.reduced.bam,New Sequencing
+plate-2-AACAACCA,New Sequencing,1710165,data/alt-trim/plate-2-AACAACCA.reduced.bam,New Sequencing
+plate-2-AACCGAGA,New Sequencing,2216724,data/alt-trim/plate-2-AACCGAGA.reduced.bam,New Sequencing
+plate-2-AACGAACG,New Sequencing,465374,data/alt-trim/plate-2-AACGAACG.sort.flt.bam,New Sequencing
+plate-2-AACGCTTA,New Sequencing,663069,data/alt-trim/plate-2-AACGCTTA.sort.flt.bam,New Sequencing
+plate-2-AACGTGAT,New Sequencing,1478476,data/alt-trim/plate-2-AACGTGAT.reduced.bam,New Sequencing
+plate-2-AAGACGGA,New Sequencing,1073479,data/alt-trim/plate-2-AAGACGGA.reduced.bam,New Sequencing
+plate-2-AAGAGATC,New Sequencing,763934,data/alt-trim/plate-2-AAGAGATC.sort.flt.bam,New Sequencing
+plate-2-AAGGACAC,New Sequencing,856249,data/alt-trim/plate-2-AAGGACAC.sort.flt.bam,New Sequencing
+plate-2-AAGGTACA,New Sequencing,944758,data/alt-trim/plate-2-AAGGTACA.sort.flt.bam,New Sequencing
+plate-2-AATCCGTC,New Sequencing,1000403,data/alt-trim/plate-2-AATCCGTC.reduced.bam,New Sequencing
+plate-2-AATGTTGC,New Sequencing,1447162,data/alt-trim/plate-2-AATGTTGC.reduced.bam,New Sequencing
+plate-2-ACAAGCTA,New Sequencing,2334263,data/alt-trim/plate-2-ACAAGCTA.reduced.bam,New Sequencing
+plate-2-ACACAGAA,New Sequencing,1104104,data/alt-trim/plate-2-ACACAGAA.reduced.bam,New Sequencing
+plate-2-ACACGAGA,New Sequencing,911504,data/alt-trim/plate-2-ACACGAGA.sort.flt.bam,New Sequencing
+plate-2-ACACTGAC,New Sequencing,1290820,data/alt-trim/plate-2-ACACTGAC.reduced.bam,New Sequencing
+plate-2-ACAGATTC,New Sequencing,1173902,data/alt-trim/plate-2-ACAGATTC.reduced.bam,New Sequencing
+plate-2-ACAGCAGA,New Sequencing,1108278,data/alt-trim/plate-2-ACAGCAGA.reduced.bam,New Sequencing
+plate-2-ACATTGGC,New Sequencing,853003,data/alt-trim/plate-2-ACATTGGC.sort.flt.bam,New Sequencing
+plate-2-ACCACTGT,New Sequencing,649975,data/alt-trim/plate-2-ACCACTGT.sort.flt.bam,New Sequencing
+plate-2-ACCTCCAA,New Sequencing,1073194,data/alt-trim/plate-2-ACCTCCAA.reduced.bam,New Sequencing
+plate-2-ACGACAAG,New Sequencing,1427794,data/alt-trim/plate-2-ACGACAAG.reduced.bam,New Sequencing
+plate-2-ACGCTCGA,New Sequencing,1618230,data/alt-trim/plate-2-ACGCTCGA.reduced.bam,New Sequencing
+plate-2-ACGTATCA,New Sequencing,1236936,data/alt-trim/plate-2-ACGTATCA.reduced.bam,New Sequencing
+plate-2-ACTATGCA,New Sequencing,634239,data/alt-trim/plate-2-ACTATGCA.sort.flt.bam,New Sequencing
+plate-2-AGAGTCAA,New Sequencing,445888,data/alt-trim/plate-2-AGAGTCAA.sort.flt.bam,New Sequencing
+plate-2-AGATCGCA,New Sequencing,2282073,data/alt-trim/plate-2-AGATCGCA.reduced.bam,New Sequencing
+plate-2-AGCACCTC,New Sequencing,515214,data/alt-trim/plate-2-AGCACCTC.sort.flt.bam,New Sequencing
+plate-2-AGCAGGAA,New Sequencing,2677675,data/alt-trim/plate-2-AGCAGGAA.reduced.bam,New Sequencing
+plate-2-AGCCATGC,New Sequencing,202313,data/alt-trim/plate-2-AGCCATGC.sort.flt.bam,New Sequencing
+plate-2-AGGCTAAC,New Sequencing,1022307,data/alt-trim/plate-2-AGGCTAAC.reduced.bam,New Sequencing
+plate-2-AGTACAAG,New Sequencing,1517462,data/alt-trim/plate-2-AGTACAAG.reduced.bam,New Sequencing
+plate-2-AGTCAAGC,New Sequencing,1185443,data/alt-trim/plate-2-AGTCAAGC.reduced.bam,New Sequencing
+plate-2-AGTCACTA,New Sequencing,930195,data/alt-trim/plate-2-AGTCACTA.sort.flt.bam,New Sequencing
+plate-2-AGTGGTCA,New Sequencing,755074,data/alt-trim/plate-2-AGTGGTCA.sort.flt.bam,New Sequencing
+plate-2-ATAGCGAC,New Sequencing,1464212,data/alt-trim/plate-2-ATAGCGAC.reduced.bam,New Sequencing
+plate-2-ATCCTGTA,New Sequencing,879263,data/alt-trim/plate-2-ATCCTGTA.sort.flt.bam,New Sequencing
+plate-2-ATGCCTAA,New Sequencing,1460026,data/alt-trim/plate-2-ATGCCTAA.reduced.bam,New Sequencing
+plate-2-ATTGAGGA,New Sequencing,888898,data/alt-trim/plate-2-ATTGAGGA.sort.flt.bam,New Sequencing
+plate-2-ATTGGCTC,New Sequencing,905908,data/alt-trim/plate-2-ATTGGCTC.sort.flt.bam,New Sequencing
+plate-2-CAACCACA,New Sequencing,1215882,data/alt-trim/plate-2-CAACCACA.reduced.bam,New Sequencing
+plate-2-CAAGACTA,New Sequencing,1440593,data/alt-trim/plate-2-CAAGACTA.reduced.bam,New Sequencing
+plate-2-CAAGGAGC,New Sequencing,713710,data/alt-trim/plate-2-CAAGGAGC.sort.flt.bam,New Sequencing
+plate-2-CAATGGAA,New Sequencing,1205949,data/alt-trim/plate-2-CAATGGAA.reduced.bam,New Sequencing
+plate-2-CACCTTAC,New Sequencing,557818,data/alt-trim/plate-2-CACCTTAC.sort.flt.bam,New Sequencing
+plate-2-CACTTCGA,New Sequencing,816158,data/alt-trim/plate-2-CACTTCGA.sort.flt.bam,New Sequencing
+plate-2-CAGATCTG,New Sequencing,1449084,data/alt-trim/plate-2-CAGATCTG.reduced.bam,New Sequencing
+plate-2-CAGCGTTA,New Sequencing,1200484,data/alt-trim/plate-2-CAGCGTTA.reduced.bam,New Sequencing
+plate-2-CATACCAA,New Sequencing,422195,data/alt-trim/plate-2-CATACCAA.sort.flt.bam,New Sequencing
+plate-2-CATCAAGT,New Sequencing,995427,data/alt-trim/plate-2-CATCAAGT.sort.flt.bam,New Sequencing
+plate-2-CCAGTTCA,New Sequencing,803828,data/alt-trim/plate-2-CCAGTTCA.sort.flt.bam,New Sequencing
+plate-2-CCATCCTC,New Sequencing,1731563,data/alt-trim/plate-2-CCATCCTC.reduced.bam,New Sequencing
+plate-2-CCGAAGTA,New Sequencing,2410065,data/alt-trim/plate-2-CCGAAGTA.reduced.bam,New Sequencing
+plate-2-CCGACAAC,New Sequencing,1052638,data/alt-trim/plate-2-CCGACAAC.reduced.bam,New Sequencing
+plate-2-CCGTGAGA,New Sequencing,2173048,data/alt-trim/plate-2-CCGTGAGA.reduced.bam,New Sequencing
+plate-2-CCTCCTGA,New Sequencing,761149,data/alt-trim/plate-2-CCTCCTGA.sort.flt.bam,New Sequencing
+plate-2-CGAACTTA,New Sequencing,1327600,data/alt-trim/plate-2-CGAACTTA.reduced.bam,New Sequencing
+plate-2-CGACACAC,New Sequencing,734327,data/alt-trim/plate-2-CGACACAC.sort.flt.bam,New Sequencing
+plate-2-CGACTGGA,New Sequencing,1236976,data/alt-trim/plate-2-CGACTGGA.reduced.bam,New Sequencing
+plate-2-CGCATACA,New Sequencing,590402,data/alt-trim/plate-2-CGCATACA.sort.flt.bam,New Sequencing
+plate-2-CGCTGATC,New Sequencing,1180482,data/alt-trim/plate-2-CGCTGATC.reduced.bam,New Sequencing
+plate-2-CGGATTGC,New Sequencing,1784462,data/alt-trim/plate-2-CGGATTGC.reduced.bam,New Sequencing
+plate-2-CTAAGGTC,New Sequencing,1216864,data/alt-trim/plate-2-CTAAGGTC.reduced.bam,New Sequencing
+plate-2-CTCAATGA,New Sequencing,1206418,data/alt-trim/plate-2-CTCAATGA.reduced.bam,New Sequencing
+plate-2-CTGAGCCA,New Sequencing,1469032,data/alt-trim/plate-2-CTGAGCCA.reduced.bam,New Sequencing
+plate-2-CTGGCATA,New Sequencing,1380018,data/alt-trim/plate-2-CTGGCATA.reduced.bam,New Sequencing
+plate-2-GAATCTGA,New Sequencing,1109537,data/alt-trim/plate-2-GAATCTGA.reduced.bam,New Sequencing
+plate-2-GACAGTGC,New Sequencing,1418932,data/alt-trim/plate-2-GACAGTGC.reduced.bam,New Sequencing
+plate-2-GACTAGTA,New Sequencing,389685,data/alt-trim/plate-2-GACTAGTA.sort.flt.bam,New Sequencing
+plate-2-GAGCTGAA,New Sequencing,793881,data/alt-trim/plate-2-GAGCTGAA.sort.flt.bam,New Sequencing
+plate-2-GAGTTAGC,New Sequencing,896763,data/alt-trim/plate-2-GAGTTAGC.sort.flt.bam,New Sequencing
+plate-2-GATAGACA,New Sequencing,2297285,data/alt-trim/plate-2-GATAGACA.reduced.bam,New Sequencing
+plate-2-GATGAATC,New Sequencing,714014,data/alt-trim/plate-2-GATGAATC.sort.flt.bam,New Sequencing
+plate-2-GCCAAGAC,New Sequencing,624866,data/alt-trim/plate-2-GCCAAGAC.sort.flt.bam,New Sequencing
+plate-2-GCCACATA,New Sequencing,1748776,data/alt-trim/plate-2-GCCACATA.reduced.bam,New Sequencing
+plate-2-GCGAGTAA,New Sequencing,803596,data/alt-trim/plate-2-GCGAGTAA.sort.flt.bam,New Sequencing
+plate-2-GCTAACGA,New Sequencing,686472,data/alt-trim/plate-2-GCTAACGA.sort.flt.bam,New Sequencing
+plate-2-GCTCGGTA,New Sequencing,966630,data/alt-trim/plate-2-GCTCGGTA.sort.flt.bam,New Sequencing
+plate-2-GGAGAACA,New Sequencing,1140609,data/alt-trim/plate-2-GGAGAACA.reduced.bam,New Sequencing
+plate-2-GGTGCGAA,New Sequencing,828502,data/alt-trim/plate-2-GGTGCGAA.sort.flt.bam,New Sequencing
+plate-2-GTACGCAA,New Sequencing,1160314,data/alt-trim/plate-2-GTACGCAA.reduced.bam,New Sequencing
+plate-2-GTCGTAGA,New Sequencing,946293,data/alt-trim/plate-2-GTCGTAGA.sort.flt.bam,New Sequencing
+plate-2-GTCTGTCA,New Sequencing,542292,data/alt-trim/plate-2-GTCTGTCA.sort.flt.bam,New Sequencing
+plate-2-GTGTTCTA,New Sequencing,549261,data/alt-trim/plate-2-GTGTTCTA.sort.flt.bam,New Sequencing
+plate-2-TAGGATGA,New Sequencing,849154,data/alt-trim/plate-2-TAGGATGA.sort.flt.bam,New Sequencing
+plate-2-TATCAGCA,New Sequencing,2066675,data/alt-trim/plate-2-TATCAGCA.reduced.bam,New Sequencing
+plate-2-TCCGTCTA,New Sequencing,1782928,data/alt-trim/plate-2-TCCGTCTA.reduced.bam,New Sequencing
+plate-2-TCTTCACA,New Sequencing,678395,data/alt-trim/plate-2-TCTTCACA.sort.flt.bam,New Sequencing
+plate-2-TGAAGAGA,New Sequencing,475475,data/alt-trim/plate-2-TGAAGAGA.sort.flt.bam,New Sequencing
+plate-2-TGGAACAA,New Sequencing,475241,data/alt-trim/plate-2-TGGAACAA.sort.flt.bam,New Sequencing
+plate-2-TGGCTTCA,New Sequencing,1088760,data/alt-trim/plate-2-TGGCTTCA.reduced.bam,New Sequencing
+plate-2-TGGTGGTA,New Sequencing,637247,data/alt-trim/plate-2-TGGTGGTA.sort.flt.bam,New Sequencing
+plate-2-TTCACGCA,New Sequencing,870508,data/alt-trim/plate-2-TTCACGCA.sort.flt.bam,New Sequencing

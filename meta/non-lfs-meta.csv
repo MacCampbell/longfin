@@ -1,0 +1,44 @@
+Plate,Barcode,Sample,Aligned,Dedup,Frac,Path,Species
+plate-1,ACAGCAGA,plate-1-ACAGCAGA,5582749,2363328,0.4231321255449942,data/alt-trim/plate-1-ACAGCAGA.reduced.bam,Surf Smelt
+plate-1,ACCTCCAA,plate-1-ACCTCCAA,7364382,2024828,0.4938691088823347,data/alt-trim/plate-1-ACCTCCAA.reduced.bam,Eulachon
+plate-1,AGCCATGC,plate-1-AGCCATGC,9745849,3870366,0.2583734974935187,data/alt-trim/plate-1-AGCCATGC.reduced.bam,Surf Smelt
+plate-1,AGGCTAAC,plate-1-AGGCTAAC,3184104,1084766,0.9218578015903891,data/alt-trim/plate-1-AGGCTAAC.reduced.bam,Eulachon
+plate-1,ATGCCTAA,plate-1-ATGCCTAA,4428158,1842852,0.5426371732510261,data/alt-trim/plate-1-ATGCCTAA.reduced.bam,Surf Smelt
+plate-1,CAAGACTA,plate-1-CAAGACTA,5363609,1545113,0.6472018551393975,data/alt-trim/plate-1-CAAGACTA.reduced.bam,Night Smelt
+plate-1,CAGATCTG,plate-1-CAGATCTG,9934837,3730819,0.268037661435733,data/alt-trim/plate-1-CAGATCTG.reduced.bam,Surf Smelt
+plate-1,CGCATACA,plate-1-CGCATACA,2967923,950785,1.0517624909942838,data/alt-trim/plate-1-CGCATACA.sort.flt.bam,Whitebait Smelt
+plate-1,CGGATTGC,plate-1-CGGATTGC,3795557,990208,1.0098888314374355,data/alt-trim/plate-1-CGGATTGC.sort.flt.bam,Eulachon
+plate-1,CTAAGGTC,plate-1-CTAAGGTC,7653533,2418991,0.41339550250497004,data/alt-trim/plate-1-CTAAGGTC.reduced.bam,Eulachon
+plate-1,CTCAATGA,plate-1-CTCAATGA,5541043,1508879,0.6627436659930982,data/alt-trim/plate-1-CTCAATGA.reduced.bam,Night Smelt
+plate-1,GGAGAACA,plate-1-GGAGAACA,1628768,506304,1.975097964859057,data/alt-trim/plate-1-GGAGAACA.sort.flt.bam,Whitebait Smelt
+plate-1,GGTGCGAA,plate-1-GGTGCGAA,4584515,1334553,0.7493145645021216,data/alt-trim/plate-1-GGTGCGAA.reduced.bam,Night Smelt
+plate-1,TGGCTTCA,plate-1-TGGCTTCA,4537284,1985952,0.5035368427837128,data/alt-trim/plate-1-TGGCTTCA.reduced.bam,Surf Smelt
+plate-2,AGATGTAC,plate-2-AGATGTAC,4549662,1177790,0.8490477929002623,data/alt-trim/plate-2-AGATGTAC.reduced.bam,Eulachon
+plate-3,AAACATCG,plate-3-AAACATCG,4184120,1265852,0.7899817672208126,data/alt-trim/plate-3-AAACATCG.reduced.bam,Whitebait Smelt
+plate-3,AACAACCA,plate-3-AACAACCA,2842291,987582,1.012574145741822,data/alt-trim/plate-3-AACAACCA.sort.flt.bam,Whitebait Smelt
+plate-3,AACCGAGA,plate-3-AACCGAGA,4523159,2127092,0.4701254106545462,data/alt-trim/plate-3-AACCGAGA.reduced.bam,Surf Smelt
+plate-3,AAGGTACA,plate-3-AAGGTACA,2824198,1165117,0.8582829020604797,data/alt-trim/plate-3-AAGGTACA.reduced.bam,Wakasagi
+plate-3,AATGTTGC,plate-3-AATGTTGC,1953934,630524,1.5859824526901434,data/alt-trim/plate-3-AATGTTGC.sort.flt.bam,Whitebait Smelt
+plate-3,ACACTGAC,plate-3-ACACTGAC,1347812,464529,2.1527181295462716,data/alt-trim/plate-3-ACACTGAC.sort.flt.bam,Night Smelt
+plate-3,ACAGATTC,plate-3-ACAGATTC,1338875,534865,1.8696306544642105,data/alt-trim/plate-3-ACAGATTC.sort.flt.bam,Eulachon
+plate-3,AGATCGCA,plate-3-AGATCGCA,1544957,555403,1.8004944157665694,data/alt-trim/plate-3-AGATCGCA.sort.flt.bam,Whitebait Smelt
+plate-3,AGATGTAC,plate-3-AGATGTAC,6452317,2485370,0.4023545789962863,data/alt-trim/plate-3-AGATGTAC.reduced.bam,Wakasagi
+plate-3,AGCACCTC,plate-3-AGCACCTC,2981066,1221639,0.8185724260603991,data/alt-trim/plate-3-AGCACCTC.reduced.bam,Wakasagi
+plate-3,AGCAGGAA,plate-3-AGCAGGAA,4400305,2086365,0.47930251897438847,data/alt-trim/plate-3-AGCAGGAA.reduced.bam,Surf Smelt
+plate-3,AGTCACTA,plate-3-AGTCACTA,3359009,1140612,0.8767223209996037,data/alt-trim/plate-3-AGTCACTA.reduced.bam,Night Smelt
+plate-3,ATCCTGTA,plate-3-ATCCTGTA,1818757,744533,1.3431238104959753,data/alt-trim/plate-3-ATCCTGTA.sort.flt.bam,Eulachon
+plate-3,ATTGAGGA,plate-3-ATTGAGGA,6507082,3090177,0.32360605881151794,data/alt-trim/plate-3-ATTGAGGA.reduced.bam,Delta Smelt
+plate-3,CCATCCTC,plate-3-CCATCCTC,3358736,1129590,0.8852769588965907,data/alt-trim/plate-3-CCATCCTC.reduced.bam,Whitebait Smelt
+plate-3,CCGAAGTA,plate-3-CCGAAGTA,2810614,982749,1.0175538209654753,data/alt-trim/plate-3-CCGAAGTA.sort.flt.bam,Whitebait Smelt
+plate-3,CCGACAAC,plate-3-CCGACAAC,1722666,591035,1.6919471774091213,data/alt-trim/plate-3-CCGACAAC.sort.flt.bam,Night Smelt
+plate-3,CCGTGAGA,plate-3-CCGTGAGA,2963049,1455109,0.687233739877906,data/alt-trim/plate-3-CCGTGAGA.reduced.bam,Surf Smelt
+plate-3,CCTCTATC,plate-3-CCTCTATC,4174178,1557127,0.6422083747825322,data/alt-trim/plate-3-CCTCTATC.reduced.bam,Wakasagi
+plate-3,CGAACTTA,plate-3-CGAACTTA,2374859,944527,1.058730983868116,data/alt-trim/plate-3-CGAACTTA.sort.flt.bam,Eulachon
+plate-3,CGACACAC,plate-3-CGACACAC,2046209,861135,1.1612581070331598,data/alt-trim/plate-3-CGACACAC.sort.flt.bam,Wakasagi
+plate-3,CGACTGGA,plate-3-CGACTGGA,4911063,1939910,0.5154878319097278,data/alt-trim/plate-3-CGACTGGA.reduced.bam,Wakasagi
+plate-3,GATAGACA,plate-3-GATAGACA,1648474,627021,1.594842915946994,data/alt-trim/plate-3-GATAGACA.sort.flt.bam,Whitebait Smelt
+plate-3,GCCACATA,plate-3-GCCACATA,3245646,1471529,0.6795652685064311,data/alt-trim/plate-3-GCCACATA.reduced.bam,Surf Smelt
+plate-3,GCTAACGA,plate-3-GCTAACGA,2701187,1061166,0.942359630821191,data/alt-trim/plate-3-GCTAACGA.reduced.bam,Eulachon
+plate-3,GCTCGGTA,plate-3-GCTCGGTA,7032063,2574724,0.3883911440604896,data/alt-trim/plate-3-GCTCGGTA.reduced.bam,Wakasagi
+plate-3,TGAAGAGA,plate-3-TGAAGAGA,3276401,1258153,0.7948158928206664,data/alt-trim/plate-3-TGAAGAGA.reduced.bam,Eulachon
+plate-3,TGGAACAA,plate-3-TGGAACAA,4552490,1799842,0.5556043252685513,data/alt-trim/plate-3-TGGAACAA.reduced.bam,Wakasagi
