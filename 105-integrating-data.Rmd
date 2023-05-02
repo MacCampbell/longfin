@@ -146,6 +146,10 @@ m155<-m3 %>% filter(!(Sample %in% names$Sample))
 
 write_tsv(m155 %>% select(Path), col_names = FALSE, "bamlists/155.bamlist")
 
+ogs<-m3 %>% filter(Sample %in% names$Sample) %>%left_join(names)
+
+write_csv(ogs, "meta/non-lfs-meta.csv")
+
 ```
 
 m192
