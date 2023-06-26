@@ -38,7 +38,11 @@ existing %>% summarize(Mean=mean(Reads), Median=median(Reads), max(Reads))
 dat<-read_csv("outputs/104/alt.dat", col_names = c("Sample","Sort","Dedup"))
 
 ds<-dat %>% filter(Dedup > 1.5e5) %>% mutate(Path=paste0("data/alt-bams/",Sample,".sort.flt.bam"))
+ds %>% summarize(Mean=mean(Dedup), Median=median(Dedup), max(Dedup))
 
+```
+
+```{r}
 ggplot(ds) +
   geom_histogram(aes(x=Dedup))
 ```

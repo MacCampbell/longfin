@@ -149,7 +149,7 @@ ggplot(pp_meta2, aes(x = val_x, y = val_y)) +
 ```
 
 ```{r}
-sub12<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-02") )
+sub12<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-02") ) %>% filter(sample != "LWSH_052")
 text<- sub12 %>% select(sample,Location,val_x,val_y) %>% group_by(Location) %>%
   mutate(meanX=mean(val_x), meanY=mean(val_y)) %>% select(Location, meanX, meanY) %>%
   unique()   

@@ -10,40 +10,59 @@ knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 
 ```{r}
 library(tidyverse)
+library(ggrepel)
+library(ggpubr)
 ```
 
 ```{r}
 meta<-read_csv("meta/meta260.csv")
 meta$Location<-factor(meta$Location, levels=c("YBAK","SKNA","PTLC","HRLC","FRAS","LWSH",
                                               "NOOK","COLR",
-                                              "HUMB","PETA","ALVS","SUIB","CHPI",
-                                         "New Sequencing"))
+                                              "HUMB","New Sequencing","PETA","ALVS","SUIB","CHPI"
+                                         ))
 
 
 
 
-m154<-meta %>% group_by(Location) %>% top_n(20, Dedup)
+m154<-meta %>% group_by(Location) %>% top_n(20, Dedup) %>% ungroup()
 write_tsv(m154 %>% select(Path), file="bamlists/154.bamlist",col_names = FALSE)
 write_tsv(m154 %>% select(Sample), file="bamlists/154.names",col_names = FALSE)
+
+meta<-m154
 ```
 
 
 ```{sh, eval=FALSE}
-
-srun -p med -t 32:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 8 \
+srun -p bigmemm -t 32:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 8 \
   -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
   -bam $HOME/longfin/bamlists/154.bamlist -GL 1 \
   -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -minMaf 0.05 \
   -rf  $HOME/longfin/outputs/106/lg01.txt  -minInd 123 \
   -out $HOME/longfin/outputs/107/154-lgs > outputs/107/beagle-lgs.out 2> outputs/107/beagle-lgs.err &
 
-#
+# 1800 snps
   
 conda activate py2
-srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle outputs/107/154-lgs.beagle.gz \
+srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle outputs/107/154-lgs.beagle.gz -o outputs/107/154-lg01
 conda deactivate
 
-srun -p med -t 14:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
+
+srun -p med -t 32:00:00 --mem=16G --nodes=1 $HOME/angsd/angsd -P 8 \
+  -ref /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
+  -bam $HOME/longfin/bamlists/154.bamlist -GL 1 \
+  -doGLF 2 -doMajorMinor 1 -doMaf 2 -SNP_pval 1e-6 -minMapQ 10 -minQ 20 -minMaf 0.05 \
+  -rf  $HOME/longfin/outputs/106/lgs.txt  -minInd 123 \
+  -out $HOME/longfin/outputs/107/154 > outputs/107/beagle.out 2> outputs/107/beagle.err &
+
+conda activate py2
+srun -p high -t 01:00:00 python $HOME/pcangsd/pcangsd.py -beagle outputs/107/154.beagle.gz -o outputs/107/154
+conda deactivate
+#Number of sites after MAF filtering (0.05): 54327
+
+
+#call snps
+
+srun -p bigmemm -t 14:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
 -bam bamlists/154.bamlist \
 -out /home/maccamp/longfin/outputs/107/plink \
 -anc /home/maccamp/genomes/hypomesus-20210204/Hyp_tra_F_20210204.fa \
@@ -51,5 +70,394 @@ srun -p med -t 14:00:00 --mem=16G --nodes=1 --ntasks=1 angsd -P 12 \
 -minInd 139 -minMaf 0.05  -minMapQ 10 -minQ 20 -GL 1 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
 -doGeno 4 -doPost 1 -postCutoff 0.95 -doPlink 2 >outputs/107/plink.out 2>outputs/107/plink.stderr &
 
+plink --tped plink.tped --tfam plink.tfam  --out binary --recode --allow-extra-chr --noweb
+plink --ped binary.ped --map binary.map --recode vcf --allow-extra-chr -out recode
+module load bcftools
+bcftools +prune -m 0.6 -w 10000 recode.vcf  -Ov -o recode.prune.vcf
+bcftools reheader --samples ../../bamlists/154.names -o recode.prune.reheadered.vcf recode.prune.vcf
+source activate py2; ~/mccloud-rrt/vcf2phylip.py -i recode.prune.reheadered.vcf; conda deactivate;
 
+
+
+```
+
+8258 snps
+
+## PCAs
+
+
+```{r}
+#' @param samples character vector with the individuals IDs in the order in which
+#' they were passed in the bamlist to angsd.
+#' @param cov covariance matrix
+covar2pcs <- function(samples, cov) {
+  
+  
+  eig <- eigen(cov, symm = TRUE)
+  PC <- as.data.frame(eig$vectors) %>%
+    as_tibble() %>%
+    setNames(sprintf("PC-%02d", 1:ncol(.)))
+  
+  samtib <- tibble(sample = samples)
+  
+  list(
+    PCs = bind_cols(samtib, PC),
+    eigevalues = eig$values
+  )
+}
+```
+
+```{r}
+cov<-read_delim("outputs/107/154.cov", col_names=FALSE, delim=" ") %>% as.matrix()
+```
+
+```{r}
+pca <- covar2pcs(meta$Sample, cov)
+
+pca_long <- pca$PCs %>%
+  tidyr::gather(., key = "PC", "val", -sample)
+
+# then expand a grid of the possible comparisons (ordered)
+expg <- expand.grid(sample = pca$PCs$sample,
+                    PCx = sprintf("PC-%02d", 1:6),
+                    PCy = sprintf("PC-%02d", 1:6),
+                    stringsAsFactors = FALSE) %>%
+  tibble::as_tibble()
+
+# then left join the pca results onto that
+pca_pairs <- dplyr::left_join(expg, pca_long, by = c("sample", "PCx" = "PC")) %>%
+  dplyr::rename(val_x = val) %>%
+  dplyr::left_join(pca_long, by = c("sample", "PCy" = "PC")) %>%
+  dplyr::rename(val_y = val)
+
+pp_meta <- pca_pairs %>%   # just keep the first 6 PCs around
+  left_join(., meta, by = c("sample" = "Sample")) 
+```
+
+
+```{r}
+npc <- 3
+pp_meta2 <- pp_meta %>%
+  filter( (PCx %in% sprintf("PC-%02d", 1:npc)) & 
+            (PCy %in% sprintf("PC-%02d", 1:npc)) ) %>%
+  mutate(Origin=ifelse(Location=="New Sequencing","New","Old"))
+
+eig <- eigen(cov, symm = TRUE)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values) 
+
+head(var)
+head(cumvar)
+```
+
+```{r}
+ggplot(pp_meta2, aes(x = val_x, y = val_y)) +
+  geom_point(aes(color=Location)) + 
+  facet_grid(PCx ~ PCy) +
+  scale_color_viridis_d(option="magma")
+```
+
+```{r}
+sub12<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-02") ) %>% filter(sample != "LWSH_052")
+text<- sub12 %>% select(sample,Location,val_x,val_y) %>% group_by(Location) %>%
+  mutate(meanX=mean(val_x), meanY=mean(val_y)) %>% select(Location, meanX, meanY) %>%
+  unique()   
+
+pc12<-ggplot(sub12, aes(x = val_x, y = val_y, color=Location))+
+  geom_point(size = 2, alpha=0.75) +
+  geom_label_repel(data=text, aes(x=meanX, y=meanY, color=Location,
+                                  label=Location),fill="grey", max.overlaps = Inf, alpha=0.9) +
+  scale_fill_discrete(na.value = "white") + 
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = ""))+
+  theme(legend.position = "")+
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_color_viridis_d(option="turbo")
+
+sub13<-pp_meta2 %>% filter( (PCx =="PC-01") & (PCy =="PC-03") )
+text13<- sub13 %>% select(sample,Location,val_x,val_y) %>% group_by(Location) %>%
+  mutate(meanX=mean(val_x), meanY=mean(val_y)) %>% select(Location, meanX, meanY) %>%
+  unique()   
+
+pc13<-ggplot(sub13, aes(x = val_x, y = val_y, color = Location)) +
+  geom_point(size = 2, alpha=0.75) +
+  geom_label_repel(data=text13, aes(x=meanX, y=meanY, color=Location,
+                                  label=Location),fill="grey", max.overlaps = Inf, alpha=0.9) +
+  scale_fill_discrete(na.value = "white") + 
+  theme_bw()+
+  theme(panel.grid=element_blank())+
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = ""))+
+  ylab(paste("PC3", " ", round((100*var[3]),2), "%", sep = ""))+
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.position = "none")+
+  scale_color_viridis_d(option="turbo")
+
+
+pcs<-ggarrange(pc12, pc13, ncol= 2, widths=c(1,1))
+pcs
+ggsave("outputs/107/combined-pca-154.jpeg", width=10)
+```
+
+
+```{sh, eval=FALSE}
+srun -p high -t 01:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/107/154.beagle.gz -K 2 -o outputs/107/154-lgs.K2 &
+srun -p high -t 02:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/107/154.beagle.gz -K 3 -o outputs/107/154-lgs.K3 &
+srun -p  high -t 02:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/107/154.beagle.gz -K 4 -o outputs/107/154-lgs.K4 &
+srun -p high -t 03:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/107/154.beagle.gz -K 5 -o outputs/107/154-lgs.K5 &
+
+srun -p high -t 03:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/107/154.beagle.gz -K 6 -o outputs/107/154-lgs.K6 &
+
+srun -p high -t 03:00:00 --nodes=1 $HOME/angsd/misc/NGSadmix -P 12 -likes outputs/107/154.beagle.gz -K 7 -o outputs/107/154-lgs.K7 &
+```
+
+
+
+```{r}
+q2<-read_delim("outputs/107/154-lgs.K2.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2) %>%
+  rename(Q1=X1, Q2=X2)
+
+df2<-bind_cols(q2, meta) %>% filter(Sample != "LWSH_052")           
+
+q2s<-df2 %>% select(Location, Sample, Q1, Q2) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:4) %>% mutate(K=2)
+
+pops2<-q2s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p2 <- ggplot(q2s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 2") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p2
+
+ggsave("outputs/107/lfs-dsm-reference-k2.jpg")
+```
+
+```{r}
+q3<-read_delim("outputs/107/154-lgs.K3.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3)
+
+df3<-bind_cols(q3, meta)   %>% filter(Sample !="LWSH_052")         
+
+q3s<-df3 %>% select(Location, Sample, Q1, Q2, Q3) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:5) %>% mutate(K=3)
+
+pops3<-q3s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p3 <- ggplot(q3s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 3") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p3
+
+ggsave("outputs/107/lfs-dsm-reference-k3.jpg")
+```
+
+
+```{r}
+q4<-read_delim("outputs/107/154-lgs.K4.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4)
+
+df4<-bind_cols(q4, meta)  %>% filter(Sample != "LWSH_052")          
+
+q4s<-df4 %>% select(Location, Sample, Q1, Q2, Q3, Q4) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:6) %>% mutate(K=4)
+
+pops4<-q4s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p4 <- ggplot(q4s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 4") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p4
+
+ggsave("outputs/107/lfs-dsm-reference-k4.jpg")
+```
+
+```{r}
+q5<-read_delim("outputs/107/154-lgs.K5.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4, X5) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4, Q5=X5)
+
+df5<-bind_cols(q5, meta)            
+
+q5s<-df5 %>% select(Location, Sample, Q1, Q2, Q3, Q4, Q5) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:7) %>% mutate(K=5)
+
+pops5<-q5s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p5 <- ggplot(q5s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 5") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p5
+
+ggsave("outputs/107/lfs-dsm-reference-k5.jpg")
+```
+
+```{r}
+q6<-read_delim("outputs/107/154-lgs.K6.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4, X5, X6) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4, Q5=X5, Q6=X6)
+
+df6<-bind_cols(q6, meta)            
+
+q6s<-df6 %>% select(Location, Sample, Q1, Q2, Q3, Q4, Q5, Q6) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:8) %>% mutate(K=6)
+
+pops6<-q6s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p6 <- ggplot(q6s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 6") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p6
+
+ggsave("outputs/107/lfs-dsm-reference-k6.jpg")
+```
+
+```{r}
+q7<-read_delim("outputs/107/154-lgs.K7.qopt", delim=" ", col_names=FALSE) %>% select(X1, X2, X3, X4, X5, X6, X7) %>%
+  rename(Q1=X1, Q2=X2, Q3=X3, Q4=X4, Q5=X5, Q6=X6, Q7=X7)
+
+df7<-bind_cols(q7, meta)            
+
+q7s<-df7 %>% select(Location, Sample, Q1, Q2, Q3, Q4, Q5, Q6, Q7) %>% arrange(Location,Sample) %>%
+  mutate(Index=1:n()) %>% gather(key=Ancestry, value=Q, 3:9) %>% mutate(K=7)
+
+pops7<-q7s  %>% group_by(Location) %>% mutate(Start=min(Index), Stop=max(Index)) %>% 
+  select(Location,Start,Stop) %>% unique() %>% 
+  mutate(Position=round((Start+Stop)/2)) %>% ungroup() %>% unique()
+
+```
+
+```{r}
+p7 <- ggplot(q7s) + 
+  geom_col(aes(x=Index,y=Q, fill=Ancestry), color="NA", size = 0, width = 1) +
+  geom_segment(data=pops2, x = pops2$Start - 0.5, y=0, xend = pops2$Start-0.5, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(data=pops2, x = pops2$Stop[length(pops2$Stop)]  + 
+                 0.5, y=0, xend= pops2$Stop[length(pops2$Stop)] + 0.5, yend=1,  alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=1, yend=1, alpha=0.9, size=0.25) +
+  geom_segment(x=0.5, xend= pops2$Stop[length(pops2$Stop)]+0.5, y=0, yend=0, alpha=0.9, size=0.25) +
+  ylim(-0.1,1.01) +
+  xlim(-0.1, pops2$Stop[length(pops2$Stop)]+1) +
+  theme(panel.background = element_blank()) +
+  xlab("") + theme(legend.position = "") +
+ # theme(axis.text.x = element_blank(), axis.ticks.x=element_blank()) +
+  ggtitle("K = 7") +
+  theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+  scale_x_continuous(breaks=pops2$Position, labels=pops2$Location) +
+  theme(axis.text.x = element_text(angle=45, hjust=1)) +
+  scale_fill_viridis_d(option="B")
+
+
+p7
+
+ggsave("outputs/107/lfs-dsm-reference-k7.jpg")
+```
+
+Just new seqs and related (COLR south)
+
+```{r}
+m205<-meta260 %>% filter(Location %in% c( "COLR","HUMB","New Sequencing","PETA","ALVS","SUIB","CHPI"))
+m205 %>% select(Path) %>% write_tsv("bamlists/205.bamlist", col_names = FALSE)
 ```

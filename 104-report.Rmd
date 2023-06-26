@@ -396,6 +396,52 @@ seqConverter.pl -dfiltered.phy -on
 Our dumped samples are DELS, WAKS and EULN. 
 ```
 
+Calculate allele freqs:
+
+recode.prune.reheadered.vcf
+
+```{sh, eval=FALSE}
+bcftools view -S outputs/104/lfs.tsv outputs/104/recode.prune.reheadered.vcf > outputs/104/lfs.vcf
+bcftools view -S outputs/104/non-lfs.tsv outputs/104/recode.prune.reheadered.vcf > outputs/104/non-lfs.vcf
+bcftools view -S outputs/104/delta.tsv outputs/104/recode.prune.reheadered.vcf > outputs/104/delta.vcf
+
+
+vcftools --vcf outputs/104/lfs.vcf  --freq --out outputs/104/lfs
+vcftools --vcf outputs/104/non-lfs.vcf --freq --out outputs/104/non-lfs
+vcftools --vcf outputs/104/delta.vcf --freq --out outputs/104/delta
+
+```
+
+141 lfs / 7380 sites
+72 non-lfs / 7380 sites
+13 dsm    
+```{r}
+freq1<-read_tsv("outputs/104/lfs.frq", skip = 1, col_names = FALSE) %>% 
+  rename(Chromosome=X1, Position=X2, NAllelesWinter=X3, NLFS=X4, Major=X5, Minor=X6) %>%
+  separate(Major, into=c("Major","MajorFrequencyLFS"), sep=":") %>% 
+  separate(Minor, into=c("Minor","MinorFrequencyLFS"), sep=":")
+freq1$MajorFrequencyLFS<-as.numeric(freq1$MajorFrequencyLFS)
+freq1$MinorFrequencyLFS<-as.numeric(freq1$MinorFrequencyLFS)
+
+freq2<-read_tsv("outputs/104/delta.frq", skip = 1, col_names = FALSE) %>% 
+  rename(Chromosome=X1, Position=X2, NAlleles=X3, N=X4, Major=X5, Minor=X6)%>%
+  separate(Major, into=c("Major","MajorFrequency"), sep=":") %>% separate(Minor, into=c("Minor","MinorFrequency"), sep=":")
+freq2$MajorFrequency<-as.numeric(freq2$MajorFrequency)
+freq2$MinorFrequency<-as.numeric(freq2$MinorFrequency)
+
+comb<-left_join(freq2, freq1)
+
+merge<-comb %>% mutate(AbsoluteDifference=abs(MajorFrequencyLFS-MajorFrequency)) %>% 
+  select(Chromosome, Position, Major, Minor, MajorFrequency, MinorFrequency, MajorFrequencyLFS, MinorFrequencyLFS, AbsoluteDifference, N, NLFS) %>% 
+  filter(N > 12*2, NLFS > 113*2) %>% arrange(-AbsoluteDifference)
+
+write_csv(merge,"outputs/104/LFS-non-LFS-allele-freqs.csv")
+
+```
+
+```{r}
+merge %>% filter(MajorFrequencyLFS > 0.95) %>% filter (AbsoluteDifference > 0.80)
+```
 Local test:
 
 ```{sh, eval=FALSE}
@@ -580,6 +626,16 @@ whit<-d %>% filter(RS1 > 0, RS2 < 0.35) %>% filter(RS4 > 0)%>%  mutate(Species="
 names<-bind_rows(waks,dels,surf,euln,nigh,long,whit) %>% select(Sample,Species)
 names
 write_tsv(names,"meta/non-lfs.tsv")
+write_tsv(names %>% select(Sample), col_names = FALSE,"outputs/104/non-lfs.tsv")
+
+write_tsv(names %>% filter (Species=="Delta Smelt") %>% select(Sample), col_names = FALSE,"outputs/104/delta.tsv")
+
+```
+Nooks
+```{r}
+nooks<-read_csv("meta/meta260.csv") %>% filter(Loc == "NOOK")
+nooks$Sample<-gsub("plate-1","HS2253_AGTCAA",nooks$Sample)
+nooks
 ```
 
 
@@ -589,9 +645,14 @@ u<-midpoint.root(t)
 u<-as.polytomy(u, feature='node.label', fun=function(x) as.numeric(x) < 75)
 v<-ggtree(u) %<+% m216 
 data<-v$data
-ddf<-data  %>% left_join(names, by=c("label"="Sample")) %>% filter(isTip==TRUE) %>% select(label, Species) %>%  replace(is.na(.), "Larval Smelt")
-ddf$Species<-factor(ddf$Species, levels=c("Larval Smelt", "Longfin Smelt", "Night Smelt", "Eulachon", "Whitebait Smelt", "Wakasagi", "Surf Smelt", "Delta Smelt" ))
+ddf<-data  %>% left_join(names, by=c("label"="Sample")) %>% filter(isTip==TRUE) %>% select(label, Species) %>%  replace(is.na(.), "Larval Smelt") %>% mutate(Category=ifelse(label %in% nooks$Sample,"Nooksack",Species))
+ddf$Species<-ddf$Category
+ddf$Species<-factor(ddf$Species, levels=c("Larval Smelt","Nooksack", "Longfin Smelt", "Night Smelt", "Eulachon", "Whitebait Smelt", "Wakasagi", "Surf Smelt", "Delta Smelt" ))
 v$data<-v$data %>% left_join(ddf)
+```
+
+```{r}
+ddf %>% filter(!label %in% names$Sample) %>% select(label) %>% write_tsv(col_names = FALSE, file="outputs/104/lfs.tsv")
 ```
 
 ```{r}

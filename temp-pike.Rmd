@@ -1,0 +1,39 @@
+---
+title: "temp-pike"
+output: html_document
+date: "2023-05-03"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(ggtree)
+library(tanggle)
+library(phangorn)
+library(ape)
+```
+
+##
+```{r}
+nm<-read_csv("~/github/pike-time/metadata/358-edited.csv")  
+nm$label=gsub("-","",nm$`RAD identifier`)
+```
+Export splits and network from SplitsTree (included taxa, distances, splits, network)
+```{r}
+net<-read.nexus.networx("~/Dropbox/ak-pike-genetics/data-files/358-phylogeny/splits-tree-network.nex", splits = TRUE)
+p <- ggsplitnet(net) 
+p$data<-p$data %>% left_join(nm)
+p
+```
+
+```{r}
+p + geom_tippoint(aes(fill=Region), pch=21, cex=2, alpha=.75) 
+ # scale_fill_viridis_d(option="H") +
+# $ scale_fill_manual(values=c("grey50","brown","grey50","grey50","grey50","grey50",
+  #                           "purple","orange","red","blue","black"))
+
+ggsave("outputs/splitstree.pdf")
+```
