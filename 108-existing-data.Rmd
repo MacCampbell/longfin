@@ -55,7 +55,7 @@ srun -p bigmemm -t 10:00:00 --mem=64G --nodes=1 --ntasks-per-node=1 --cpus-per-t
 
 
 ```{r}
-m <- as.matrix(read.table("outputs/108/s44-ibs-75.covMat"))
+m <- as.matrix(read.table("outputs/108/sf44-ibs-75.covMat"))
 eig <- eigen(m)
 var<-eig$values/sum(eig$values)
 cumvar<-cumsum(eig$values)/sum(eig$values)
@@ -69,7 +69,7 @@ head(cumvar)
 covs<-eig$vectors[,1:3] %>% as_tibble() %>% bind_cols(sf)
 
 pc12<-ggplot(covs) +
-  geom_point(aes(x=V1, y=V2, shape=clust_name_100, fill=Dedup), cex=3, alpha=0.75) +
+  geom_point(aes(x=V1, y=V2, shape=Location, fill=Reads), cex=3, alpha=0.75) +
   xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
   ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = "")) +
   scale_shape_manual(values=c(23,24,21,22)) +
@@ -79,9 +79,36 @@ pc12<-ggplot(covs) +
   #scale_fill_viridis_c() +
   scale_fill_viridis_c(option="viridis") +
   theme(plot.title = element_text(hjust=0.5, face="bold")) +
-  ggtitle("A") +
+  ggtitle("A. PCA of SFE samples from Saglam et al. n=44") +
   theme(plot.title = element_text(hjust=0, size=16)) #+
 #  facet_wrap(.~clust_name_100)
 
 pc12
+
+ggsave("outputs/108/pca-saglam-sfe.jpeg")
+```
+
+```{r}
+covs %>% filter(V1 > 0.4)
+```
+
+
+```{r}
+covs %>% filter(V2 > 0.4)
+```
+
+
+Ack. Now to run again
+```{r}
+sf41<-sf %>% filter(!Sample %in% c("SFBY_075","SFBY_083","SFBY_081"))
+sf41  %>% select(Path) %>% write_tsv("bamlists/sf41.bamlist", col_names = FALSE)
+```
+
+Lets quickly generate a covariance matrix.
+```{sh,, eval=FALSE}
+srun -p bigmemm -t 10:00:00 --mem=64G --nodes=1 --ntasks-per-node=1 --cpus-per-task=12  $HOME/angsd/angsd -P 12 -bam bamlists/sf41.bamlist \
+-minInd 31 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/108/sf41-ibs-75 >outputs/108/sf41-ibs-75.out 2> outputs/108/sf41-ibs-75.err &
 ```
