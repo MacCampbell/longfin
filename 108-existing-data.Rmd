@@ -51,7 +51,7 @@ srun -p bigmemm -t 10:00:00 --mem=64G --nodes=1 --ntasks-per-node=1 --cpus-per-t
 -doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
 -out outputs/108/sf44-ibs-75 >outputs/108/sf44-ibs-75.out 2> outputs/108/sf44-ibs-75.err &
 
-srun -p bigmemm -t 10:00:00 --mem=64G --nodes=1 --ntasks-per-node=1 --cpus-per-task=12  $HOME/angsd/angsd -P 12 -bam bamlists/sf44.bamlist \
+srun -p bigmemm -t 10:00:00 --mem=64G --nodes=1 --ntasks-per-node=1 --cpus-per-task=12  $HOME/angsd/angsd -P 12 -bam bamlists/sf48.bamlist \
 -minInd 36 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
 -doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
 -doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
@@ -62,7 +62,7 @@ srun -p bigmemm -t 10:00:00 --mem=64G --nodes=1 --ntasks-per-node=1 --cpus-per-t
 
 
 ```{r}
-m <- as.matrix(read.table("outputs/108/sf44-ibs-75.covMat"))
+m <- as.matrix(read.table("outputs/108/sf48-ibs-75.covMat"))
 eig <- eigen(m)
 var<-eig$values/sum(eig$values)
 cumvar<-cumsum(eig$values)/sum(eig$values)
@@ -152,4 +152,63 @@ pc12<-ggplot(covs) +
 pc12
 
 ggsave("outputs/108/pca-saglam-sfe-41.jpeg")
+```
+
+
+#Can I get some night smelt seqs?
+HS2253_AGTCAA-CAAGACTA	Night Smelt
+HS2253_AGTCAA-CTCAATGA	Night Smelt
+HS2253_AGTCAA-GGTGCGAA	Night Smelt
+plate-3-ACACTGAC	Night Smelt
+plate-3-AGTCACTA	Night Smelt
+plate-3-CCGACAAC	Night Smelt
+```{r}
+night<-read_csv("meta/non-lfs-meta.csv") %>% filter(Species=="Night Smelt")
+s2<-sf %>% select(Sample, Reads, Location, Path)
+night<-night %>% select(Sample, Dedup, Path, Species) %>% rename(Reads=Dedup) %>% rename(Location=Species)
+
+c2<-bind_rows(s2, night)
+c2 %>% select(Path) %>% write_tsv("bamlists/sf54.bamlist", col_names = FALSE)
+```
+
+54 samples
+
+```{sh, eval=FALSE}
+srun -p bigmemm -t 10:00:00 --mem=64G --nodes=1 --ntasks-per-node=1 --cpus-per-task=12  $HOME/angsd/angsd -P 12 -bam bamlists/sf54.bamlist \
+-minInd 41 -minMapQ 10 -minQ 20 -GL 2 -doGLF 2 \
+-doMajorMinor 1 -doMaf 1 -SNP_pval 1e-6 \
+-doIBS 1 -doCounts 1 -doCov 1 -makeMatrix 1 -minMaf 0.05 \
+-out outputs/108/sf54-ibs-75 >outputs/108/sf54-ibs-75.out 2> outputs/108/sf54-ibs-75.err &
+```
+
+
+```{r}
+m <- as.matrix(read.table("outputs/108/sf54-ibs-75.covMat"))
+eig <- eigen(m)
+var<-eig$values/sum(eig$values)
+cumvar<-cumsum(eig$values)/sum(eig$values)
+
+head(var)
+head(cumvar)
+
+covs<-eig$vectors[,1:3] %>% as_tibble() %>% bind_cols(sf41)
+
+pc12<-ggplot(covs) +
+  geom_point(aes(x=V1, y=V2, shape=Location, fill=Reads), cex=3, alpha=0.75) +
+  xlab(paste("PC1", " ", round((100*var[1]),2), "%", sep = "")) +
+  ylab(paste("PC2", " ", round((100*var[2]),2), "%", sep = "")) +
+  scale_shape_manual(values=c(23,24,21,22)) +
+  guides(fill = guide_legend(override.aes = list(pch = 22))) +
+  theme_bw() +
+  theme(panel.grid=element_blank()) +
+  #scale_fill_viridis_c() +
+  scale_fill_viridis_c(option="viridis") +
+  theme(plot.title = element_text(hjust=0.5, face="bold")) +
+  ggtitle("B. PCA of SFE samples from Saglam et al. n=41") +
+  theme(plot.title = element_text(hjust=0, size=16)) #+
+#  facet_wrap(.~clust_name_100)
+
+pc12
+
+ggsave("outputs/108/pca-saglam-sfe-54-nightsmelt.jpeg")
 ```
