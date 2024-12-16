@@ -324,3 +324,15 @@ p3
 
 ggsave("outputs/101/lfs-dsm-reference-k3.jpg")
 ```
+
+# 12/16/2024
+
+Let's see if we can get the data from SFB, PETA, ALVS, SUIB, CHPI 
+
+```{r}
+sub<-comb %>% filter(Alignment=="New Genome") %>% filter(Reads > 1.5e5) %>%
+  mutate(Path=paste0("/home/maccamp/data/longfin/",File))
+
+mean(sub$Reads)
+nrow(sub)
+```

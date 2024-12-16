@@ -652,6 +652,14 @@ v$data<-v$data %>% left_join(ddf)
 ```
 
 ```{r}
+##Phylometa
+phylometa<-ddf %>% left_join(m216, by=c("label"="Sample")) %>% group_by(Category)  %>% 
+  summarize(`Sample Size`=n(), `Average Read Count`=mean(Dedup), 
+                                          `Median Read Count`=median(Dedup))
+write_csv(phylometa, file="meta/phylo-meta.csv") 
+```
+
+```{r}
 ddf %>% filter(!label %in% names$Sample) %>% select(label) %>% write_tsv(col_names = FALSE, file="outputs/104/lfs.tsv")
 ```
 
